@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MyPageActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <ImageView
+            android:id="@+id/mypage_profile_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8a000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <kr.edcan.cumchuck.utils.RoundImageView
+                            android:id="@+id/mypage_profile_image"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:src="@drawable/chino_1" />
+
+                        <kr.edcan.cumchuck.utils.RoundImageView
+                            android:id="@+id/mypage_level_image"
+                            android:layout_width="90dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_height="90dp"
+                            android:src="@drawable/ayano" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="구창림"
+                        android:textColor="#FFF"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Lv.32 다음 레벨까지 300EXP"
+                        android:textColor="#FFF"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#FFF"></LinearLayout>
+
+                <TextView
+                    android:id="@+id/mypage_change_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="내 프로필 수정하기"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/myPageListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
