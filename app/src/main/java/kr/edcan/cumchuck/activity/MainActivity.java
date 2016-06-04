@@ -1,6 +1,7 @@
 package kr.edcan.cumchuck.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setDefault() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         favorite = (ImageView) toolbar.findViewById(R.id.open_favorite);
         mypage = (ImageView) toolbar.findViewById(R.id.open_myaccount);

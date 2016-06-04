@@ -2,6 +2,7 @@ package kr.edcan.cumchuck.utils;
 
 /**
  * Created by LNTCS on 2015-12-18.
+ * Modified by KOTOHANA on 2016-06-04
  */
 
 import android.content.Context;
@@ -15,7 +16,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import kr.edcan.u_stream.R;
+import kr.edcan.cumchuck.R;
 
 public class SeekArc extends View {
 
@@ -23,10 +24,7 @@ public class SeekArc extends View {
     private static int INVALID_PROGRESS_VALUE = -1;
     private final int mAngleOffset = -90;
 
-    private Drawable mThumb;
-
     private int mMax = 287;
-
     private int mProgress = 0;
     private int mSecondProgress = 0;
 
@@ -96,7 +94,6 @@ public class SeekArc extends View {
         int progressColor = res.getColor(R.color.colorPrimary);
         int thumbHalfheight = 0;
         int thumbHalfWidth = 0;
-        mThumb = res.getDrawable(R.drawable.seek_arc_control_selector);
         // Convert progress width to pixels for current density
         mProgressWidth = (int) (mProgressWidth * density);
 
@@ -105,16 +102,6 @@ public class SeekArc extends View {
             // Attribute initialization
             final TypedArray a = context.obtainStyledAttributes(attrs,
                     R.styleable.SeekArc, defStyle, 0);
-
-            Drawable thumb = a.getDrawable(R.styleable.SeekArc_thumb);
-            if (thumb != null) {
-                mThumb = thumb;
-            }
-            int thumbSize = (int)a.getDimension(R.styleable.SeekArc_thumbSize, mMax);
-            thumbHalfheight = (int) thumbSize / 2;
-            thumbHalfWidth = (int) thumbSize / 2;
-            mThumb.setBounds(-thumbHalfWidth, -thumbHalfheight, thumbHalfWidth,
-                    thumbHalfheight);
 
             mMax = a.getInteger(R.styleable.SeekArc_max, mMax);
             mProgress = a.getInteger(R.styleable.SeekArc_progress, mProgress);
@@ -127,14 +114,10 @@ public class SeekArc extends View {
             mRotation = a.getInt(R.styleable.SeekArc_rotation, mRotation);
             mRoundedEdges = a.getBoolean(R.styleable.SeekArc_roundEdges,
                     mRoundedEdges);
-            mTouchInside = a.getBoolean(R.styleable.SeekArc_touchInside,
-                    mTouchInside);
             mClockwise = a.getBoolean(R.styleable.SeekArc_clockwise,
                     mClockwise);
-
             progressColor = a.getColor(R.styleable.SeekArc_aProgressColor,
                     progressColor);
-
             a.recycle();
         }
 
@@ -152,10 +135,8 @@ public class SeekArc extends View {
         mArcPaint.setAntiAlias(true);
         mArcPaint.setStyle(Paint.Style.STROKE);
         mArcPaint.setStrokeWidth(mArcWidth);
-        //mArcPaint.setAlpha(45);
-
         mDisablePaint = new Paint();
-        mDisablePaint.setColor(res.getColor(R.color.progress_gray_dark));
+        mDisablePaint.setColor(res.getColor(R.color.color_not_primary));
         mDisablePaint.setAntiAlias(true);
         mDisablePaint.setStyle(Paint.Style.STROKE);
         mDisablePaint.setStrokeWidth(mArcWidth/2);
@@ -165,7 +146,6 @@ public class SeekArc extends View {
         mProgressPaint.setAntiAlias(true);
         mProgressPaint.setStyle(Paint.Style.STROKE);
         mProgressPaint.setStrokeWidth(mProgressWidth);
-
         if (mRoundedEdges) {
             mArcPaint.setStrokeCap(Paint.Cap.ROUND);
             mProgressPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -183,9 +163,6 @@ public class SeekArc extends View {
         canvas.drawArc(mArcRect,arcStart,mSecondProgressSweep,false,mArcPaint);
         canvas.drawArc(mArcRect, arcStart, mProgressSweep, false,
                 mProgressPaint);
-
-        canvas.translate(mTranslateX -mThumbXPos, mTranslateY -mThumbYPos);
-        mThumb.draw(canvas);
     }
 
 
@@ -220,24 +197,24 @@ public class SeekArc extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                onStartTrackingTouch();
-                updateOnTouch(event);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                updateOnTouch(event);
-                break;
-            case MotionEvent.ACTION_UP:
-                onStopTrackingTouch();
-                setPressed(false);
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                onStopTrackingTouch();
-                setPressed(false);
-                break;
-        }
-        return true;
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                onStartTrackingTouch();
+//                updateOnTouch(event);
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                updateOnTouch(event);
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                onStopTrackingTouch();
+//                setPressed(false);
+//                break;
+//            case MotionEvent.ACTION_CANCEL:
+//                onStopTrackingTouch();
+//                setPressed(false);
+//                break;
+//        }
+        return false;
     }
 
     public boolean isTouching() {
@@ -247,10 +224,6 @@ public class SeekArc extends View {
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
-        if (mThumb != null && mThumb.isStateful()) {
-            int[] state = getDrawableState();
-            mThumb.setState(state);
-        }
         invalidate();
     }
 
@@ -424,15 +397,6 @@ public class SeekArc extends View {
     }
 
     public void setTouchInSide(boolean isEnabled) {
-        int thumbHalfheight = (int) mThumb.getIntrinsicHeight() / 2;
-        int thumbHalfWidth = (int) mThumb.getIntrinsicWidth() / 2;
-        mTouchInside = isEnabled;
-        if (mTouchInside) {
-            mTouchIgnoreRadius = (float) mArcRadius / 4;
-        } else {
-            mTouchIgnoreRadius = mArcRadius
-                    - Math.min(thumbHalfWidth, thumbHalfheight);
-        }
     }
 
     public void setClockwise(boolean isClockwise) {

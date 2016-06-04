@@ -21,4 +21,19 @@
         <attr name="selectionDividerWidth" format="dimension" />
     </declare-styleable>
     <attr name="abstractWheelViewStyle" format="reference" />
+    <declare-styleable name="EXPView">
+        <attr name="autoCenterPointerInSlice" format="boolean" />
+        <attr name="highlightStrength" format="float" />
+        <attr name="labelColor" format="color" />
+        <attr name="labelHeight" format="dimension" />
+        <attr name="labelPosition" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="labelWidth" format="dimension" />
+        <attr name="labelY" format="dimension" />
+        <attr name="pieRotation" format="integer" />
+        <attr name="pointerRadius" format="dimension" />
+        <attr name="showTexts" format="boolean" />
+    </declare-styleable>
 </resources>
