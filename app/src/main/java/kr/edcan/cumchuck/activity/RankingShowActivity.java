@@ -4,6 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -92,7 +93,7 @@ public class RankingShowActivity extends AppCompatActivity {
                     setStarPage(rootView);
                     break;
                 case 1:
-                    rootView = inflater.inflate(R.layout.ranking_show_visit, container, false)
+                    rootView = inflater.inflate(R.layout.ranking_show_visit, container, false);
                     setVisitPage(rootView);
                     break;
             }
@@ -100,10 +101,12 @@ public class RankingShowActivity extends AppCompatActivity {
         }
 
         public void setStarPage(View mainView) {
+            RecyclerView starView = (RecyclerView) mainView.findViewById(R.id.ranking_show_star_recyclerview);;
 
         }
 
         public void setVisitPage(View mainView) {
+            RecyclerView visitView = (RecyclerView) mainView.findViewById(R.id.ranking_show_visit_recyclerview);
         }
     }
 

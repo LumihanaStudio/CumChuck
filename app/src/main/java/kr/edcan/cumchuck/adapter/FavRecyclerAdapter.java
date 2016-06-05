@@ -30,7 +30,7 @@ public class FavRecyclerAdapter extends RecyclerView.Adapter<FavRecyclerAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fav_view_layout, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.common_restaurant_cardview, null);
         return new ViewHolder(v);
     }
 
