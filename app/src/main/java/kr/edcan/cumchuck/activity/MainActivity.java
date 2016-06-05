@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(getApplicationContext(), FavoriteViewActivity.class));
                 break;
             case R.id.open_myaccount:
-                startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
+                startActivity(new Intent(getApplicationContext(), RankingShowActivity.class));
                 break;
             case R.id.fab:
                 break;
