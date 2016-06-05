@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -30,8 +32,13 @@ public class MyPageListViewAdapter extends ArrayAdapter<NormalPreferenceListData
 
         NormalPreferenceListData data = this.getItem(position);
         if(data != null){
-
+            ImageView imageView = (ImageView) view.findViewById(R.id.mypage_listview_imageview);
+            TextView title = (TextView) view.findViewById(R.id.mypage_listview_title);
+            TextView content = (TextView) view.findViewById(R.id.mypage_listview_content);
+            imageView.setImageResource(data.getImage());
+            title.setText(data.getTitle());
+            content.setText(data.getContent());
         }
-        return super.getView(position, convertView, parent);
+        return view;
     }
 }

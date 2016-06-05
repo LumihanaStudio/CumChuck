@@ -9,13 +9,19 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.adapter.MyPageListViewAdapter;
+import kr.edcan.cumchuck.data.NormalPreferenceListData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 import kr.edcan.cumchuck.utils.SeekArc;
@@ -23,6 +29,8 @@ import kr.edcan.cumchuck.utils.SeekArc;
 
 public class MyPageActivity extends AppCompatActivity {
 
+    ArrayList<NormalPreferenceListData> arrayList;
+    MyPageListViewAdapter adapter;
     SeekArc expProgress;
     CumChuckHelper helper;
     ImageView profileBackground;
@@ -38,6 +46,7 @@ public class MyPageActivity extends AppCompatActivity {
         setActionbar();
         setDefault();
         setEXP();
+        setListView();
     }
 
     private void setActionbar() {
@@ -59,7 +68,34 @@ public class MyPageActivity extends AppCompatActivity {
         expProgress.setProgress(1000);
     }
 
+    private void setListView() {
+        arrayList = new ArrayList<>();
+        arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_review, "개인 리뷰 관리", "내가 작성한 리뷰들을 수정하거나 삭제합니다."));
+        arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_fav, "즐겨찾기 관리", "내가 즐겨찾기한 음식점을 수정하거나 삭제합니다."));
+        arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_goodbye, "회원 탈퇴", "Cumchuck에 있는 모든 데이터를 삭제하고 회원탈퇴합니다."));
+        adapter = new MyPageListViewAdapter(this, arrayList);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(listener);
+    }
+
+    ListView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            switch (position){
+                case 0:
+                    // 개인 리뷰 관리
+                    break;
+                case 1:
+                    // 즐겨찾기 관리
+                    break;
+                case 2:
+                    // 회원 탈퇴
+                    break;
+            }
+        }
+    };
     private void setDefault() {
+        listView = (ListView) findViewById(R.id.myPageListView);
         helper = new CumChuckHelper(getApplicationContext());
         profileBackground = (ImageView) findViewById(R.id.mypage_profile_background);
         profileImageView = (RoundImageView) findViewById(R.id.mypage_profile_image);
@@ -74,5 +110,15 @@ public class MyPageActivity extends AppCompatActivity {
                 Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
