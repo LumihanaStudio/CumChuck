@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.data.CommonRecycleData;
 import kr.edcan.cumchuck.data.FavoriteData;
+import kr.edcan.cumchuck.utils.CumChuckHelper;
 
 /**
  * Created by MalangDesktop on 2016-06-04.
@@ -48,6 +49,8 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         data = arrayList.get(position);
+        holder.background.setImageResource(CumChuckHelper.returnRandomAyano());
+        holder.background.setScaleType(ImageView.ScaleType.CENTER_CROP);
         View.OnClickListener starClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,12 +124,13 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView star;
+        ImageView star, background;
         TextView title, address, content;
         TextView ratingScore, ranking, visitorsCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            background = (ImageView) itemView.findViewById(R.id.common_background);
             title = (TextView) itemView.findViewById(R.id.common_title);
             address = (TextView) itemView.findViewById(R.id.common_address);
             content = (TextView) itemView.findViewById(R.id.common_content);

@@ -64,7 +64,7 @@
                                 android:layout_centerInParent="true"
                                 android:layout_margin="5dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/ayano"/>
+                                android:src="@drawable/ayano3"/>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -85,7 +85,6 @@
                                 android:layout_gravity="center"
                                 android:focusableInTouchMode="false"
                                 android:padding="22dp"
-                                android:src="@drawable/ayano"
                                 seekarc:arcWidth="10dp"
                                 seekarc:clockwise="true"
                                 seekarc:progressWidth="5dp"

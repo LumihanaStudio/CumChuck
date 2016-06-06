@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.data.FavoriteData;
+import kr.edcan.cumchuck.utils.CumChuckHelper;
 
 /**
  * Created by MalangDesktop on 2016-06-04.
@@ -37,6 +38,8 @@ public class FavRecyclerAdapter extends RecyclerView.Adapter<FavRecyclerAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         data = arrayList.get(position);
+        holder.background.setImageResource(CumChuckHelper.returnRandomAyano());
+        holder.background.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.title.setText(data.getTitle());
         holder.content.setText(data.getContent());
         holder.address.setText(data.getAddress());

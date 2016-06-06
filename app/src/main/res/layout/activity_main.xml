@@ -61,10 +61,11 @@
                     android:layout_height="250dp">
 
                     <ImageView
+                        android:id="@+id/main_firstImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ayano" />
+                        android:src="@drawable/ayano3" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -161,10 +162,11 @@
                     android:layout_marginTop="5dp">
 
                     <ImageView
+                        android:id="@+id/main_secondImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/chino" />
+                        android:src="@drawable/ayano7" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -221,10 +223,11 @@
                     android:layout_marginTop="5dp">
 
                     <ImageView
+                        android:id="@+id/main_thirdImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/chino_1" />
+                        android:src="@drawable/ayano10" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -286,9 +289,9 @@
             android:layout_alignParentRight="true"
             android:layout_margin="16dp"
             android:adjustViewBounds="true"
-            app:rippleColor="#DE9577"
             android:background="@drawable/circle"
-            android:src="@drawable/ic_btn_float_cumchuck" />
+            android:src="@drawable/ic_btn_float_cumchuck"
+            app:rippleColor="#DE9577" />
 
     </RelativeLayout>
 

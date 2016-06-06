@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.utils.CumChuckHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    ImageView one, two, three;
     FloatingActionButton floatingActionButton;
     Toolbar toolbar;
     ImageView favorite, mypage;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         favorite = (ImageView) toolbar.findViewById(R.id.open_favorite);
         mypage = (ImageView) toolbar.findViewById(R.id.open_myaccount);
         currentRaidJoin = (TextView) findViewById(R.id.current_raid_join);
+        one = (ImageView) findViewById(R.id.main_firstImage);
+        two = (ImageView) findViewById(R.id.main_secondImage);
+        three = (ImageView) findViewById(R.id.main_thirdImage);
         favorite.setOnClickListener(this);
         mypage.setOnClickListener(this);
         floatingActionButton.setOnClickListener(this);
@@ -52,5 +57,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.current_raid_join:
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        one.setImageResource(CumChuckHelper.returnRandomAyano());
+        two.setImageResource(CumChuckHelper.returnRandomAyano());
+        three.setImageResource(CumChuckHelper.returnRandomAyano());
     }
 }
