@@ -46,4 +46,8 @@ public class CommonRecycleData {
     public boolean isFavorite() {
         return isFavorite;
     }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 }

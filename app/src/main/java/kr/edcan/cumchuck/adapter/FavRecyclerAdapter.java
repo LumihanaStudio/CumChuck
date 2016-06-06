@@ -56,12 +56,12 @@ public class FavRecyclerAdapter extends RecyclerView.Adapter<FavRecyclerAdapter.
 
         public ViewHolder(View itemView) {
             super(itemView);
-            rating = (TextView) itemView.findViewById(R.id.fav_rating);
-            title = (TextView) itemView.findViewById(R.id.fav_title);
-            address = (TextView) itemView.findViewById(R.id.fav_address);
-            content = (TextView) itemView.findViewById(R.id.fav_content);
-            starimg = (ImageView) itemView.findViewById(R.id.fav_star);
-            background = (ImageView) itemView.findViewById(R.id.fav_background);
+            rating = (TextView) itemView.findViewById(R.id.common_rating);
+            title = (TextView) itemView.findViewById(R.id.common_title);
+            address = (TextView) itemView.findViewById(R.id.common_address);
+            content = (TextView) itemView.findViewById(R.id.common_content);
+            starimg = (ImageView) itemView.findViewById(R.id.common_star);
+            background = (ImageView) itemView.findViewById(R.id.common_background);
             
             starimg.setOnClickListener(new View.OnClickListener() {
                 @Override

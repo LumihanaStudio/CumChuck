@@ -1,9 +1,14 @@
 package kr.edcan.cumchuck.activity;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -17,8 +22,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.adapter.CommonRecyclerAdapter;
+import kr.edcan.cumchuck.data.CommonRecycleData;
 
 public class RankingShowActivity extends AppCompatActivity {
 
@@ -29,25 +39,25 @@ public class RankingShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking_show);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setAppbarLayout();
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
+    private void setAppbarLayout() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
+        getSupportActionBar().setTitle("랭킹");
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable drawable = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        drawable.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(drawable);
     }
 
     @Override
@@ -58,13 +68,14 @@ public class RankingShowActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == android.R.id.home) {
-            finish();
+        switch (item.getItemId()) {
+            case R.id.ranking_search:
+                // Launch Search Activity
+                Toast.makeText(RankingShowActivity.this, "", Toast.LENGTH_SHORT).show();
+                break;
+            case android.R.id.home:
+                finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -101,12 +112,37 @@ public class RankingShowActivity extends AppCompatActivity {
         }
 
         public void setStarPage(View mainView) {
-            RecyclerView starView = (RecyclerView) mainView.findViewById(R.id.ranking_show_star_recyclerview);;
-
+            RecyclerView starView = (RecyclerView) mainView.findViewById(R.id.ranking_show_star_recyclerview);
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            starView.setHasFixedSize(true);
+            starView.setLayoutManager(manager);
+            ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
+//            public CommonRecycleData(String title, String address, String content, double rating, int rankingCount, int visitorsCount, boolean isFavorite) {
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 1, -1, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 2, -1, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
+            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getContext(), 0, arrayList);
+            starView.setAdapter(adapter);
         }
 
         public void setVisitPage(View mainView) {
             RecyclerView visitView = (RecyclerView) mainView.findViewById(R.id.ranking_show_visit_recyclerview);
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            visitView.setHasFixedSize(true);
+            visitView.setLayoutManager(manager);
+            ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
+//            public CommonRecycleData(String title, String address, String content, double rating, int rankingCount, int visitorsCount, boolean isFavorite) {
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 1, 20405, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 2, 124, false));
+            arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, 252, false));
+            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getContext(), 1, arrayList);
+            visitView.setAdapter(adapter);
         }
     }
 

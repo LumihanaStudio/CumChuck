@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:visibility="gone"
-±            android:background="?android:attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground"
             android:padding="16dp"
             android:src="@drawable/btn_fav_favstar_off" />
 
