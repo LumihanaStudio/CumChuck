@@ -26,7 +26,7 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
     * 1 : RankingShowActivity - Sort by VisitCount
     * 2 : RecommendActivity - Full View
     * 3: NewRaidActivity - SearchView
-    * */
+    **/
     int fragmentPageType;
     int star[] = {R.drawable.btn_fav_favstar, R.drawable.btn_fav_favstar_off};
     Context context;
