@@ -18,11 +18,12 @@ import kr.edcan.cumchuck.R;
 public class CumChuckHelper {
 
     private Context context;
+
     public CumChuckHelper(Context c) {
         this.context = c;
     }
 
-    public static int returnRandomAyano(){
+    public static int returnRandomAyano() {
         int ayanoPic[] = {
                 R.drawable.ayano1,
                 R.drawable.ayano2,
@@ -37,6 +38,8 @@ public class CumChuckHelper {
         };
         return ayanoPic[new Random().nextInt(10)];
     }
+
+    public static int[] star = {R.drawable.btn_fav_favstar, R.drawable.btn_fav_favstar_off};
     private static final float BITMAP_SCALE = 0.4f;
     private static final float BLUR_RADIUS = 7.5f;
 
