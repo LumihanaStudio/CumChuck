@@ -109,4 +109,5 @@ public class RankingDetailRecyclerAdapter extends RecyclerView.Adapter<RankingDe
 
         }
     }
+
 }

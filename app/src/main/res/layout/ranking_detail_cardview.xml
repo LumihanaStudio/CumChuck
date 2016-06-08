@@ -152,7 +152,7 @@
         android:layout_marginRight="12dp"
         android:layout_marginTop="3dp"
         android:minHeight="200dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
@@ -230,7 +230,7 @@
                 android:id="@+id/ranking_detail_cardview_bg"
                 android:background="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="16dp">
 

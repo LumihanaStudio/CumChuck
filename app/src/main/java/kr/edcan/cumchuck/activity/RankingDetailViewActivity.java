@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class RankingDetailViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
         getSupportActionBar().setTitle("상세보기");
-        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setElevation(5);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable drawable = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
@@ -60,5 +61,14 @@ public class RankingDetailViewActivity extends AppCompatActivity {
         arrayList.add(new RankingDetailViewData(false, "히엉어ㅗ어어ㅓㅇ로즈오브더스톰ㄴ", "굳이 롤을 앞지를 이유가 있나요? 일하기싫을뿐입니다\n일하기싫을뿐입니다일하기싫다ㅗㄱ", "Junseok Oh", 2.4, date));
         RankingDetailRecyclerAdapter adapter = new RankingDetailRecyclerAdapter(getApplicationContext(), arrayList);
         detailRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
