@@ -1,6 +1,7 @@
 package kr.edcan.cumchuck.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.activity.RankingDetailPopupViewActivity;
 import kr.edcan.cumchuck.data.CommonRecycleData;
 import kr.edcan.cumchuck.data.RankingDetailViewData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
@@ -29,12 +31,13 @@ import kr.edcan.cumchuck.utils.RoundImageView;
  */
 public class RankingDetailRecyclerAdapter extends RecyclerView.Adapter<RankingDetailRecyclerAdapter.ViewHolder> {
 
+    View.OnClickListener onCardListener;
     Context context;
     ArrayList<RankingDetailViewData> arrayList;
     RankingDetailViewData data;
-
-    public RankingDetailRecyclerAdapter(Context context, ArrayList<RankingDetailViewData> items) {
+    public RankingDetailRecyclerAdapter(Context context, ArrayList<RankingDetailViewData> items, View.OnClickListener onCardListener) {
         this.context = context;
+        this.onCardListener = onCardListener;
         this.arrayList = items;
     }
 
@@ -65,12 +68,7 @@ public class RankingDetailRecyclerAdapter extends RecyclerView.Adapter<RankingDe
             holder.cardviewRating.setText(new DecimalFormat("#0.0").format(data.getCardviewRating()));
             holder.cardviewTitle.setText(data.getCardviewTitle());
 //            holder.cardviewProfileImage.setImageResource();
-            holder.cardviewbg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context, "asdf", Toast.LENGTH_SHORT).show();
-                }
-            });
+            holder.cardviewbg.setOnClickListener(onCardListener);
         }
     }
 

@@ -1,5 +1,6 @@
 package kr.edcan.cumchuck.activity;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +21,7 @@ import kr.edcan.cumchuck.data.RankingDetailViewData;
 
 public class RankingDetailViewActivity extends AppCompatActivity {
 
+    LinearLayout showPreferences;
     ArrayList<RankingDetailViewData> arrayList;
     Toolbar toolbar;
     RecyclerView detailRecyclerView;
@@ -50,6 +54,7 @@ public class RankingDetailViewActivity extends AppCompatActivity {
         date.setTime(System.currentTimeMillis());
         detailRecyclerView = (RecyclerView) findViewById(R.id.detailViewRecyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
+        showPreferences = (LinearLayout) findViewById(R.id.ranking_detail_view_focusview);
         detailRecyclerView.setHasFixedSize(true);
         detailRecyclerView.setLayoutManager(manager);
         arrayList = new ArrayList<>();
@@ -59,9 +64,16 @@ public class RankingDetailViewActivity extends AppCompatActivity {
         arrayList.add(new RankingDetailViewData(false, "히엉어ㅗ어어ㅓㅇ로즈오브더스톰ㄴ", "굳이 롤을 앞지를 이유가 있나요? 일하기싫을뿐입니다\n일하기싫을뿐입니다일하기싫다ㅗㄱ", "Junseok Oh", 2.4, date));
         arrayList.add(new RankingDetailViewData(false, "히엉어ㅗ어어ㅓㅇ로즈오브더스톰ㄴ", "굳이 롤을 앞지를 이유가 있나요? 일하기싫을뿐입니다\n일하기싫을뿐입니다일하기싫다ㅗㄱ", "Junseok Oh", 2.4, date));
         arrayList.add(new RankingDetailViewData(false, "히엉어ㅗ어어ㅓㅇ로즈오브더스톰ㄴ", "굳이 롤을 앞지를 이유가 있나요? 일하기싫을뿐입니다\n일하기싫을뿐입니다일하기싫다ㅗㄱ", "Junseok Oh", 2.4, date));
-        RankingDetailRecyclerAdapter adapter = new RankingDetailRecyclerAdapter(getApplicationContext(), arrayList);
+        RankingDetailRecyclerAdapter adapter = new RankingDetailRecyclerAdapter(getApplicationContext(), arrayList, onCardListener);
         detailRecyclerView.setAdapter(adapter);
     }
+    private View.OnClickListener onCardListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getApplicationContext(), RankingDetailPopupViewActivity.class));
+            overridePendingTransition(R.anim.slide_up, R.anim.no_change);
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
