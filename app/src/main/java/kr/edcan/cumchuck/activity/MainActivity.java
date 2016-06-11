@@ -25,11 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setDefault();
-
-        startActivity(new Intent(getApplicationContext(), RankingDetailPopupViewActivity.class));
+        startActivity(new Intent(getApplicationContext(), RaidGenerateActivity.class));
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
-
-
     }
 
     private void setDefault() {

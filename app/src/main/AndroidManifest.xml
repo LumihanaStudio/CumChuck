@@ -26,8 +26,11 @@
             android:label="@string/title_activity_ranking_show"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.RankingDetailViewActivity" />
-        <activity android:name=".activity.RankingDetailPopupViewActivity"
-            android:theme="@style/Theme.AppCompat.Translucent"></activity>
+        <activity
+            android:name=".activity.RankingDetailPopupViewActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity android:name=".activity.RaidGenerateActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
