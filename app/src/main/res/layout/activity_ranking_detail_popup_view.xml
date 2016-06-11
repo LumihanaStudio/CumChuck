@@ -24,7 +24,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:background="@drawable/ranking_detail_cardview_header"
             android:padding="3dp">
 
@@ -36,7 +36,7 @@
 
                 <kr.edcan.cumchuck.utils.RoundImageView
                     android:id="@+id/ranking_detail_cardview_image"
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:text="오준석"
                         android:textColor="#FFF"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:text="2016년 06월 03일 작성"
                         android:textColor="#FFF"
-                        android:textSize="10sp" />
+                        android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                     android:layout_marginTop="5dp"
                     android:text="ㅁㄴ아ㅣ러ㅏㅁㄴ어ㅣㅏ러ㅏㅁㄴ어ㅏ러ㅏㅁㄴ아ㅣ러ㅏㅁㄴ어ㅣㅏ러ㅏㅁㄴ어ㅏ러ㅏㅁㄴ아ㅣ러ㅏㅁㄴ어ㅣㅏ러ㅏㅁㄴ어ㅏ러ㅏㅁㄴ아ㅣ러ㅏㅁㄴ어ㅣㅏ러ㅏㅁㄴ어ㅏ러ㅏ"
                     android:textColor="@color/textColor"
-                    android:textSize="14sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -119,7 +119,7 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/colorPrimary"
                 android:orientation="horizontal"
-                android:padding="7dp"
+                android:padding="10dp"
                 android:weightSum="2">
 
                 <TextView
@@ -130,18 +130,18 @@
                     android:gravity="center"
                     android:text="추천하기"
                     android:textColor="#FFF"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_square_30dp"
                     android:gravity="center"
                     android:text="공유하기"
                     android:textColor="#FFF"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
