@@ -1,7 +1,6 @@
 package kr.edcan.cumchuck.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,18 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import kr.edcan.cumchuck.R;
-import kr.edcan.cumchuck.activity.RankingDetailPopupViewActivity;
-import kr.edcan.cumchuck.data.CommonRecycleData;
 import kr.edcan.cumchuck.data.RankingDetailViewData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
@@ -29,12 +23,15 @@ import kr.edcan.cumchuck.utils.RoundImageView;
 /**
  * Created by MalangDesktop on 2016-06-04.
  */
+
+
 public class RankingDetailRecyclerAdapter extends RecyclerView.Adapter<RankingDetailRecyclerAdapter.ViewHolder> {
 
     View.OnClickListener onCardListener;
     Context context;
     ArrayList<RankingDetailViewData> arrayList;
     RankingDetailViewData data;
+
     public RankingDetailRecyclerAdapter(Context context, ArrayList<RankingDetailViewData> items, View.OnClickListener onCardListener) {
         this.context = context;
         this.onCardListener = onCardListener;

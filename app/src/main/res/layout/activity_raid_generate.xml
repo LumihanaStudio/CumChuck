@@ -13,53 +13,108 @@
         android:layout_height="?attr/actionBarSize"
         app:titleTextColor="@color/colorPrimary" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-
-        <RelativeLayout
-            android:id="@+id/raid_generate_defaultView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/round_edittext_bg">
 
-                <kr.edcan.cumchuck.utils.RoundImageView
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
-                    android:src="@drawable/ayano1" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:layout_marginTop="1dp"
+                        android:id="@+id/raid_generate_searchQuery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="45dp"
+                        android:background="@null"
+                        android:hint="음식점 찾아보기"
+                        android:layout_gravity="center"
+                        android:inputType="textNoSuggestions"
+                        android:maxLines="1"
+                        android:textColorHint="@color/textColor"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
-                <TextView
+                <ImageView
+                    android:id="@+id/raid_generate_searchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="6dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:src="@drawable/btn_search" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/raid_generate_defaultView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:text="먼저 가고싶은 음식점을 찾아주세요!"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
+                    android:orientation="vertical">
 
-                <kr.edcan.cumchuck.utils.RoundImageView
-                    android:layout_width="5dp"
-                    android:layout_height="5dp"
-                    android:layout_marginTop="8dp"
-                    android:background="#3c3c3c" />
+                    <kr.edcan.cumchuck.utils.RoundImageView
+                        android:id="@+id/raid_generate_defaultViewImage"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/ayano1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="내가 있는 위치를 기준으로\n키워드 종류 또는 음식점 이름으로 검색할 수 있습니다"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/raid_generate_defaultViewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="먼저 가고싶은 음식점을 찾아주세요!"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                    <kr.edcan.cumchuck.utils.RoundImageView
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_marginTop="8dp"
+                        android:src="#BCBCBC" />
+
+                    <TextView
+                        android:id="@+id/raid_generate_defaultViewContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="내가 있는 위치를 기준으로\n키워드 종류 또는 음식점 이름으로 검색할 수 있습니다"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/raid_generate_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
