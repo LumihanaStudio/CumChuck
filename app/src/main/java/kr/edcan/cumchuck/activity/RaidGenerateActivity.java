@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.WindowDecorActionBar;
@@ -25,10 +26,11 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 
 public class RaidGenerateActivity extends AppCompatActivity {
-    // Toolbar
+    CumChuckHelper helper;// Toolbar
     Toolbar toolbar;
     // View shown
     LinearLayout defaultView;
@@ -62,6 +64,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
     }
 
     private void setDefault() {
+        helper = new CumChuckHelper(this);
         searchQuery = (EditText) findViewById(R.id.raid_generate_searchQuery);
         defaultView = (LinearLayout) findViewById(R.id.raid_generate_defaultView);
         searchButton = (ImageView) findViewById(R.id.raid_generate_searchButton);
@@ -107,6 +110,13 @@ public class RaidGenerateActivity extends AppCompatActivity {
     }
 
     private void showInputWIndow() {
+        helper.showLoadingDialog();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                helper.dismissLoadingDialog();
+            }
+        },300);
 
     }
 

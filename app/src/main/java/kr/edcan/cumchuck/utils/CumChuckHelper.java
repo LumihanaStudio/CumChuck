@@ -1,12 +1,19 @@
 package kr.edcan.cumchuck.utils;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.RestrictionEntry;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Random;
 
@@ -18,11 +25,13 @@ import kr.edcan.cumchuck.R;
 public class CumChuckHelper {
 
     private Context context;
-
+    private MaterialDialog builder;
     public CumChuckHelper(Context c) {
         this.context = c;
     }
-
+    public static int[] star = {R.drawable.btn_fav_favstar, R.drawable.btn_fav_favstar_off};
+    private static final float BITMAP_SCALE = 0.4f;
+    private static final float BLUR_RADIUS = 7.5f;
     public static int returnRandomAyano() {
         int ayanoPic[] = {
                 R.drawable.ayano1,
@@ -38,10 +47,6 @@ public class CumChuckHelper {
         };
         return ayanoPic[new Random().nextInt(10)];
     }
-
-    public static int[] star = {R.drawable.btn_fav_favstar, R.drawable.btn_fav_favstar_off};
-    private static final float BITMAP_SCALE = 0.4f;
-    private static final float BLUR_RADIUS = 7.5f;
 
     public Bitmap blur(Bitmap image) {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
@@ -60,5 +65,23 @@ public class CumChuckHelper {
         tmpOut.copyTo(outputBitmap);
 
         return outputBitmap;
+    }
+    public void showLoadingDialog(){
+        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+        ImageView animationImage  = (ImageView) view.findViewById(R.id.loading_dialog_view_image);
+        animationImage.setImageResource(R.drawable.loading_dialog_animation);
+        final AnimationDrawable animationDrawable = (AnimationDrawable) animationImage.getDrawable();
+        builder = new MaterialDialog.Builder(context)
+                .customView(view, false)
+                .showListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        animationDrawable.start();
+                    }
+                })
+                .show();
+    }
+    public void dismissLoadingDialog(){
+        builder.dismiss();
     }
 }

@@ -18,6 +18,8 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/raid_generate_firstpage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -115,6 +117,13 @@
                     android:layout_height="match_parent"
                     android:visibility="gone" />
             </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/raid_generate_secondpage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>
