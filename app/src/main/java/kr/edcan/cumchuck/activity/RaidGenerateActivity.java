@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import kr.edcan.cumchuck.R;
@@ -31,8 +34,11 @@ import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 
 public class RaidGenerateActivity extends AppCompatActivity {
-    CumChuckHelper helper;// Toolbar
+    CumChuckHelper helper;
+    // Toolbar
     Toolbar toolbar;
+    //Animation
+    Animation fadeinAnim, fadeoutAnim;
     // View shown
     LinearLayout defaultView;
     RecyclerView raidGenerateView;
@@ -42,9 +48,6 @@ public class RaidGenerateActivity extends AppCompatActivity {
     boolean isFirst = false, isAvailable = false;
     ImageView searchButton;
 
-
-    // Input Window
-    TextView headerTitle, headerAddress, headerChangeRest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
 
     private void setDefault() {
         helper = new CumChuckHelper(this);
+
         searchQuery = (EditText) findViewById(R.id.raid_generate_searchQuery);
         defaultView = (LinearLayout) findViewById(R.id.raid_generate_defaultView);
         searchButton = (ImageView) findViewById(R.id.raid_generate_searchButton);
@@ -76,13 +80,16 @@ public class RaidGenerateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 search();
+
             }
         });
+        fadeinAnim = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        fadeoutAnim = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
     }
 
     private void search() {
         String s = searchQuery.getText().toString().trim();
-        if(s.equals("")){
+        if (s.equals("")) {
             searchQuery.setError("음식점 이름을 입력해주세요!");
             searchQuery.setText("");
         } else {
@@ -113,24 +120,38 @@ public class RaidGenerateActivity extends AppCompatActivity {
         }
     }
 
-    private void showInputWIndow() {
-        helper.showLoadingDialog();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                helper.dismissLoadingDialog();
-            }
-        },300);
-
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                if(isAvailable){
+                    helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            finish();
+                        }
+                    });
+                }
+                else finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if(isAvailable){
+                helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                });
+            }
+            else finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

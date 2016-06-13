@@ -26,12 +26,15 @@ public class CumChuckHelper {
 
     private Context context;
     private MaterialDialog builder;
+
     public CumChuckHelper(Context c) {
         this.context = c;
     }
+
     public static int[] star = {R.drawable.btn_fav_favstar, R.drawable.btn_fav_favstar_off};
     private static final float BITMAP_SCALE = 0.4f;
     private static final float BLUR_RADIUS = 7.5f;
+
     public static int returnRandomAyano() {
         int ayanoPic[] = {
                 R.drawable.ayano1,
@@ -66,9 +69,20 @@ public class CumChuckHelper {
 
         return outputBitmap;
     }
-    public void showLoadingDialog(){
+
+    public void showAlertDialog(String content, MaterialDialog.SingleButtonCallback callback) {
+        new MaterialDialog.Builder(context)
+                .content(content)
+                .positiveColor(context.getResources().getColor(R.color.colorPrimary))
+                .positiveText("확인")
+                .negativeText("취소")
+                .onPositive(callback)
+                .show();
+    }
+
+    public void showLoadingDialog() {
         View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
-        ImageView animationImage  = (ImageView) view.findViewById(R.id.loading_dialog_view_image);
+        ImageView animationImage = (ImageView) view.findViewById(R.id.loading_dialog_view_image);
         animationImage.setImageResource(R.drawable.loading_dialog_animation);
         final AnimationDrawable animationDrawable = (AnimationDrawable) animationImage.getDrawable();
         builder = new MaterialDialog.Builder(context)
@@ -81,7 +95,8 @@ public class CumChuckHelper {
                 })
                 .show();
     }
-    public void dismissLoadingDialog(){
+
+    public void dismissLoadingDialog() {
         builder.dismiss();
     }
 }
