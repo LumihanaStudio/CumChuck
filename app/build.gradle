@@ -41,5 +41,4 @@ dependencies {
         transitive = true;
     }
     compile 'com.github.rey5137:material:1.2.2'
-    compile 'com.rengwuxian.materialedittext:library:2.1.4'
 }
