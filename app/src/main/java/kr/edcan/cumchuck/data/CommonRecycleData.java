@@ -9,6 +9,47 @@ public class CommonRecycleData {
     private int rankingCount, visitorsCount;
     private boolean isFavorite;
 
+    public CommonRecycleData(String title, String address, String content, double rating, boolean isFavorite, int rankingCount) {
+        /*
+        * 0: RankingShowActivity : Sort by Ranking*/
+        this.title = title;
+        this.address = address;
+        this.content = content;
+        this.rating = rating;
+        this.isFavorite = isFavorite;
+        this.rankingCount = rankingCount;
+    }
+
+    public CommonRecycleData(String title, String address, String content, int rankingCount, int visitorsCount, boolean isFavorite) {
+        /*
+        * 1: RankingShowActivity : Sort by VisitCount*/
+        this.title = title;
+        this.address = address;
+        this.content = content;
+        this.rankingCount = rankingCount;
+        this.visitorsCount = visitorsCount;
+        this.isFavorite = isFavorite;
+    }
+
+    public CommonRecycleData(String title, String address, String content, boolean isFavorite, double rating) {
+        /*
+        * 2: RecommendActivity : Full View*/
+        this.title = title;
+        this.address = address;
+        this.content = content;
+        this.isFavorite = isFavorite;
+        this.rating = rating;
+    }
+
+    public CommonRecycleData(String address, String title, double rating) {
+        /*
+        * 3: RaidGenerateActivity*/
+        this.address = address;
+        this.title = title;
+        this.rating = rating;
+    }
+
+
     public CommonRecycleData(String title, String address, String content, double rating, int rankingCount, int visitorsCount, boolean isFavorite) {
         this.title = title;
         this.address = address;

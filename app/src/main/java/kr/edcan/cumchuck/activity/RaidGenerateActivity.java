@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.WindowDecorActionBar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -29,7 +30,10 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.ArrayList;
+
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.data.CommonRecycleData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 
@@ -95,6 +99,11 @@ public class RaidGenerateActivity extends AppCompatActivity {
         } else {
 
             // Search AsyncTask
+            LinearLayoutManager manager = new LinearLayoutManager(this);
+            raidGenerateView.setHasFixedSize(true);
+            raidGenerateView.setLayoutManager(manager);
+            ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
+            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", ))
         }
     }
 
