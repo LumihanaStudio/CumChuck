@@ -37,8 +37,5 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.8@aar') {
         transitive = true
     }
-    compile('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
-        transitive = true;
-    }
     compile 'com.github.rey5137:material:1.2.2'
 }
