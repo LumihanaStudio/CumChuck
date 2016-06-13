@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+
     android:orientation="vertical"
     tools:context=".activity.RaidGenerateActivity">
 
@@ -142,7 +145,7 @@
                     android:background="#AA000000" />
 
                 <TextView
-                    android:id="@+id/raid_generate_change"
+                    android:id="@+id/raid_generate_view_headerChangePlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -166,7 +169,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/common_title"
+                        android:id="@+id/raid_generate_view_headerTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="청담 시공폭풍 레스토랑"
@@ -174,7 +177,7 @@
                         android:textSize="25sp" />
 
                     <TextView
-                        android:id="@+id/common_address"
+                        android:id="@+id/raid_generate_view_headerAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -188,11 +191,173 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="10">
 
-                <com.rey.material.widget.EditText
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></com.rey.material.widget.EditText>
+                    android:layout_height="1dp"
+                    android:layout_weight="8.5"
+                    android:fitsSystemWindows="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/raid_generate_view_raidnameInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="레이드 이름"
+                                android:singleLine="true"
+                                android:textSize="23sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <!-- CardView Part -->
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/ranking_detail_cardview_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="5dp"
+                            app:cardUseCompatPadding="true">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/ranking_detail_cardview_header"
+                                    android:gravity="center_vertical"
+                                    android:paddingLeft="16dp"
+                                    android:text="일정"
+                                    android:textColor="#FFF"
+                                    android:textSize="16sp">
+
+                                </TextView>
+
+                                <LinearLayout
+                                    android:id="@+id/ranking_detail_cardview_bg"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:orientation="vertical"
+                                    android:padding="16dp">
+
+                                    <TextView
+                                        android:id="@+id/raid_generate_view_cardview_date"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="2016년 06월 03일"
+                                        android:textColor="@color/colorPrimary"
+                                        android:textSize="22sp" />
+
+                                    <TextView
+                                        android:id="@+id/raid_generate_view_cardview_time"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:ellipsize="end"
+                                        android:text="오후 3시 30분"
+                                        android:textColor="@color/textColor"
+                                        android:textSize="14sp" />
+
+                                    <TextView
+                                        android:id="@+id/raid_generate_view_changeCalendar"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:background="?attr/selectableItemBackground"
+                                        android:padding="5dp"
+                                        android:text="변경"
+                                        android:textColor="@color/colorPrimary" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/raid_generate_view_personCountTrack"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:background="@drawable/round_oval_orange"
+                                android:gravity="center"
+                                android:text="12명"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="참여할 인원 수"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <com.rey.material.widget.Slider
+                                    android:id="@+id/raid_generate_view_personSlider"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:paddingLeft="9dp"
+                                    app:sl_alwaysFillThumb="true"
+                                    app:sl_maxValue="15"
+                                    app:sl_minValue="1"
+                                    app:sl_primaryColor="@color/colorPrimary"
+                                    app:sl_secondaryColor="@color/color_not_primary"
+                                    app:sl_stepValue="1"
+                                    app:sl_thumbFocusRadius="10dp"
+                                    app:sl_thumbRadius="6dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1.5"
+                    android:background="@color/colorPrimary">
+
+                    <TextView
+                        android:id="@+id/raid_generate_view_raidConfirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/round_white_text_selector"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="50dp"
+                        android:paddingRight="50dp"
+                        android:paddingTop="10dp"
+                        android:text="레이드 생성"
+                        android:textColor="#FFF"
+                        android:textSize="15sp" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

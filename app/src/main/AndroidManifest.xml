@@ -30,7 +30,8 @@
             android:name=".activity.RankingDetailPopupViewActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".activity.RaidGenerateActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

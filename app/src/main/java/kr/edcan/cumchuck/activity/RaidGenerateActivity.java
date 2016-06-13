@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.WindowDecorActionBar;
@@ -41,6 +42,9 @@ public class RaidGenerateActivity extends AppCompatActivity {
     boolean isFirst = false, isAvailable = false;
     ImageView searchButton;
 
+
+    // Input Window
+    TextView headerTitle, headerAddress, headerChangeRest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
