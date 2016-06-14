@@ -41,7 +41,7 @@ public class CommonRecycleData {
         this.rating = rating;
     }
 
-    public CommonRecycleData(String address, String title, double rating) {
+    public CommonRecycleData(String title, String address, double rating) {
         /*
         * 3: RaidGenerateActivity*/
         this.address = address;

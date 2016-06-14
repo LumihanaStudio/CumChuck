@@ -52,11 +52,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(getApplicationContext(), FavoriteViewActivity.class));
                 break;
             case R.id.open_myaccount:
-                startActivity(new Intent(getApplicationContext(), RankingDetailViewActivity.class));
+                startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
                 break;
             case R.id.fab:
+                startActivity(new Intent(getApplicationContext(), RaidGenerateActivity.class));
                 break;
             case R.id.current_raid_join:
+                startActivity(new Intent(getApplicationContext(), RankingShowActivity.class ));
                 break;
         }
     }

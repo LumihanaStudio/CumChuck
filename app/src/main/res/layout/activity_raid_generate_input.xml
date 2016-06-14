@@ -3,6 +3,8 @@
     android:id="@+id/raid_generate_secondpage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -24,22 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#AA000000" />
-
-        <TextView
-            android:id="@+id/raid_input_headerChangePlace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
-            android:background="@drawable/round_white_text_selector"
-            android:gravity="center"
-            android:paddingBottom="5dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="5dp"
-            android:text="변경하기"
-            android:textColor="#FFF"
-            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -103,11 +89,11 @@
                 <!-- CardView Part -->
                 <android.support.v7.widget.CardView
                     android:id="@+id/ranking_detail_cardview_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="5dp"
-                    app:cardUseCompatPadding="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -202,6 +188,10 @@
 
                         <com.rey.material.widget.Slider
                             android:id="@+id/raid_input_personSlider"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:paddingLeft="9dp"
                             app:sl_alwaysFillThumb="true"
                             app:sl_maxValue="15"
                             app:sl_minValue="1"
@@ -209,11 +199,7 @@
                             app:sl_secondaryColor="@color/color_not_primary"
                             app:sl_stepValue="1"
                             app:sl_thumbFocusRadius="10dp"
-                            app:sl_thumbRadius="6dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:paddingLeft="9dp" />
+                            app:sl_thumbRadius="6dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

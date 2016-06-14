@@ -127,7 +127,12 @@ public class RankingShowActivity extends AppCompatActivity {
             arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
             arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
             arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, -1, false));
-            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getContext(), 0, arrayList);
+            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getContext(), 0, arrayList, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
             starView.setAdapter(adapter);
         }
 
@@ -141,7 +146,12 @@ public class RankingShowActivity extends AppCompatActivity {
             arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 1, 20405, false));
             arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 2, 124, false));
             arrayList.add(new CommonRecycleData("title", "address", "content", 1.22, 3, 252, false));
-            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getContext(), 1, arrayList);
+            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getContext(), 1, arrayList, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
             visitView.setAdapter(adapter);
         }
     }

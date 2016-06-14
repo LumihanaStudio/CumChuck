@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -32,11 +33,13 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
     Context context;
     ArrayList<CommonRecycleData> arrayList;
     CommonRecycleData data;
+    View.OnClickListener cardClick;
 
-    public CommonRecyclerAdapter(Context context, int fragmentPageType, ArrayList<CommonRecycleData> items) {
+    public CommonRecyclerAdapter(Context context, int fragmentPageType, ArrayList<CommonRecycleData> items, View.OnClickListener cardClick) {
         this.context = context;
         this.arrayList = items;
         this.fragmentPageType = fragmentPageType;
+        this.cardClick = cardClick;
     }
 
     @Override
@@ -49,6 +52,7 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         data = arrayList.get(position);
+        holder.background.setOnClickListener(cardClick);
         holder.background.setImageResource(CumChuckHelper.returnRandomAyano());
         holder.background.setScaleType(ImageView.ScaleType.CENTER_CROP);
         View.OnClickListener starClick = new View.OnClickListener() {

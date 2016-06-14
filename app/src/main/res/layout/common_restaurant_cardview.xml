@@ -6,15 +6,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
+
         <ImageView
             android:id="@+id/common_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
+
         <ImageView
-            android:background="#AA000000"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="#AA000000" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -67,7 +69,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/common_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,11 +82,11 @@
                 android:paddingTop="6dp"
                 android:text="1.5"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/common_visitor_count"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="7dp"
@@ -96,11 +97,11 @@
                 android:paddingTop="6dp"
                 android:text="43234명이 방문"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/common_visitor_rankingst"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rating_1st"
@@ -110,7 +111,8 @@
                 android:paddingTop="6dp"
                 android:text="1위"
                 android:textColor="#333"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
         </LinearLayout>
 
 
@@ -119,10 +121,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:visibility="gone"
             android:background="?android:attr/selectableItemBackground"
             android:padding="16dp"
-            android:src="@drawable/btn_fav_favstar_off" />
+            android:src="@drawable/btn_fav_favstar_off"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,4 +132,5 @@
             android:layout_alignParentBottom="true"
             android:background="#FFF" />
     </RelativeLayout>
+
 </RelativeLayout>

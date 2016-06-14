@@ -1,6 +1,8 @@
 package kr.edcan.cumchuck.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -22,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +36,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.adapter.CommonRecyclerAdapter;
 import kr.edcan.cumchuck.data.CommonRecycleData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
@@ -77,6 +81,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
     private void setDefault() {
         helper = new CumChuckHelper(this);
 
+        raidGenerateView = (RecyclerView) findViewById(R.id.raid_generate_recyclerview);
         searchQuery = (EditText) findViewById(R.id.raid_generate_searchQuery);
         defaultView = (LinearLayout) findViewById(R.id.raid_generate_defaultView);
         searchButton = (ImageView) findViewById(R.id.raid_generate_searchButton);
@@ -97,15 +102,31 @@ public class RaidGenerateActivity extends AppCompatActivity {
             searchQuery.setError("음식점 이름을 입력해주세요!");
             searchQuery.setText("");
         } else {
-
+            InputMethodManager imm = (InputMethodManager) searchQuery.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(searchQuery.getWindowToken(), 0);
             // Search AsyncTask
+            isFirst = !isFirst;
+            isAvailable = true;
+            setView();
             LinearLayoutManager manager = new LinearLayoutManager(this);
             raidGenerateView.setHasFixedSize(true);
             raidGenerateView.setLayoutManager(manager);
             ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
-            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", ))
+            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
+            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
+            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
+            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
+            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
+            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(this, 3, arrayList, cardClickListener);
+            raidGenerateView.setAdapter(adapter);
         }
     }
+    private View.OnClickListener cardClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getApplicationContext(), RaidGenerateInputActivity.class));
+        }
+    };
 
     private void setView() {
         TextView title = (TextView) findViewById(R.id.raid_generate_defaultViewTitle);
@@ -133,15 +154,14 @@ public class RaidGenerateActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(isAvailable){
+                if (isAvailable) {
                     helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             finish();
                         }
                     });
-                }
-                else finish();
+                } else finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -150,15 +170,14 @@ public class RaidGenerateActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if(isAvailable){
+            if (isAvailable) {
                 helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         finish();
                     }
                 });
-            }
-            else finish();
+            } else finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);

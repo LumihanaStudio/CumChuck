@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-
     android:orientation="vertical"
     tools:context=".activity.RaidGenerateActivity">
 
@@ -114,6 +111,7 @@
                 android:id="@+id/raid_generate_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>

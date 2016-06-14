@@ -18,6 +18,7 @@ import kr.edcan.cumchuck.data.NormalPreferenceListData;
  * Created by MalangDesktop on 2016-05-08.
  */
 public class MyPageListViewAdapter extends ArrayAdapter<NormalPreferenceListData> {
+
     private LayoutInflater inflater;
 
     public MyPageListViewAdapter(Context c, ArrayList<NormalPreferenceListData> normalPreferenceListDatas){
@@ -29,9 +30,9 @@ public class MyPageListViewAdapter extends ArrayAdapter<NormalPreferenceListData
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = inflater.inflate(R.layout.mypage_listview_content, null);
-
         NormalPreferenceListData data = this.getItem(position);
         if(data != null){
+
             ImageView imageView = (ImageView) view.findViewById(R.id.mypage_listview_imageview);
             TextView title = (TextView) view.findViewById(R.id.mypage_listview_title);
             TextView content = (TextView) view.findViewById(R.id.mypage_listview_content);
