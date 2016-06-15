@@ -1,13 +1,14 @@
 package kr.edcan.cumchuck.activity;
 
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +16,10 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.rey.material.app.DatePickerDialog;
-import com.rey.material.app.TimePickerDialog;
-import com.rey.material.widget.DatePicker;
 import com.rey.material.widget.Slider;
-import com.rey.material.widget.TimePicker;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
@@ -28,8 +28,8 @@ import kr.edcan.cumchuck.utils.CumChuckHelper;
 
 public class RaidGenerateInputActivity extends AppCompatActivity implements View.OnClickListener {
 
-    boolean calendarComplete = false;
-    Calendar raidCalendar;
+    boolean isCancel = false, isTimeCancel = false;
+    Calendar nowCalendar, raidCalendar;
     CumChuckHelper helper;
     Toolbar toolbar;
     // Input Window
@@ -59,6 +59,7 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
     }
 
     private void setDefault() {
+        raidCalendar = Calendar.getInstance();
         helper = new CumChuckHelper(this);
         headerAddress = (TextView) findViewById(R.id.raid_input_headerAddress);
         headerTitle = (TextView) findViewById(R.id.raid_input_headerTitle);
@@ -78,37 +79,70 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
         });
     }
 
-    private void setCalendar() {
-        new DatePickerDialog(RaidGenerateInputActivity.this)
-                .onDateChangedListener(new DatePickerDialog.OnDateChangedListener() {
+    private void setDate() {
+        isCancel = false;
+        nowCalendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateChanged(int oldDay, int oldMonth, int oldYear, int newDay, int newMonth, int newYear) {
-                        raidCalendar.set(newYear, newMonth, newDay);
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        raidCalendar.set(year, monthOfYear, dayOfMonth);
                     }
-                })
-                .positiveActionClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new TimePickerDialog(RaidGenerateInputActivity.this)
-                                .onTimeChangedListener(new TimePickerDialog.OnTimeChangedListener() {
-                                    @Override
-                                    public void onTimeChanged(int oldHour, int oldMinute, int newHour, int newMinute) {
-                                        raidCalendar.set(Calendar.HOUR, newHour);
-                                        raidCalendar.set(Calendar.MINUTE, newMinute);
-                                    }
-                                })
-                                .positiveActionClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        calendarComplete = true;
-                                        cardviewDate.setText(raidCalendar.get(Calendar.YEAR)+"년 "+raidCalendar.get(Calendar.MONTH)+"월 "+raidCalendar.get(Calendar.DAY_OF_MONTH));
-                                        cardviewTime.setText(raidCalendar.get(Calendar.HOUR_OF_DAY)+"시 "+raidCalendar.get(Calendar.MINUTE)+"분");
-                                    }
-                                }).show();
-                    }
-                }).show();
-    }
+                },
+                nowCalendar.get(Calendar.YEAR),
+                nowCalendar.get(Calendar.MONTH),
+                nowCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.setThemeDark(false);
+        datePickerDialog.vibrate(true);
+        datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                isCancel = true;
+            }
+        });
+        datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if(!isCancel){
+                    setTime();
+                }
+            }
 
+        });
+        datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+    }
+    private void setTime() {
+        nowCalendar = Calendar.getInstance();
+        final int year = raidCalendar.get(Calendar.YEAR);
+        final int month = raidCalendar.get(Calendar.MONTH);
+        final int day = raidCalendar.get(Calendar.DAY_OF_MONTH);
+        TimePickerDialog timePickerDialog =
+                TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
+                        raidCalendar.set(year, month, day, hourOfDay, minute);
+                        Log.e("asdf", raidCalendar.getTimeInMillis()+"");
+                    }
+                }, nowCalendar.get(Calendar.HOUR_OF_DAY), nowCalendar.get(Calendar.MINUTE), true);
+        timePickerDialog.setThemeDark(false);
+        timePickerDialog.vibrate(true);
+        timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                isTimeCancel = true;
+            }
+        });
+        timePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if(!isTimeCancel){
+                    cardviewDate.setText(raidCalendar.get(Calendar.YEAR)+"년 "+(raidCalendar.get(Calendar.MONTH)+1)+"월 "+raidCalendar.get(Calendar.DAY_OF_MONTH)+"일");
+                    cardviewTime.setText(raidCalendar.get(Calendar.HOUR_OF_DAY)+"시 "+raidCalendar.get(Calendar.MINUTE)+"분");
+                }
+            }
+        });
+        timePickerDialog.show(getFragmentManager(), "TimePickerDialog");
+    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
@@ -136,7 +170,7 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.raid_input_changeCalendar:
-//                setCalendar();
+                setDate();
         }
     }
 
