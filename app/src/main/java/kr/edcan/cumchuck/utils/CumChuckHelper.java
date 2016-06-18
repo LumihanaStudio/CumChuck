@@ -9,9 +9,11 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -46,6 +48,7 @@ public class CumChuckHelper {
             R.drawable.ayano9,
             R.drawable.ayano10,
     };
+
     public static int returnRandomAyano() {
         return ayanoPic[new Random().nextInt(10)];
     }
@@ -69,9 +72,35 @@ public class CumChuckHelper {
         return outputBitmap;
     }
 
-    public void showAlertDialog(String content, MaterialDialog.SingleButtonCallback callback) {
+
+    public void showAlertDialog(String contentString, MaterialDialog.SingleButtonCallback callback) {
+        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+        TextView title = (TextView) view.findViewById(R.id.dialog_title);
+        TextView content = (TextView) view.findViewById(R.id.dialog_content);
+        TextView subConent = (TextView) view.findViewById(R.id.dialog_subContent);
+        content.setVisibility(View.GONE);
+        subConent.setText(contentString);
+        subConent.setTextColor(context.getResources().getColor(R.color.textColor));
+        title.setText("CumChuck!");
         new MaterialDialog.Builder(context)
-                .content(content)
+                .customView(view, false)
+                .positiveColor(context.getResources().getColor(R.color.colorPrimary))
+                .positiveText("확인")
+                .negativeText("취소")
+                .onPositive(callback)
+                .show();
+    }
+    public void showAlertDialog(String titleString, String contentString, MaterialDialog.SingleButtonCallback callback) {
+        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+        TextView title = (TextView) view.findViewById(R.id.dialog_title);
+        TextView content = (TextView) view.findViewById(R.id.dialog_content);
+        TextView subConent = (TextView) view.findViewById(R.id.dialog_subContent);
+        content.setVisibility(View.GONE);
+        subConent.setText(contentString);
+        subConent.setTextColor(context.getResources().getColor(R.color.textColor));
+        title.setText(titleString);
+        new MaterialDialog.Builder(context)
+                .customView(view, false)
                 .positiveColor(context.getResources().getColor(R.color.colorPrimary))
                 .positiveText("확인")
                 .negativeText("취소")
@@ -79,21 +108,39 @@ public class CumChuckHelper {
                 .show();
     }
 
-    public void showLoadingDialog() {
+    public void showAlertDialog(String titleString, String contentString, String subContentString, MaterialDialog.SingleButtonCallback callback) {
         View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
-        ImageView animationImage = (ImageView) view.findViewById(R.id.loading_dialog_view_image);
-        animationImage.setImageResource(R.drawable.loading_dialog_animation);
-        final AnimationDrawable animationDrawable = (AnimationDrawable) animationImage.getDrawable();
-        builder = new MaterialDialog.Builder(context)
+        TextView title = (TextView) view.findViewById(R.id.dialog_title);
+        TextView content = (TextView) view.findViewById(R.id.dialog_content);
+        TextView subConent = (TextView) view.findViewById(R.id.dialog_subContent);
+        content.setText(contentString);
+        title.setText(titleString);
+        subConent.setText(subContentString);
+
+        new MaterialDialog.Builder(context)
                 .customView(view, false)
-                .showListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        animationDrawable.start();
-                    }
-                })
+                .positiveColor(context.getResources().getColor(R.color.colorPrimary))
+                .positiveText("확인")
+                .negativeText("취소")
+                .onPositive(callback)
                 .show();
     }
+//
+//    public void showLoadingDialog() {
+//        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+//        ImageView animationImage = (ImageView) view.findViewById(R.id.loading_dialog_view_image);
+//        animationImage.setImageResource(R.drawable.loading_dialog_animation);
+//        final AnimationDrawable animationDrawable = (AnimationDrawable) animationImage.getDrawable();
+//        builder = new MaterialDialog.Builder(context)
+//                .customView(view, false)
+//                .showListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        animationDrawable.start();
+//                    }
+//                })
+//                .show();
+//    }
 
     public void dismissLoadingDialog() {
         builder.dismiss();

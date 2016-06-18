@@ -135,6 +135,7 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
         timePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
+                Log.e("asdf", "dialog close + "+isTimeCancel);
                 if(!isTimeCancel){
                     cardviewDate.setText(raidCalendar.get(Calendar.YEAR)+"년 "+(raidCalendar.get(Calendar.MONTH)+1)+"월 "+raidCalendar.get(Calendar.DAY_OF_MONTH)+"일");
                     cardviewTime.setText(raidCalendar.get(Calendar.HOUR_OF_DAY)+"시 "+raidCalendar.get(Calendar.MINUTE)+"분");

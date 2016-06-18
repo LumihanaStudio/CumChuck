@@ -3,9 +3,11 @@
     <color name="colorPrimary">#FF7043</color>
     <!--<color name="colorPrimary">#FFFFFF</color>-->
     <color name="colorPrimaryDark">#984D2C</color>
+    <color name="dialogTitleBackground">#F05635</color>
     <color name="colorAccent">#FF7043</color>
     <color name="color_not_primary">#DFDFDF</color>
     <color name="progress_gray">#454545</color>
     <color name="progress_gray_dark">#232323</color>
     <color name="textColor">#616161</color>
+    <color name="textColorSub">#A7A8A8</color>
 </resources>
