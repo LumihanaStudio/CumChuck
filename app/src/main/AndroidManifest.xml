@@ -33,8 +33,10 @@
             android:name=".activity.RaidGenerateActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.RaidGenerateInputActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activity.RaidGenerateInputActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.RecommandActivity"></activity>
     </application>
 
 </manifest>

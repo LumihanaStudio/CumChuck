@@ -1,7 +1,6 @@
 package kr.edcan.cumchuck.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setDefault();
-        startActivity(new Intent(getApplicationContext(), RaidGenerateActivity.class));
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
 

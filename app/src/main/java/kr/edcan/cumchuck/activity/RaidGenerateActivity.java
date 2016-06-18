@@ -62,12 +62,6 @@ public class RaidGenerateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_raid_generate);
         setAppbarLayout();
         setDefault();
-        helper.showAlertDialog("이 레이드에 참여하시겠습니까?", "청담 시공폭풍 레스토랑", "ㅁㄴㅇㄹ", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-            }
-        });
 
     }
 
