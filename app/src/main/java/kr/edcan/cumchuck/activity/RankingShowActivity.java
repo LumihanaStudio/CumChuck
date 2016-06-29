@@ -1,12 +1,8 @@
 package kr.edcan.cumchuck.activity;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +24,7 @@ import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.CommonRecyclerAdapter;
-import kr.edcan.cumchuck.data.CommonRecycleData;
+import kr.edcan.cumchuck.model.CommonRecycleData;
 
 public class RankingShowActivity extends AppCompatActivity {
 

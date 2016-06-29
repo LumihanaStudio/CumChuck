@@ -6,15 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
-import kr.edcan.cumchuck.data.CommonRecycleData;
-import kr.edcan.cumchuck.data.FavoriteData;
+import kr.edcan.cumchuck.model.CommonRecycleData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 
 /**

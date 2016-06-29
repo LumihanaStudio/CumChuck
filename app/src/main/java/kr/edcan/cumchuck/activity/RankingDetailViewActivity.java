@@ -17,7 +17,7 @@ import java.util.Date;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.RankingDetailRecyclerAdapter;
-import kr.edcan.cumchuck.data.RankingDetailViewData;
+import kr.edcan.cumchuck.model.RankingDetailViewData;
 
 public class RankingDetailViewActivity extends AppCompatActivity {
 

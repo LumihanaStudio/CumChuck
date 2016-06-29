@@ -1,4 +1,4 @@
-package kr.edcan.cumchuck.data;
+package kr.edcan.cumchuck.model;
 
 /**
  * Created by MalangDesktop on 2016-06-04.

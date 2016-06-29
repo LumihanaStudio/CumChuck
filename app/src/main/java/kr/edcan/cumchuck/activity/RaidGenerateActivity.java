@@ -1,25 +1,15 @@
 package kr.edcan.cumchuck.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.WindowDecorActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -30,14 +20,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.CommonRecyclerAdapter;
-import kr.edcan.cumchuck.data.CommonRecycleData;
+import kr.edcan.cumchuck.model.CommonRecycleData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 

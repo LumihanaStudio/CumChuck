@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
-import kr.edcan.cumchuck.data.FavoriteData;
+import kr.edcan.cumchuck.model.FavoriteData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 
 /**

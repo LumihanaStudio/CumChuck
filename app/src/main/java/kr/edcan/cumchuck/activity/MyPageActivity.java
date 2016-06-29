@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.MyPageListViewAdapter;
-import kr.edcan.cumchuck.data.NormalPreferenceListData;
+import kr.edcan.cumchuck.model.NormalPreferenceListData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 import kr.edcan.cumchuck.utils.SeekArc;

@@ -1,6 +1,5 @@
 package kr.edcan.cumchuck.activity;
 
-import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.CommonRecyclerAdapter;
-import kr.edcan.cumchuck.data.CommonRecycleData;
+import kr.edcan.cumchuck.model.CommonRecycleData;
 
 public class RecommendActivity extends AppCompatActivity {
 

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import kr.edcan.cumchuck.R;
-import kr.edcan.cumchuck.data.RankingDetailViewData;
+import kr.edcan.cumchuck.model.RankingDetailViewData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 

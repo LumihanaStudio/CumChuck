@@ -1,4 +1,4 @@
-package kr.edcan.cumchuck.data;
+package kr.edcan.cumchuck.model;
 
 import java.util.Date;
 

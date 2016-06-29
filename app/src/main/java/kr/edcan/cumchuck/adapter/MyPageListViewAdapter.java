@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
-import kr.edcan.cumchuck.data.NormalPreferenceListData;
+import kr.edcan.cumchuck.model.NormalPreferenceListData;
 
 /**
  * Created by MalangDesktop on 2016-05-08.
