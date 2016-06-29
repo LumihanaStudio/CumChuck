@@ -1,12 +1,8 @@
 package kr.edcan.cumchuck.test;
 
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageView;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
