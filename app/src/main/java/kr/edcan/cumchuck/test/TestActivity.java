@@ -1,4 +1,4 @@
-package kr.edcan.cumchuck.activity;
+package kr.edcan.cumchuck.test;
 
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimationDrawable;
