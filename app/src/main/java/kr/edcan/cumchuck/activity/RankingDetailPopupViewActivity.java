@@ -23,12 +23,9 @@ public class RankingDetailPopupViewActivity extends AppCompatActivity {
 
     private void setDefault() {
         LinearLayout = (LinearLayout) findViewById(R.id.spaceBackground);
-        LinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.no_change, R.anim.slide_down);
-            }
+        LinearLayout.setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(R.anim.no_change, R.anim.slide_down);
         });
     }
 

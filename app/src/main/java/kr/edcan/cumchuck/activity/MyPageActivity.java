@@ -79,20 +79,17 @@ public class MyPageActivity extends AppCompatActivity {
         listView.setOnItemClickListener(listener);
     }
 
-    ListView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            switch (position){
-                case 0:
-                    // 개인 리뷰 관리
-                    break;
-                case 1:
-                    // 즐겨찾기 관리
-                    break;
-                case 2:
-                    // 회원 탈퇴
-                    break;
-            }
+    ListView.OnItemClickListener listener = (parent, view, position, id) -> {
+        switch (position){
+            case 0:
+                // 개인 리뷰 관리
+                break;
+            case 1:
+                // 즐겨찾기 관리
+                break;
+            case 2:
+                // 회원 탈퇴
+                break;
         }
     };
     private void setDefault() {
@@ -105,12 +102,7 @@ public class MyPageActivity extends AppCompatActivity {
         expProgress = (SeekArc) findViewById(R.id.mypage_show_exp);
         Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
         profileBackground.setImageBitmap(helper.blur(bitmap));
-        changeProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show();
-            }
-        });
+        changeProfile.setOnClickListener(v -> Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show());
     }
 
     @Override

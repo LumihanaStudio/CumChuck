@@ -56,10 +56,5 @@ public class RecommendActivity extends AppCompatActivity {
         recommandRecyclerView.setAdapter(adapter);
 
     }
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Log.e("asdf", "cardview clicked");
-        }
-    };
+    private View.OnClickListener clickListener = view -> Log.e("asdf", "cardview clicked");
 }

@@ -71,43 +71,24 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
         personCountTrack = (TextView) findViewById(R.id.raid_input_personCountTrack);
         personCount = (Slider) findViewById(R.id.raid_input_personSlider);
         personCountTrack.setText("1명");
-        personCount.setOnPositionChangeListener(new Slider.OnPositionChangeListener() {
-            @Override
-            public void onPositionChanged(Slider view, boolean fromUser, float oldPos, float newPos, int oldValue, int newValue) {
-                personCountTrack.setText(newValue + "명");
-            }
-        });
+        personCount.setOnPositionChangeListener((view, fromUser, oldPos, newPos, oldValue, newValue) -> personCountTrack.setText(newValue + "명"));
     }
 
     private void setDate() {
         isCancel = false;
         nowCalendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                        raidCalendar.set(year, monthOfYear, dayOfMonth);
-                    }
-                },
+                (view, year, monthOfYear, dayOfMonth) -> raidCalendar.set(year, monthOfYear, dayOfMonth),
                 nowCalendar.get(Calendar.YEAR),
                 nowCalendar.get(Calendar.MONTH),
                 nowCalendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.setThemeDark(false);
         datePickerDialog.vibrate(true);
-        datePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                isCancel = true;
+        datePickerDialog.setOnCancelListener(dialog -> isCancel = true);
+        datePickerDialog.setOnDismissListener(dialog -> {
+            if(!isCancel){
+                setTime();
             }
-        });
-        datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if(!isCancel){
-                    setTime();
-                }
-            }
-
         });
         datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
     }
@@ -117,29 +98,18 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
         final int month = raidCalendar.get(Calendar.MONTH);
         final int day = raidCalendar.get(Calendar.DAY_OF_MONTH);
         TimePickerDialog timePickerDialog =
-                TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
-                        raidCalendar.set(year, month, day, hourOfDay, minute);
-                        Log.e("asdf", raidCalendar.getTimeInMillis()+"");
-                    }
+                TimePickerDialog.newInstance((view, hourOfDay, minute, second) -> {
+                    raidCalendar.set(year, month, day, hourOfDay, minute);
+                    Log.e("asdf", raidCalendar.getTimeInMillis()+"");
                 }, nowCalendar.get(Calendar.HOUR_OF_DAY), nowCalendar.get(Calendar.MINUTE), true);
         timePickerDialog.setThemeDark(false);
         timePickerDialog.vibrate(true);
-        timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                isTimeCancel = true;
-            }
-        });
-        timePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                Log.e("asdf", "dialog close + "+isTimeCancel);
-                if(!isTimeCancel){
-                    cardviewDate.setText(raidCalendar.get(Calendar.YEAR)+"년 "+(raidCalendar.get(Calendar.MONTH)+1)+"월 "+raidCalendar.get(Calendar.DAY_OF_MONTH)+"일");
-                    cardviewTime.setText(raidCalendar.get(Calendar.HOUR_OF_DAY)+"시 "+raidCalendar.get(Calendar.MINUTE)+"분");
-                }
+        timePickerDialog.setOnCancelListener(dialog -> isTimeCancel = true);
+        timePickerDialog.setOnDismissListener(dialog -> {
+            Log.e("asdf", "dialog close + "+isTimeCancel);
+            if(!isTimeCancel){
+                cardviewDate.setText(raidCalendar.get(Calendar.YEAR)+"년 "+(raidCalendar.get(Calendar.MONTH)+1)+"월 "+raidCalendar.get(Calendar.DAY_OF_MONTH)+"일");
+                cardviewTime.setText(raidCalendar.get(Calendar.HOUR_OF_DAY)+"시 "+raidCalendar.get(Calendar.MINUTE)+"분");
             }
         });
         timePickerDialog.show(getFragmentManager(), "TimePickerDialog");
@@ -147,12 +117,7 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            helper.showAlertDialog("꺼지려고?\n데이터 저장 안해줄거니까 판단은 알아서", new MaterialDialog.SingleButtonCallback() {
-                @Override
-                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                    finish();
-                }
-            });
+            helper.showAlertDialog("꺼지려고?\n데이터 저장 안해줄거니까 판단은 알아서", (dialog, which) -> finish());
         } else finish();
         return super.onKeyDown(keyCode, event);
     }
