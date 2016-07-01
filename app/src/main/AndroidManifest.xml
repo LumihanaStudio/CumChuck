@@ -39,7 +39,8 @@
             android:name=".activity.RaidGenerateInputActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.RecommendActivity" />
-        <activity android:name=".activity.RaidFromFriendActivity"></activity>
+        <activity android:name=".activity.RaidFromFriendActivity" />
+        <activity android:name=".activity.MyReviewActivity"></activity>
     </application>
 
 </manifest>
