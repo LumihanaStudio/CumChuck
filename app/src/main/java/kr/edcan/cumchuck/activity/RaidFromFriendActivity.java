@@ -28,6 +28,8 @@ public class RaidFromFriendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_raid_from_friend);
         setAppbarLayout();
         setDefault();
+        int a = (2 == 3) ? 2 : 3;
+
     }
 
     private void setAppbarLayout() {
@@ -62,7 +64,7 @@ public class RaidFromFriendActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
