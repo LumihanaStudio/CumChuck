@@ -71,7 +71,9 @@ public class MyPageActivity extends AppCompatActivity {
         arrayList = new ArrayList<>();
         arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_review, "개인 리뷰 관리", "내가 작성한 리뷰들을 수정하거나 삭제합니다."));
         arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_fav, "즐겨찾기 관리", "내가 즐겨찾기한 음식점을 수정하거나 삭제합니다."));
+        arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_logout, "로그아웃", "Cumchuck에서 로그아웃합니다."));
         arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_goodbye, "회원 탈퇴", "Cumchuck에 있는 모든 데이터를 삭제하고 회원탈퇴합니다."));
+        arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_settings, "설정", "앱의 세부 설정 및 정보를 확인합니다."));
         adapter = new MyPageListViewAdapter(this, arrayList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
