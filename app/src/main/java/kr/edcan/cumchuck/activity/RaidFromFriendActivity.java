@@ -28,8 +28,6 @@ public class RaidFromFriendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_raid_from_friend);
         setAppbarLayout();
         setDefault();
-        int a = (2 == 3) ? 2 : 3;
-
     }
 
     private void setAppbarLayout() {
