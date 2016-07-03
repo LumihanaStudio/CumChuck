@@ -8,6 +8,7 @@
         android:layout_height="240dp">
 
         <ImageView
+            android:id="@+id/raidfromfriend_cardview_bgimage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />

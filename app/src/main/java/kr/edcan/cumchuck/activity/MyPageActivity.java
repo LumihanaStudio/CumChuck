@@ -100,6 +100,7 @@ public class MyPageActivity extends AppCompatActivity {
         changeProfile = (TextView) findViewById(R.id.mypage_change_profile);
         listView = (ListView) findViewById(R.id.myPageListView);
         expProgress = (SeekArc) findViewById(R.id.mypage_show_exp);
+        profileImageView.setImageResource(CumChuckHelper.returnRandomAyano());
         Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
         profileBackground.setImageBitmap(helper.blur(bitmap));
         changeProfile.setOnClickListener(v -> Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show());

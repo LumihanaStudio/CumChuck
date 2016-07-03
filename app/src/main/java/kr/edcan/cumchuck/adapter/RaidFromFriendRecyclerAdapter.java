@@ -5,12 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.model.RaidFromFriendData;
+import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 
 /**
@@ -42,7 +44,8 @@ public class RaidFromFriendRecyclerAdapter extends RecyclerView.Adapter<RaidFrom
         holder.authoranddate.setText(data.getAuthor_date());
         holder.resTitle.setText(data.getResTitle());
         holder.resAddress.setText(data.getResAddress());
-//        holder.profileImage.setImageDrawable(new);
+        holder.profileImage.setImageResource(CumChuckHelper.returnRandomAyano());
+        holder.bg.setImageResource(CumChuckHelper.returnRandomAyano());
     }
 
     @Override
@@ -53,6 +56,7 @@ public class RaidFromFriendRecyclerAdapter extends RecyclerView.Adapter<RaidFrom
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, authoranddate, resTitle, resAddress;
         RoundImageView profileImage;
+        ImageView bg;
         public ViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.raidfromfriend_cardview_title);
@@ -60,6 +64,7 @@ public class RaidFromFriendRecyclerAdapter extends RecyclerView.Adapter<RaidFrom
             resTitle = (TextView) itemView.findViewById(R.id.raidfromfriend_cardview_resTitle);
             resAddress = (TextView) itemView.findViewById(R.id.raidfromfriend_cardview_resAddress);
             profileImage = (RoundImageView) itemView.findViewById(R.id.raidfromfriend_cardview_profileImage);
+            bg = (ImageView) itemView.findViewById(R.id.raidfromfriend_cardview_bgimage);
         }
     }
 
