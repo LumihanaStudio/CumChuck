@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setDefault();
-        startActivity(new Intent(getApplicationContext(), RunningRaidActivity.class));
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
 
@@ -47,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mypage.setOnClickListener(this);
         floatingActionButton.setOnClickListener(this);
         currentRaidJoin.setOnClickListener(this);
+        two.setOnClickListener(this);
+        three.setOnClickListener(this);
     }
 
     @Override
@@ -64,6 +65,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.current_raid_join:
                 startActivity(new Intent(getApplicationContext(), RankingShowActivity.class));
                 break;
+            case R.id.main_secondImage:
+                startActivity(new Intent(getApplicationContext(), RaidFromFriendActivity.class));
+                break;
+            case R.id.main_thirdImage:
+                startActivity(new Intent(getApplicationContext(), RecommendActivity.class));
         }
     }
 

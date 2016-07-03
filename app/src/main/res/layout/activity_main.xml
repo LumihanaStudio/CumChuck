@@ -64,6 +64,7 @@
                         android:id="@+id/main_firstImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:foreground="?attr/selectableItemBackground"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ayano3" />
 
@@ -163,8 +164,10 @@
 
                     <ImageView
                         android:id="@+id/main_secondImage"
+
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:foreground="?attr/selectableItemBackground"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ayano7" />
 
@@ -227,6 +230,7 @@
                         android:id="@+id/main_thirdImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:foreground="?attr/selectableItemBackground"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ayano10" />
 
