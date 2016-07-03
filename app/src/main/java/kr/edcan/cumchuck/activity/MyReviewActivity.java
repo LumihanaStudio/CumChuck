@@ -33,8 +33,6 @@ public class MyReviewActivity extends AppCompatActivity {
     }
 
     private void setAppbarLayout() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putParcelableArrayListExtra("array", arrayList);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
@@ -51,15 +49,19 @@ public class MyReviewActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.myreview_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         arrayList = new ArrayList<>();
-        arrayList.add(new MyReviewData("히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
+        arrayList.add(new MyReviewData("1","히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
                 new Restaurant("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동", "010-9944-4144", 1, 5.0),
                 new User("오준석", "a0a0a0a0a0a0a0a0a0a"),
                 new Date(System.currentTimeMillis())));
-        arrayList.add(new MyReviewData("히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
+        arrayList.add(new MyReviewData("1","히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
                 new Restaurant("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동", "010-9944-4144", 1, 5.0),
                 new User("오준석", "a0a0a0a0a0a0a0a0a0a"),
                 new Date(System.currentTimeMillis())));
-        arrayList.add(new MyReviewData("히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
+        arrayList.add(new MyReviewData("1","히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
+                new Restaurant("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동", "010-9944-4144", 1, 5.0),
+                new User("오준석", "a0a0a0a0a0a0a0a0a0a"),
+                new Date(System.currentTimeMillis())));
+        arrayList.add(new MyReviewData("1","히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
                 new Restaurant("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동", "010-9944-4144", 1, 5.0),
                 new User("오준석", "a0a0a0a0a0a0a0a0a0a"),
                 new Date(System.currentTimeMillis())));

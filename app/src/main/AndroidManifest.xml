@@ -40,7 +40,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.RecommendActivity" />
         <activity android:name=".activity.RaidFromFriendActivity" />
-        <activity android:name=".activity.MyReviewActivity"></activity>
+        <activity android:name=".activity.MyReviewActivity" />
+        <activity android:name=".activity.MyReviewDetailViewActivity"></activity>
     </application>
 
 </manifest>

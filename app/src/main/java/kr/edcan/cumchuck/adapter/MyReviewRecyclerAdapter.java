@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.activity.MyReviewDetailViewActivity;
 import kr.edcan.cumchuck.model.MyReviewData;
 import kr.edcan.cumchuck.model.RaidFromFriendData;
 import kr.edcan.cumchuck.utils.RoundImageView;
