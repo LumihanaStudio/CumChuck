@@ -44,7 +44,7 @@ public class RunningRaidActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
-        getSupportActionBar().setTitle("새로운 레이드 생성하기");
+        getSupportActionBar().setTitle("내가 만든 레이드");
         getSupportActionBar().setElevation(5);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
