@@ -42,7 +42,8 @@
         <activity android:name=".activity.RaidFromFriendActivity" />
         <activity android:name=".activity.MyReviewActivity" />
         <activity android:name=".activity.MyReviewDetailViewActivity" />
-        <activity android:name=".activity.PostReviewActivity"></activity>
+        <activity android:name=".activity.PostReviewActivity" />
+        <activity android:name=".activity.RunningRaidActivity"></activity>
     </application>
 
 </manifest>
