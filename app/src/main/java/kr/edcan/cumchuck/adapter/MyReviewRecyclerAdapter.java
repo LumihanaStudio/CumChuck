@@ -5,11 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.model.MyReviewData;
 import kr.edcan.cumchuck.model.RaidFromFriendData;
 import kr.edcan.cumchuck.utils.RoundImageView;
 
@@ -21,9 +24,10 @@ import kr.edcan.cumchuck.utils.RoundImageView;
 public class MyReviewRecyclerAdapter extends RecyclerView.Adapter<MyReviewRecyclerAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<RaidFromFriendData> arrayList;
-    RaidFromFriendData data;
-    public MyReviewRecyclerAdapter(Context context, ArrayList<RaidFromFriendData> items) {
+    ArrayList<MyReviewData> arrayList;
+    MyReviewData data;
+
+    public MyReviewRecyclerAdapter(Context context, ArrayList<MyReviewData> items) {
         this.context = context;
         this.arrayList = items;
     }
@@ -38,11 +42,10 @@ public class MyReviewRecyclerAdapter extends RecyclerView.Adapter<MyReviewRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         data = arrayList.get(position);
-        holder.title.setText(data.getTitle());
-        holder.authoranddate.setText(data.getAuthor_date());
-        holder.resTitle.setText(data.getResTitle());
-        holder.resAddress.setText(data.getResAddress());
-//        holder.profileImage.setImageDrawable(new);
+        holder.title.setText(data.getRes().getName());
+        holder.address.setText(data.getRes().getAddress());
+        holder.review.setText(data.getReviewcontent());
+        holder.foreG.setOnClickListener(view -> Toast.makeText(context, "WOW", Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -51,15 +54,15 @@ public class MyReviewRecyclerAdapter extends RecyclerView.Adapter<MyReviewRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, authoranddate, resTitle, resAddress;
-        RoundImageView profileImage;
+        TextView title, address, review;
+        RelativeLayout foreG;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.raidfromfriend_cardview_title);
-            authoranddate = (TextView) itemView.findViewById(R.id.raidfromfriend_cardview_date_and_author);
-            resTitle = (TextView) itemView.findViewById(R.id.raidfromfriend_cardview_resTitle);
-            resAddress = (TextView) itemView.findViewById(R.id.raidfromfriend_cardview_resAddress);
-            profileImage = (RoundImageView) itemView.findViewById(R.id.raidfromfriend_cardview_profileImage);
+            title = (TextView) itemView.findViewById(R.id.myreview_cardview_title);
+            address = (TextView) itemView.findViewById(R.id.myreview_cardview_address);
+            review = (TextView) itemView.findViewById(R.id.myreview_cardview_content);
+            foreG = (RelativeLayout) itemView.findViewById(R.id.myreview_cardview_foreground);
         }
     }
 
