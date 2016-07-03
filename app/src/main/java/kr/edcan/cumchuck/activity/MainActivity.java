@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
+import retrofit2.http.POST;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setDefault();
-        startActivity(new Intent(getApplicationContext(), MyReviewActivity.class));
+        startActivity(new Intent(getApplicationContext(), PostReviewActivity.class));
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
 
