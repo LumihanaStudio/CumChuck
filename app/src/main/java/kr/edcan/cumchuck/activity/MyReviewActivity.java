@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,5 +68,15 @@ public class MyReviewActivity extends AppCompatActivity {
                 new Date(System.currentTimeMillis())));
         MyReviewRecyclerAdapter adapter = new MyReviewRecyclerAdapter(getApplicationContext(), arrayList);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
