@@ -1,5 +1,8 @@
 package kr.edcan.cumchuck.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
@@ -7,13 +10,15 @@ import java.util.Date;
  */
 
 public class MyReviewData {
+    private String reviewid;
     private String title, reviewcontent;
     private double rating;
     private Restaurant res;
     private User user;
     private Date date;
 
-    public MyReviewData(String title, String reviewcontent, double rating, Restaurant res, User user, Date date) {
+    public MyReviewData(String reviewId, String title, String reviewcontent, double rating, Restaurant res, User user, Date date) {
+        this.reviewid = reviewId;
         this.title = title;
         this.reviewcontent = reviewcontent;
         this.rating = rating;
@@ -24,6 +29,10 @@ public class MyReviewData {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getReviewid() {
+        return reviewid;
     }
 
     public String getReviewcontent() {

@@ -1,6 +1,7 @@
 package kr.edcan.cumchuck.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,14 +39,13 @@ public class MyReviewRecyclerAdapter extends RecyclerView.Adapter<MyReviewRecycl
         return new ViewHolder(v);
     }
 
-
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         data = arrayList.get(position);
         holder.title.setText(data.getRes().getName());
         holder.address.setText(data.getRes().getAddress());
         holder.review.setText(data.getReviewcontent());
-        holder.foreG.setOnClickListener(view -> Toast.makeText(context, "WOW", Toast.LENGTH_SHORT).show());
+        holder.foreG.setOnClickListener(view -> context.startActivity(new Intent(context, MyReviewDetailViewActivity.class)));
     }
 
     @Override

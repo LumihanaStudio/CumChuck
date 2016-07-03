@@ -1,5 +1,6 @@
 package kr.edcan.cumchuck.activity;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,8 @@ public class MyReviewActivity extends AppCompatActivity {
     }
 
     private void setAppbarLayout() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putParcelableArrayListExtra("array", arrayList);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
