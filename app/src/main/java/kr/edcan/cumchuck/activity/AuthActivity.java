@@ -106,6 +106,8 @@ public class AuthActivity extends AppCompatActivity {
                             FacebookUser facebookUser = response.body();
                             dataManager.saveUserInfo(facebookUser);
                             startActivity(new Intent(AuthActivity.this, MainActivity.class));
+                            Toast.makeText(AuthActivity.this, facebookUser.content.name+ " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
+                            finish();
                             break;
                         case 401:
                             CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), "Unauthorized");

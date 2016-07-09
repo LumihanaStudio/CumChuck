@@ -9,11 +9,15 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.toolbox.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -24,6 +28,7 @@ import kr.edcan.cumchuck.model.FacebookUser;
 import kr.edcan.cumchuck.model.User;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.DataManager;
+import kr.edcan.cumchuck.utils.ImageSingleTon;
 import kr.edcan.cumchuck.utils.RoundImageView;
 import kr.edcan.cumchuck.utils.SeekArc;
 
@@ -83,9 +88,14 @@ public class MyPageActivity extends AppCompatActivity {
         changeProfile = (TextView) findViewById(R.id.mypage_change_profile);
         listView = (ListView) findViewById(R.id.myPageListView);
         expProgress = (SeekArc) findViewById(R.id.mypage_show_exp);
-        profileImageView.setImageResource(CumChuckHelper.returnRandomAyano());
-        Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
-        profileBackground.setImageBitmap(helper.blur(bitmap));
+        profileImageView.setImageUrl(user.getProfileurl(), ImageSingleTon.getInstance(this).getImageLoader());
+        Log.e("asdf", user.getProfileurl());
+        profileImageView.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> {
+            if (profileImageView.getDrawable() != null) {
+                Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
+                profileBackground.setImageBitmap(helper.blur(bitmap));
+            }
+        });
         profileName.setText(user.getName());
         changeProfile.setOnClickListener(v -> Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show());
     }
