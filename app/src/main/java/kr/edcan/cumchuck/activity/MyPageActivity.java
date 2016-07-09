@@ -20,7 +20,10 @@ import java.util.ArrayList;
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.MyPageListViewAdapter;
 import kr.edcan.cumchuck.model.NormalPreferenceListData;
+import kr.edcan.cumchuck.model.FacebookUser;
+import kr.edcan.cumchuck.model.User;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
+import kr.edcan.cumchuck.utils.DataManager;
 import kr.edcan.cumchuck.utils.RoundImageView;
 import kr.edcan.cumchuck.utils.SeekArc;
 
@@ -35,13 +38,16 @@ public class MyPageActivity extends AppCompatActivity {
     RoundImageView profileImageView;
     ListView listView;
     Toolbar toolbar;
-    TextView changeProfile;
+    TextView changeProfile, profileName;
+    User user;
+    DataManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
         setActionbar();
+        loadUserData();
         setDefault();
         setEXP();
         setListView();
@@ -62,6 +68,28 @@ public class MyPageActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(drawable);
     }
 
+    private void loadUserData() {
+        manager = new DataManager();
+        manager.initializeManager(getApplicationContext());
+        user = manager.getActiveUser().second;
+    }
+
+    private void setDefault() {
+        profileName = (TextView) findViewById(R.id.mypage_profile_name);
+        listView = (ListView) findViewById(R.id.myPageListView);
+        helper = new CumChuckHelper(getApplicationContext());
+        profileBackground = (ImageView) findViewById(R.id.mypage_profile_background);
+        profileImageView = (RoundImageView) findViewById(R.id.mypage_profile_image);
+        changeProfile = (TextView) findViewById(R.id.mypage_change_profile);
+        listView = (ListView) findViewById(R.id.myPageListView);
+        expProgress = (SeekArc) findViewById(R.id.mypage_show_exp);
+        profileImageView.setImageResource(CumChuckHelper.returnRandomAyano());
+        Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
+        profileBackground.setImageBitmap(helper.blur(bitmap));
+        profileName.setText(user.getName());
+        changeProfile.setOnClickListener(v -> Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show());
+    }
+
     private void setEXP() {
         expProgress.setMax(2000);
         expProgress.setProgress(1000);
@@ -80,7 +108,7 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     ListView.OnItemClickListener listener = (parent, view, position, id) -> {
-        switch (position){
+        switch (position) {
             case 0:
                 // 개인 리뷰 관리
                 break;
@@ -92,23 +120,10 @@ public class MyPageActivity extends AppCompatActivity {
                 break;
         }
     };
-    private void setDefault() {
-        listView = (ListView) findViewById(R.id.myPageListView);
-        helper = new CumChuckHelper(getApplicationContext());
-        profileBackground = (ImageView) findViewById(R.id.mypage_profile_background);
-        profileImageView = (RoundImageView) findViewById(R.id.mypage_profile_image);
-        changeProfile = (TextView) findViewById(R.id.mypage_change_profile);
-        listView = (ListView) findViewById(R.id.myPageListView);
-        expProgress = (SeekArc) findViewById(R.id.mypage_show_exp);
-        profileImageView.setImageResource(CumChuckHelper.returnRandomAyano());
-        Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
-        profileBackground.setImageBitmap(helper.blur(bitmap));
-        changeProfile.setOnClickListener(v -> Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show());
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;

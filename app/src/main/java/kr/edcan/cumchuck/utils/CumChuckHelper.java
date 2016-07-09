@@ -10,6 +10,7 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,6 +32,10 @@ public class CumChuckHelper {
 
     public CumChuckHelper(Context c) {
         this.context = c;
+    }
+
+    public static void Log(String ClassName, String Message) {
+        Log.e("Cumchuck! " + ClassName, Message);
     }
 
     public static int[] star = {R.drawable.btn_fav_favstar, R.drawable.btn_fav_favstar_off};
@@ -90,6 +95,7 @@ public class CumChuckHelper {
                 .onPositive(callback)
                 .show();
     }
+
     public void showAlertDialog(String titleString, String contentString, MaterialDialog.SingleButtonCallback callback) {
         View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
         TextView title = (TextView) view.findViewById(R.id.dialog_title);

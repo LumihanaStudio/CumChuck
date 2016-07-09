@@ -1,8 +1,5 @@
 package kr.edcan.cumchuck.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.Date;
 
 /**
