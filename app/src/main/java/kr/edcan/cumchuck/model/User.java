@@ -1,31 +1,28 @@
 package kr.edcan.cumchuck.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Chad on 7/4/16.
  */
 public class User {
-    private String id, name, apikey;
+    long id;
+    String gender;
+    @SerializedName("_json")
+    UserContent content;
+}
 
-    public User(String name, String apikey) {
-        this.name = name;
-        this.apikey = apikey;
-    }
-
-    public User(String id, String name, String apikey) {
-        this.id = id;
-        this.name = name;
-        this.apikey = apikey;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getApikey() {
-        return apikey;
+class UserContent{
+    String name;
+    String gender;
+    String id;
+    Picture picture;
+    public class Picture{
+        public class Data{
+            boolean is_silhouette;
+            public String url;
+        }
     }
 }
+
+

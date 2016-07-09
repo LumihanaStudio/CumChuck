@@ -16,12 +16,15 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
+import kr.edcan.cumchuck.utils.NetworkInterface;
 
 public class AuthActivity extends AppCompatActivity {
 
     LoginButton fbLogin;
     CallbackManager manager;
-
+    NetworkInterface service;
+    Call<>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,8 @@ public class AuthActivity extends AppCompatActivity {
     private void initialize() {
         AppEventsLogger.activateApp(this);
         manager = CallbackManager.Factory.create();
+
+        service = CumChuckNetworkHelper.getNetworkInstance();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
