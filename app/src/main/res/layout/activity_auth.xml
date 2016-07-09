@@ -10,6 +10,7 @@
     tools:context="kr.edcan.cumchuck.activity.AuthActivity">
 
     <com.facebook.login.widget.LoginButton
+        android:id="@+id/auth_facebookbutton"
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content" />
