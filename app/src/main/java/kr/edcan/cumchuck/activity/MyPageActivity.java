@@ -89,7 +89,6 @@ public class MyPageActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.myPageListView);
         expProgress = (SeekArc) findViewById(R.id.mypage_show_exp);
         profileImageView.setImageUrl(user.getProfileurl(), ImageSingleTon.getInstance(this).getImageLoader());
-        Log.e("asdf", user.getProfileurl());
         profileImageView.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> {
             if (profileImageView.getDrawable() != null) {
                 Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
