@@ -65,6 +65,10 @@ public class DataManager {
             return Pair.create(true, user);
         } else return Pair.create(false, null);
     }
+    public void removeAllData(){
+        editor.clear();
+        editor.apply();
+    }
 
     public String getString(String key) {
         return preferences.getString(key, "");

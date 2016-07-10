@@ -1,11 +1,13 @@
 package kr.edcan.cumchuck.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.toolbox.ImageLoader;
+import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
@@ -82,7 +87,7 @@ public class MyPageActivity extends AppCompatActivity {
     private void setDefault() {
         profileName = (TextView) findViewById(R.id.mypage_profile_name);
         listView = (ListView) findViewById(R.id.myPageListView);
-        helper = new CumChuckHelper(getApplicationContext());
+        helper = new CumChuckHelper(MyPageActivity.this);
         profileBackground = (ImageView) findViewById(R.id.mypage_profile_background);
         profileImageView = (RoundImageView) findViewById(R.id.mypage_profile_image);
         changeProfile = (TextView) findViewById(R.id.mypage_change_profile);
@@ -125,7 +130,28 @@ public class MyPageActivity extends AppCompatActivity {
                 // 즐겨찾기 관리
                 break;
             case 2:
+                // 로그아웃
+                helper.showAlertDialog("로그아웃", "Cumchuck에서 로그아웃하시겠습니까?\n현재 진행중인 레이드에서 모두 나가집니다.", new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        LoginManager.getInstance().logOut();
+                        manager.removeAllData();
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+                    }
+                });
+                break;
+            case 3:
                 // 회원 탈퇴
+//                helper.showAlertDialog("회원탈퇴", "Cumchuck에서 완전히 탈퇴합니다", new MaterialDialog.SingleButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//                    }
+//                });
+                break;
+            case 4:
+                // 설정
                 break;
         }
     };
