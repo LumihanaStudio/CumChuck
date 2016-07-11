@@ -50,6 +50,7 @@ public class MyPageActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView changeProfile, profileName;
     User user;
+    View headerView;
     DataManager manager;
 
     @Override
@@ -85,14 +86,14 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     private void setDefault() {
-        profileName = (TextView) findViewById(R.id.mypage_profile_name);
+        headerView = getLayoutInflater().inflate(R.layout.mypage_listview_header, null);
+        profileName = (TextView) headerView.findViewById(R.id.mypage_profile_name);
         listView = (ListView) findViewById(R.id.myPageListView);
         helper = new CumChuckHelper(MyPageActivity.this);
-        profileBackground = (ImageView) findViewById(R.id.mypage_profile_background);
-        profileImageView = (RoundImageView) findViewById(R.id.mypage_profile_image);
-        changeProfile = (TextView) findViewById(R.id.mypage_change_profile);
-        listView = (ListView) findViewById(R.id.myPageListView);
-        expProgress = (SeekArc) findViewById(R.id.mypage_show_exp);
+        profileBackground = (ImageView) headerView.findViewById(R.id.mypage_profile_background);
+        profileImageView = (RoundImageView) headerView.findViewById(R.id.mypage_profile_image);
+        changeProfile = (TextView) headerView.findViewById(R.id.mypage_change_profile);
+        expProgress = (SeekArc) headerView.findViewById(R.id.mypage_show_exp);
         profileImageView.setImageUrl(user.getProfileurl(), ImageSingleTon.getInstance(this).getImageLoader());
         profileImageView.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> {
             if (profileImageView.getDrawable() != null) {
@@ -118,6 +119,7 @@ public class MyPageActivity extends AppCompatActivity {
         arrayList.add(new NormalPreferenceListData(R.drawable.ic_myp_settings, "설정", "앱의 세부 설정 및 정보를 확인합니다."));
         adapter = new MyPageListViewAdapter(this, arrayList);
         listView.setAdapter(adapter);
+        listView.addHeaderView(headerView);
         listView.setOnItemClickListener(listener);
     }
 
