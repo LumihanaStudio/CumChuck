@@ -6,6 +6,5 @@
         android:icon="@drawable/btn_search"
         android:id="@+id/ranking_search"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
         app:showAsAction="always" />
 </menu>

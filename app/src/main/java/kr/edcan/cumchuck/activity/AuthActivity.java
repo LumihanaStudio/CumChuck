@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -14,6 +15,10 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.model.FacebookUser;
@@ -29,6 +34,7 @@ import retrofit2.Response;
 public class AuthActivity extends AppCompatActivity {
 
     LoginButton fbLogin;
+    TwitterLoginButton twLogin;
     CallbackManager manager;
     NetworkInterface service;
     Call<FacebookUser> loginByFacebook;
@@ -49,7 +55,7 @@ public class AuthActivity extends AppCompatActivity {
             setTwitter();
         } else {
             // validate
-            Toast.makeText(this, userPair.second.getName()+ " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, userPair.second.getName() + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
@@ -60,6 +66,7 @@ public class AuthActivity extends AppCompatActivity {
         manager = CallbackManager.Factory.create();
         dataManager = new DataManager();
         fbLogin = (LoginButton) findViewById(R.id.auth_facebookbutton);
+        twLogin = (TwitterLoginButton) findViewById(R.id.auth_twitterbutton);
         dataManager.initializeManager(getApplicationContext());
 
         service = CumChuckNetworkHelper.getNetworkInstance();
@@ -86,12 +93,26 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void setTwitter() {
+        twLogin.setCallback(new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                TwitterSession session = result.data;
+                CumChuckHelper.Log(getLocalClassName(), session.getAuthToken().toString());
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                CumChuckHelper.Log(getLocalClassName(), exception.getMessage());
+            }
+        });
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         manager.onActivityResult(requestCode, resultCode, data);
+        twLogin.onActivityResult(requestCode, resultCode, data);
     }
 
     class LoadInfo extends AsyncTask<String, Void, Void> {
@@ -106,7 +127,7 @@ public class AuthActivity extends AppCompatActivity {
                             FacebookUser facebookUser = response.body();
                             dataManager.saveUserInfo(facebookUser);
                             startActivity(new Intent(AuthActivity.this, MainActivity.class));
-                            Toast.makeText(AuthActivity.this, facebookUser.content.name+ " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AuthActivity.this, facebookUser.content.name + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
                             finish();
                             break;
                         case 401:
