@@ -1,6 +1,7 @@
 package kr.edcan.cumchuck.utils;
 
 import kr.edcan.cumchuck.model.FacebookUser;
+import kr.edcan.cumchuck.model.User;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -15,4 +16,5 @@ public interface NetworkInterface {
     * */
     @GET("/auth/facebook/token")
     Call<FacebookUser> loginByFacebook(@Query("access_token") String token);
+
 }

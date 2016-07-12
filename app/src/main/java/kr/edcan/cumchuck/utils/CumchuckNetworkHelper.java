@@ -1,6 +1,7 @@
 package kr.edcan.cumchuck.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,5 +24,10 @@ public class CumChuckNetworkHelper {
                     .build();
         }
         return retrofit.create(NetworkInterface.class);
+    }
+
+    public static boolean returnNetworkState(Context context){
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

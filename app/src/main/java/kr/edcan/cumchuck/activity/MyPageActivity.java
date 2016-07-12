@@ -125,13 +125,13 @@ public class MyPageActivity extends AppCompatActivity {
 
     ListView.OnItemClickListener listener = (parent, view, position, id) -> {
         switch (position) {
-            case 0:
+            case 1:
                 // 개인 리뷰 관리
                 break;
-            case 1:
+            case 2:
                 // 즐겨찾기 관리
                 break;
-            case 2:
+            case 3:
                 // 로그아웃
                 helper.showAlertDialog("로그아웃", "Cumchuck에서 로그아웃하시겠습니까?\n현재 진행중인 레이드에서 모두 나가집니다.", new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -143,7 +143,7 @@ public class MyPageActivity extends AppCompatActivity {
                     }
                 });
                 break;
-            case 3:
+            case 4:
                 // 회원 탈퇴
 //                helper.showAlertDialog("회원탈퇴", "Cumchuck에서 완전히 탈퇴합니다", new MaterialDialog.SingleButtonCallback() {
 //                    @Override
@@ -152,7 +152,7 @@ public class MyPageActivity extends AppCompatActivity {
 //                    }
 //                });
                 break;
-            case 4:
+            case 5:
                 // 설정
                 break;
         }

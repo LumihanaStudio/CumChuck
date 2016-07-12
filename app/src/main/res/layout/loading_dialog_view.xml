@@ -24,7 +24,7 @@
         android:paddingLeft="20dp"
         android:text="Cumchuck!"
         android:textColor="@color/textColor"
-        android:textSize="22sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/dialog_subContent"
@@ -34,5 +34,5 @@
         android:paddingLeft="20dp"
         android:text="오준석님의 레이드!"
         android:textColor="@color/textColorSub"
-        android:textSize="17sp" />
+        android:textSize="14sp" />
 </LinearLayout>
