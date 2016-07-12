@@ -53,13 +53,13 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
         holder.background.setOnClickListener(cardClick);
         holder.background.setImageResource(CumChuckHelper.returnRandomAyano());
         holder.background.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        View.OnClickListener starClick = v -> {
-            data.setFavorite(!data.isFavorite());
-            holder.star.setImageResource(star[(data.isFavorite()) ? 0 : 1]);
-        };
+//        View.OnClickListener starClick = v -> {
+//            data.setFavorite(!data.isFavorite());
+//            holder.star.setImageResource(star[(data.isFavorite()) ? 0 : 1]);
+//        };
         switch (fragmentPageType) {
             case 0:
-                holder.star.setOnClickListener(starClick);
+//                holder.star.setOnClickListener(starClick);
                 holder.ratingScore.setVisibility(View.VISIBLE);
                 holder.star.setVisibility(View.VISIBLE);
                 holder.title.setText(data.getTitle());
@@ -73,7 +73,7 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
                 }
                 break;
             case 1:
-                holder.star.setOnClickListener(starClick);
+//                holder.star.setOnClickListener(starClick);
                 holder.visitorsCount.setVisibility(View.VISIBLE);
                 holder.star.setVisibility(View.VISIBLE);
                 holder.title.setText(data.getTitle());
@@ -87,7 +87,7 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
                 }
                 break;
             case 2:
-                holder.star.setOnClickListener(starClick);
+//                holder.star.setOnClickListener(starClick);
                 holder.star.setVisibility(View.VISIBLE);
                 holder.ratingScore.setVisibility(View.VISIBLE);
                 holder.title.setText(data.getTitle());

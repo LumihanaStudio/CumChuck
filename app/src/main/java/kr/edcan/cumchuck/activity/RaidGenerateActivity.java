@@ -142,7 +142,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (isAvailable) {
-                    helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", (dialog, which) -> finish());
+//                    helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", (dialog, which) -> finish());
                 } else finish();
                 break;
         }
@@ -153,7 +153,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             if (isAvailable) {
-                helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", (dialog, which) -> finish());
+//                helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", (dialog, which) -> finish());
             } else finish();
             return true;
         }

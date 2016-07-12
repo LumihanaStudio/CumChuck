@@ -66,10 +66,10 @@ public class FavRecyclerAdapter extends RecyclerView.Adapter<FavRecyclerAdapter.
             starimg = (ImageView) itemView.findViewById(R.id.common_star);
             background = (ImageView) itemView.findViewById(R.id.common_background);
             
-            starimg.setOnClickListener(v -> {
-                data.setFavorite(!data.isFavorite());
-                starimg.setImageResource(star[(data.isFavorite()) ? 0 : 1]);
-            });
+//            starimg.setOnClickListener(v -> {
+//                data.setFavorite(!data.isFavorite());
+//                starimg.setImageResource(star[(data.isFavorite()) ? 0 : 1]);
+//            });
         }
     }
 }

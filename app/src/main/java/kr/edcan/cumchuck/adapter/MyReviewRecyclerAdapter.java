@@ -46,8 +46,8 @@ public class MyReviewRecyclerAdapter extends RecyclerView.Adapter<MyReviewRecycl
         holder.title.setText(data.getRes().getName());
         holder.address.setText(data.getRes().getAddress());
         holder.review.setText(data.getReviewcontent());
-        holder.foreG.setOnClickListener(view -> view.getContext().startActivity(new Intent(context, MyReviewDetailViewActivity.class)
-                .putExtra("reviewId", arrayList.get(position).getReviewid())));
+//        holder.foreG.setOnClickListener(view -> view.getContext().startActivity(new Intent(context, MyReviewDetailViewActivity.class)
+//                .putExtra("reviewId", arrayList.get(position).getReviewid())));
     }
 
     @Override

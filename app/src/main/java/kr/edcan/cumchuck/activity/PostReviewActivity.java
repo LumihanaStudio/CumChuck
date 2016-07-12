@@ -30,7 +30,7 @@ public class PostReviewActivity extends AppCompatActivity {
     private void setDefault() {
         slider=  (Slider) findViewById(R.id.review_post_rating);
         ratingText = (TextView)findViewById(R.id.review_post_ratingText);
-        slider.setOnPositionChangeListener((view, fromUser, oldPos, newPos, oldValue, newValue) -> ratingText.setText(new DecimalFormat("0.0").format((double)newValue/2)+""));
+//        slider.setOnPositionChangeListener((view, fromUser, oldPos, newPos, oldValue, newValue) -> ratingText.setText(new DecimalFormat("0.0").format((double)newValue/2)+""));
     }
 
 

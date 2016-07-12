@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CumChuck</string>
     <string name="facebook_app_id">504577693083258</string>
-    <string name="title_activity_ranking_show">RankingShowActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="twitter_apikey">buJ5UkN67J0SCqyxi90uk8IzN</string>
+    <string name="twitter_apikey_secret">cbV8N0c9KWSNcQvdDe3w7DzGEXyo9wKlFSH0gHf0MVFY1QsPjq</string>
+    <string name="fabric_apikey">6c81b4e91b018f9f82dce750f7f07b9723039bb2</string>
 </resources>
