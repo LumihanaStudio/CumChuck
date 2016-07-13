@@ -60,7 +60,6 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        AppEventsLogger.activateApp(this);
         manager = CallbackManager.Factory.create();
         dataManager = new DataManager();
         fbLogin = (LoginButton) findViewById(R.id.auth_facebookbutton);

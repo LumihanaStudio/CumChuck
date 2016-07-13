@@ -3,6 +3,7 @@ package kr.edcan.cumchuck.activity;
 import android.app.Application;
 
 import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
@@ -18,6 +19,7 @@ public class ApplicationLauncher extends Application {
     public void onCreate() {
         super.onCreate();
         FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(getResources().getString(R.string.twitter_apikey), getResources().getString(R.string.twitter_apikey_secret));
         Fabric.with(this, new Twitter(authConfig));
     }
