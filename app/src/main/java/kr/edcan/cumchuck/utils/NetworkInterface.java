@@ -1,6 +1,7 @@
 package kr.edcan.cumchuck.utils;
 
 import kr.edcan.cumchuck.model.FacebookUser;
+import kr.edcan.cumchuck.model.TwitterUser;
 import kr.edcan.cumchuck.model.User;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -21,7 +22,6 @@ public interface NetworkInterface {
     @GET("/auth/facebook/token")
     Call<FacebookUser> loginByFacebook(@Query("access_token") String token);
 
-    @POST("/auth/facebook/token")
-    @FormUrlEncoded
-    Call<FacebookUser> loginByFacebookS(@Field("access_token") String token);
+    @GET("/auth/twitter/token")
+    Call<TwitterUser> loginByTwitter(@Query("access_token") String twitterToken);
 }

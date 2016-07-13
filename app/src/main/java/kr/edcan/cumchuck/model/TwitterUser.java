@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Chad on 7/4/16.
  */
-public class FacebookUser {
+public class TwitterUser {
     @SerializedName("_json")
     public UserContent content = new UserContent();
 
