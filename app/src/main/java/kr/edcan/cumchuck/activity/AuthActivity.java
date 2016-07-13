@@ -74,7 +74,7 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 new LoadFacebookInfo().execute(loginResult.getAccessToken().getToken());
-                dataManager.saveUserToken(loginResult.getAccessToken().getToken());
+                dataManager.saveUserCredential(loginResult.getAccessToken().getToken());
             }
 
             @Override
@@ -94,7 +94,7 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 TwitterSession session = result.data;
-                CumChuckHelper.Log(getLocalClassName(), session.getAuthToken().toString());
+                CumChuckHelper.Log(getLocalClassName(), session.getAuthToken().token);
             }
 
             @Override
@@ -122,7 +122,7 @@ public class AuthActivity extends AppCompatActivity {
                     switch (response.code()) {
                         case 200:
                             FacebookUser facebookUser = response.body();
-                            dataManager.saveUserInfo(facebookUser);
+                            dataManager.saveFacebookUserInfo(facebookUser);
                             startActivity(new Intent(AuthActivity.this, MainActivity.class));
                             Toast.makeText(AuthActivity.this, facebookUser.content.name + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
                             finish();

@@ -5,16 +5,26 @@ package kr.edcan.cumchuck.model;
  */
 
 public class User {
-    public User(String name, String id, String gender, boolean isSilhouette, String url) {
+    /*
+* 0 Facebook
+* 1 Twitter
+* */
+    String name, gender, profileurl, id;
+    boolean isSilhoutte;
+    int userType;
+
+    public User(int userType, String name, String id, String gender, boolean isSilhouette, String url) {
         this.name = name;
+        this.userType = userType;
         this.id = id;
         this.gender = gender;
         this.isSilhoutte = isSilhouette;
         this.profileurl = url;
     }
 
-    String name, gender, profileurl, id;
-    boolean isSilhoutte;
+    public int getUserType() {
+        return userType;
+    }
 
     public String getName() {
         return name;
