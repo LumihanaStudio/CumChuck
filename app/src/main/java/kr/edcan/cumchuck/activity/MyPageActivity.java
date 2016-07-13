@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -95,14 +96,22 @@ public class MyPageActivity extends AppCompatActivity {
         changeProfile = (TextView) headerView.findViewById(R.id.mypage_change_profile);
         expProgress = (SeekArc) headerView.findViewById(R.id.mypage_show_exp);
         profileImageView.setImageUrl(user.getProfileurl(), ImageSingleTon.getInstance(this).getImageLoader());
-//        profileImageView.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> {
-//            if (profileImageView.getDrawable() != null) {
-//                Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
-//                profileBackground.setImageBitmap(helper.blur(bitmap));
-//            }
-//        });
+        profileImageView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                if (profileImageView.getDrawable() != null) {
+                    Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
+                    profileBackground.setImageBitmap(helper.blur(bitmap));
+                }
+            }
+        });
         profileName.setText(user.getName());
-//        changeProfile.setOnClickListener(v -> Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show());
+        changeProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MyPageActivity.this, "", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setEXP() {
@@ -120,43 +129,46 @@ public class MyPageActivity extends AppCompatActivity {
         adapter = new MyPageListViewAdapter(this, arrayList);
         listView.setAdapter(adapter);
         listView.addHeaderView(headerView);
-//        listView.setOnItemClickListener(listener);
+        listView.setOnItemClickListener(listener);
     }
 
-//    ListView.OnItemClickListener listener = (parent, view, position, id) -> {
-//        switch (position) {
-//            case 1:
-//                // 개인 리뷰 관리
-//                break;
-//            case 2:
-//                // 즐겨찾기 관리
-//                break;
-//            case 3:
-//                // 로그아웃
-//                helper.showAlertDialog("로그아웃", "Cumchuck에서 로그아웃하시겠습니까?\n현재 진행중인 레이드에서 모두 나가집니다.", new MaterialDialog.SingleButtonCallback() {
+    ListView.OnItemClickListener listener = new ListView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            switch (i) {
+                case 1:
+                    // 개인 리뷰 관리
+                    break;
+                case 2:
+                    // 즐겨찾기 관리
+                    break;
+                case 3:
+                    // 로그아웃
+                    helper.showAlertDialog("로그아웃", "Cumchuck에서 로그아웃하시겠습니까?\n현재 진행중인 레이드에서 모두 나가집니다.", new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            LoginManager.getInstance().logOut();
+                            manager.removeAllData();
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+                        }
+                    });
+                    break;
+                case 4:
+                    // 회원 탈퇴
+//                helper.showAlertDialog("회원탈퇴", "Cumchuck에서 완전히 탈퇴합니다", new MaterialDialog.SingleButtonCallback() {
 //                    @Override
 //                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                        LoginManager.getInstance().logOut();
-//                        manager.removeAllData();
-//                        finish();
-//                        startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+//
 //                    }
 //                });
-//                break;
-//            case 4:
-//                // 회원 탈퇴
-////                helper.showAlertDialog("회원탈퇴", "Cumchuck에서 완전히 탈퇴합니다", new MaterialDialog.SingleButtonCallback() {
-////                    @Override
-////                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-////
-////                    }
-////                });
-//                break;
-//            case 5:
-//                // 설정
-//                break;
-//        }
-//    };
+                    break;
+                case 5:
+                    // 설정
+                    break;
+            }
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
