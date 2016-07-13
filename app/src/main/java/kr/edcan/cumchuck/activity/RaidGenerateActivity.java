@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
@@ -142,7 +146,12 @@ public class RaidGenerateActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (isAvailable) {
-//                    helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", (dialog, which) -> finish());
+                    helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            finish();
+                        }
+                    };
                 } else finish();
                 break;
         }
@@ -153,7 +162,12 @@ public class RaidGenerateActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             if (isAvailable) {
-//                helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", (dialog, which) -> finish());
+                helper.showAlertDialog("레이드 생성을 취소하고 뒤로 돌아가시겠습니까?", new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                });
             } else finish();
             return true;
         }
