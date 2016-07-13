@@ -33,19 +33,19 @@ import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 
 public class RaidGenerateActivity extends AppCompatActivity {
-    CumChuckHelper helper;
+    private CumChuckHelper helper;
     // Toolbar
-    Toolbar toolbar;
+    private Toolbar toolbar;
     //Animation
-    Animation fadeinAnim, fadeoutAnim;
+    private Animation fadeinAnim, fadeoutAnim;
     // View shown
-    LinearLayout defaultView;
-    RecyclerView raidGenerateView;
+    private LinearLayout defaultView;
+    private RecyclerView raidGenerateView;
     // EditText to input search
-    EditText searchQuery;
+    private EditText searchQuery;
     // boolean value to check state
-    boolean isFirst = false, isAvailable = false;
-    ImageView searchButton;
+    private boolean isFirst = false, isAvailable = false;
+    private ImageView searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +112,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
             raidGenerateView.setAdapter(adapter);
         }
     }
+
     private View.OnClickListener cardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -151,7 +152,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             finish();
                         }
-                    };
+                    });
                 } else finish();
                 break;
         }
