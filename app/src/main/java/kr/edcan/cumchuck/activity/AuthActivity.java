@@ -56,9 +56,6 @@ public class AuthActivity extends AppCompatActivity {
         } else {
             // validate
             new LoadFacebookInfo().execute(dataManager.getString(DataManager.USER_TOKEN));
-            Toast.makeText(this, userPair.second.getName() + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
         }
     }
 
