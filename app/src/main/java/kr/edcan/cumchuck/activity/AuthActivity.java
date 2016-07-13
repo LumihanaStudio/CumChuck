@@ -55,6 +55,7 @@ public class AuthActivity extends AppCompatActivity {
             setTwitter();
         } else {
             // validate
+            new LoadFacebookInfo().execute(dataManager.getString(DataManager.USER_TOKEN));
             Toast.makeText(this, userPair.second.getName() + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -76,7 +77,7 @@ public class AuthActivity extends AppCompatActivity {
         LoginManager.getInstance().registerCallback(manager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                new LoadInfo().execute(loginResult.getAccessToken().getToken());
+                new LoadFacebookInfo().execute(loginResult.getAccessToken().getToken());
                 dataManager.saveUserToken(loginResult.getAccessToken().getToken());
             }
 
@@ -115,7 +116,7 @@ public class AuthActivity extends AppCompatActivity {
         twLogin.onActivityResult(requestCode, resultCode, data);
     }
 
-    class LoadInfo extends AsyncTask<String, Void, Void> {
+    class LoadFacebookInfo extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... strings) {
             loginByFacebook = service.loginByFacebook(strings[0]);
@@ -132,7 +133,7 @@ public class AuthActivity extends AppCompatActivity {
                             break;
                         case 401:
                             CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), "Unauthorized");
-                            Toast.makeText(AuthActivity.this, "인증 과정에서 문제가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AuthActivity.this, "세션이 만료되었습니다.\n다시 로그인해주세요.", Toast.LENGTH_SHORT).show();
                             break;
                     }
                 }
