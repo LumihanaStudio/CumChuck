@@ -52,11 +52,16 @@ public class RecommendActivity extends AppCompatActivity {
         arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동 41-2", "설명입니다", true, 1.2));
         arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동 41-2", "설명입니다", true, 1.2));
         arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동 41-2", "설명입니다", true, 1.2));
-//        CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getApplicationContext(), 2, arrayList, clickListener);
-//        recommandRecyclerView.setAdapter(adapter);
+        CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getApplicationContext(), 2, arrayList, clickListener);
+        recommandRecyclerView.setAdapter(adapter);
 
     }
-//    private View.OnClickListener clickListener = view -> Log.e("asdf", "cardview clicked");
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Log.e("asdf", "cardview clicked");
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -145,7 +145,7 @@ public class RankingShowActivity extends AppCompatActivity {
             CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getContext(), 1, arrayList, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    
+
                 }
             });
             visitView.setAdapter(adapter);
