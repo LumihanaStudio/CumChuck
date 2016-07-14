@@ -170,7 +170,6 @@ public class AuthActivity extends AppCompatActivity {
                         case 200:
                             TwitterUser user = response.body();
                             dataManager.saveTwitterUserInfo(user);
-                            CumChuckHelper.log(AuthActivity.this.getLocalClassName(), user.toString());
                             startActivity(new Intent(AuthActivity.this, MainActivity.class));
                             Toast.makeText(AuthActivity.this, user.content.name + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
                             finish();

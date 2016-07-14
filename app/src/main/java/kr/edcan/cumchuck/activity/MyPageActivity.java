@@ -25,6 +25,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.toolbox.ImageLoader;
 import com.facebook.login.LoginManager;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
@@ -96,7 +97,13 @@ public class MyPageActivity extends AppCompatActivity {
         profileImageView = (RoundImageView) headerView.findViewById(R.id.mypage_profile_image);
         changeProfile = (TextView) headerView.findViewById(R.id.mypage_change_profile);
         expProgress = (SeekArc) headerView.findViewById(R.id.mypage_show_exp);
-        profileImageView.setImageUrl(user.getProfileurl(), ImageSingleTon.getInstance(this).getImageLoader());
+        try {
+            profileImageView.setImageUrl((user.getUserType() == 0) ? CumChuckHelper.convertFacebookImgSize(user.getId(), 2) : CumChuckHelper.convertTwitterImgSize(user.getProfileurl(), 3), ImageSingleTon.getInstance(this).getImageLoader());
+            CumChuckHelper.log(this.getLocalClassName(), CumChuckHelper.convertTwitterImgSize(user.getProfileurl(), 3));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            CumChuckHelper.log(this.getLocalClassName(), e.getMessage());
+        }
         profileImageView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {

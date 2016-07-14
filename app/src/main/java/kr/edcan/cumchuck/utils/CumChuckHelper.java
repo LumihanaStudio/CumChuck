@@ -62,16 +62,18 @@ public class CumChuckHelper {
         * normal 1
         * bigger 2
          * origin 3*/
-            if (!url.contains("bps.twimg.com/profile_images/"))
+            CumChuckHelper.log("helper", url);
+            if (!url.contains("pbs.twimg.com/profile_images/"))
                 throw new MalformedURLException("Not Well-formed Twitter Image Url");
             else {
                 String[] originUrl = url.split("_");
                 String[] typeReplace = {"_mini", "_normal", "_bigger", ""};
                 String result = "";
                 for (int i = 0; i < originUrl.length - 1; i++) {
+                    if (i != 0 && i != originUrl.length - 1) result += "_";
                     result += originUrl[i];
                 }
-                result += typeReplace[type] + ".png";
+                result += typeReplace[type] + ".jpg";
                 return result;
             }
         }
