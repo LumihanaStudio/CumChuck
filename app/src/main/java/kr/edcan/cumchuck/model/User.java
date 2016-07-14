@@ -9,15 +9,14 @@ public class User {
 * 0 Facebook
 * 1 Twitter
 * */
-    String name, gender, profileurl, id;
+    String name, profileurl, id;
     boolean isSilhoutte;
     int userType;
 
-    public User(int userType, String name, String id, String gender, boolean isSilhouette, String url) {
+    public User(int userType, String name, String id, boolean isSilhouette, String url) {
         this.name = name;
         this.userType = userType;
         this.id = id;
-        this.gender = gender;
         this.isSilhoutte = isSilhouette;
         this.profileurl = url;
     }
@@ -30,9 +29,6 @@ public class User {
         return name;
     }
 
-    public String getGender() {
-        return gender;
-    }
 
     public String getProfileurl() {
         return profileurl;

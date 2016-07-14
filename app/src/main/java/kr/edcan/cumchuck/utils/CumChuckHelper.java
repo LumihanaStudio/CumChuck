@@ -2,7 +2,6 @@ package kr.edcan.cumchuck.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.RestrictionEntry;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
@@ -10,7 +9,6 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

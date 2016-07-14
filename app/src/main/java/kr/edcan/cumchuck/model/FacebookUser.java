@@ -11,7 +11,6 @@ public class FacebookUser {
 
     public class UserContent {
         public String name;
-        public String gender;
         public String id;
         public Picture picture = new Picture();
     }

@@ -20,7 +20,6 @@ public class DataManager {
     public static final String USER_TOKEN = "user_token";
     public static final String USER_TOKEN_SECRET = "user_token_secret";
     public static final String USER_NAME = "user_name";
-    public static final String USER_GENDER = "user_gender";
     public static final String USER_ID = "user_id";
     public static final String LOGIN_TYPE = "login_type";
     private SharedPreferences preferences;
@@ -56,7 +55,6 @@ public class DataManager {
     public void saveFacebookUserInfo(FacebookUser user) {
         editor.putInt(LOGIN_TYPE, 0);
         editor.putBoolean(HAS_ACTIVE_USER, true);
-        editor.putString(USER_GENDER, user.content.gender);
         editor.putString(USER_ID, user.content.id);
         editor.putString(USER_NAME, user.content.name);
         editor.putString(USER_PROFILE_URL, user.content.picture.data.url);
@@ -73,12 +71,11 @@ public class DataManager {
     public Pair<Boolean, User> getActiveUser() {
         if (preferences.getBoolean(HAS_ACTIVE_USER, false)) {
             int userType = preferences.getInt(LOGIN_TYPE, -1);
-            String gender = preferences.getString(USER_GENDER, "");
             String id = preferences.getString(USER_ID, "");
             String name = preferences.getString(USER_NAME, "");
             boolean isSilhouette = preferences.getBoolean(IS_SILHOUETTE, true);
             String url = preferences.getString(USER_PROFILE_URL, "");
-            User user = new User(userType, name, id, gender, isSilhouette, url);
+            User user = new User(userType, name, id, isSilhouette, url);
             return Pair.create(true, user);
         } else return Pair.create(false, null);
     }
