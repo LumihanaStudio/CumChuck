@@ -23,5 +23,7 @@ public interface NetworkInterface {
     Call<FacebookUser> loginByFacebook(@Query("access_token") String token);
 
     @GET("/auth/twitter/token")
-    Call<TwitterUser> loginByTwitter(@Query("access_token") String twitterToken);
+    Call<TwitterUser> loginByTwitter(@Query("oauth_token") String twitterToken,
+                                     @Query("oauth_token_secret") String twitterSecretToken,
+                                     @Query("user_id") String user_id);
 }

@@ -22,6 +22,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.model.FacebookUser;
+import kr.edcan.cumchuck.model.TwitterUser;
 import kr.edcan.cumchuck.model.User;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
@@ -38,6 +39,7 @@ public class AuthActivity extends AppCompatActivity {
     CallbackManager manager;
     NetworkInterface service;
     Call<FacebookUser> loginByFacebook;
+    Call<TwitterUser> loginByTwitter;
     DataManager dataManager;
 
     @Override
@@ -55,7 +57,13 @@ public class AuthActivity extends AppCompatActivity {
             setTwitter();
         } else {
             // validate
-            new LoadFacebookInfo().execute(dataManager.getString(DataManager.USER_TOKEN));
+            switch (userPair.second.getUserType()) {
+                case 0:
+                    new LoadFacebookInfo().execute(dataManager.getFacebookUserCredential());
+                    break;
+                case 1:
+                    new LoadTwitterInfo().execute(dataManager.getTwitterUserCredentials());
+            }
         }
     }
 
@@ -94,7 +102,11 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 TwitterSession session = result.data;
-                CumChuckHelper.Log(getLocalClassName(), session.getAuthToken().token);
+                String token = session.getAuthToken().token;
+                String secret = session.getAuthToken().secret;
+                String id = String.valueOf(session.getId());
+                new LoadTwitterInfo().execute(token, secret, id);
+                dataManager.saveUserCredential(new String[]{token, secret});
             }
 
             @Override
@@ -147,4 +159,44 @@ public class AuthActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
         }
     }
+
+    class LoadTwitterInfo extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            String[] twitterCredientials = strings;
+            loginByTwitter = service.loginByTwitter(twitterCredientials[0], twitterCredientials[1], twitterCredientials[2]);
+            loginByTwitter.enqueue(new Callback<TwitterUser>() {
+                @Override
+                public void onResponse(Call<TwitterUser> call, Response<TwitterUser> response) {
+                    switch (response.code()) {
+                        case 200:
+                            TwitterUser user = response.body();
+                            dataManager.saveTwitterUserInfo(user);
+                            CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), user.toString());
+                            startActivity(new Intent(AuthActivity.this, MainActivity.class));
+                            Toast.makeText(AuthActivity.this, user.displayName + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
+                            finish();
+                            break;
+                        case 401:
+                            CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), "Unauthorized");
+                            Toast.makeText(AuthActivity.this, "세션이 만료되었습니다.\n다시 로그인해주세요.", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<TwitterUser> call, Throwable t) {
+                    CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), t.getMessage());
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
 }
+
+

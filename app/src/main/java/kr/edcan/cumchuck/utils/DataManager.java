@@ -3,6 +3,7 @@ package kr.edcan.cumchuck.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.util.Pair;
+import android.util.Log;
 
 import kr.edcan.cumchuck.model.FacebookUser;
 import kr.edcan.cumchuck.model.TwitterUser;
@@ -80,9 +81,25 @@ public class DataManager {
             String name = preferences.getString(USER_NAME, "");
             boolean isSilhouette = preferences.getBoolean(IS_SILHOUETTE, true);
             String url = preferences.getString(USER_PROFILE_URL, "");
+            Log.e("asdf", "name : " + name + "url : " + url);
             User user = new User(userType, name, id, isSilhouette, url);
             return Pair.create(true, user);
         } else return Pair.create(false, null);
+    }
+
+    public String getFacebookUserCredential() {
+        if (preferences.getBoolean(HAS_ACTIVE_USER, false) && preferences.getInt(LOGIN_TYPE, -1) == 0) {
+            return preferences.getString(USER_TOKEN, "");
+        } else return "";
+    }
+
+    public String[] getTwitterUserCredentials() {
+        if (preferences.getBoolean(HAS_ACTIVE_USER, false) && preferences.getInt(LOGIN_TYPE, -1) == 1)
+            return new String[]{preferences.getString(USER_TOKEN, ""),
+                    preferences.getString(USER_TOKEN_SECRET, ""),
+                    preferences.getString(USER_ID, "")
+            };
+        else return new String[]{""};
     }
 
     public void removeAllData() {
