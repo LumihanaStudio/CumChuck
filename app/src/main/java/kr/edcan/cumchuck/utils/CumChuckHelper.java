@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.RestrictionEntry;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Handler;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -73,19 +74,18 @@ public class CumChuckHelper {
         theIntrinsic.setInput(tmpIn);
         theIntrinsic.forEach(tmpOut);
         tmpOut.copyTo(outputBitmap);
-
         return outputBitmap;
     }
 
 
     public void showAlertDialog(String contentString, MaterialDialog.SingleButtonCallback callback) {
-        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.common_dialog_view, null);
         TextView title = (TextView) view.findViewById(R.id.dialog_title);
         TextView content = (TextView) view.findViewById(R.id.dialog_content);
-        TextView subConent = (TextView) view.findViewById(R.id.dialog_subContent);
+        TextView subContent = (TextView) view.findViewById(R.id.dialog_subContent);
         content.setVisibility(View.GONE);
-        subConent.setText(contentString);
-        subConent.setTextColor(context.getResources().getColor(R.color.textColor));
+        subContent.setText(contentString);
+        subContent.setTextColor(context.getResources().getColor(R.color.textColor));
         title.setText("CumChuck!");
         new MaterialDialog.Builder(context)
                 .customView(view, false)
@@ -97,7 +97,7 @@ public class CumChuckHelper {
     }
 
     public void showAlertDialog(String titleString, String contentString, MaterialDialog.SingleButtonCallback callback) {
-        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.common_dialog_view, null);
         TextView title = (TextView) view.findViewById(R.id.dialog_title);
         TextView content = (TextView) view.findViewById(R.id.dialog_content);
         TextView subConent = (TextView) view.findViewById(R.id.dialog_subContent);
@@ -115,7 +115,7 @@ public class CumChuckHelper {
     }
 
     public void showAlertDialog(String titleString, String contentString, String subContentString, MaterialDialog.SingleButtonCallback callback) {
-        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.common_dialog_view, null);
         TextView title = (TextView) view.findViewById(R.id.dialog_title);
         TextView content = (TextView) view.findViewById(R.id.dialog_content);
         TextView subConent = (TextView) view.findViewById(R.id.dialog_subContent);
@@ -131,24 +131,31 @@ public class CumChuckHelper {
                 .onPositive(callback)
                 .show();
     }
-//
-//    public void showLoadingDialog() {
-//        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
-//        ImageView animationImage = (ImageView) view.findViewById(R.id.loading_dialog_view_image);
-//        animationImage.setImageResource(R.drawable.loading_dialog_animation);
-//        final AnimationDrawable animationDrawable = (AnimationDrawable) animationImage.getDrawable();
-//        builder = new MaterialDialog.Builder(context)
-//                .customView(view, false)
-//                .showListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        animationDrawable.start();
-//                    }
-//                })
-//                .show();
-//    }
+
+    //
+    public void showLoadingDialog() {
+        View view = LayoutInflater.from(context).inflate(R.layout.loading_dialog_view, null);
+        ImageView animationImage = (ImageView) view.findViewById(R.id.loading_dialog_view_image);
+        animationImage.setImageResource(R.drawable.test_animation);
+        final AnimationDrawable animationDrawable = (AnimationDrawable) animationImage.getDrawable();
+        builder = new MaterialDialog.Builder(context)
+                .customView(view, false)
+                .showListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        animationDrawable.start();
+                    }
+                })
+                .show();
+    }
 
     public void dismissLoadingDialog() {
-        builder.dismiss();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                builder.dismiss();
+
+            }
+        }, 1500);
     }
 }

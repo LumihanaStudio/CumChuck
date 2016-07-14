@@ -38,3 +38,4 @@ public class RankingDetailPopupViewActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 }
+

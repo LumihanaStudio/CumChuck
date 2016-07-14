@@ -58,6 +58,8 @@ public class MyPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
+        helper = new CumChuckHelper(MyPageActivity.this);
+        helper.showLoadingDialog();
         setActionbar();
         loadUserData();
         setDefault();
@@ -90,7 +92,6 @@ public class MyPageActivity extends AppCompatActivity {
         headerView = getLayoutInflater().inflate(R.layout.mypage_listview_header, null);
         profileName = (TextView) headerView.findViewById(R.id.mypage_profile_name);
         listView = (ListView) findViewById(R.id.myPageListView);
-        helper = new CumChuckHelper(MyPageActivity.this);
         profileBackground = (ImageView) headerView.findViewById(R.id.mypage_profile_background);
         profileImageView = (RoundImageView) headerView.findViewById(R.id.mypage_profile_image);
         changeProfile = (TextView) headerView.findViewById(R.id.mypage_change_profile);
@@ -102,6 +103,7 @@ public class MyPageActivity extends AppCompatActivity {
                 if (profileImageView.getDrawable() != null) {
                     Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
                     profileBackground.setImageBitmap(helper.blur(bitmap));
+                    helper.dismissLoadingDialog();
                 }
             }
         });
