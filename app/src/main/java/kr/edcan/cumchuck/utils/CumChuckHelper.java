@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.net.MalformedURLException;
 import java.util.Random;
 
 import kr.edcan.cumchuck.R;
@@ -33,7 +34,7 @@ public class CumChuckHelper {
         this.context = c;
     }
 
-    public static void Log(String ClassName, String Message) {
+    public static void log(String ClassName, String Message) {
         Log.e("Cumchuck! " + ClassName, Message);
     }
 
@@ -53,6 +54,38 @@ public class CumChuckHelper {
             R.drawable.ayano10,
     };
 
+    public static String convertTwitterImgSize(String url, int type) throws MalformedURLException {
+        if (type > 3) return "";
+        else {
+        /*
+        * mini 0
+        * normal 1
+        * bigger 2
+         * origin 3*/
+            if (!url.contains("bps.twimg.com/profile_images/"))
+                throw new MalformedURLException("Not Well-formed Twitter Image Url");
+            else {
+                String[] originUrl = url.split("_");
+                String[] typeReplace = {"_mini", "_normal", "_bigger", ""};
+                String result = "";
+                for (int i = 0; i < originUrl.length - 1; i++) {
+                    result += originUrl[i];
+                }
+                result += typeReplace[type] + ".png";
+                return result;
+            }
+        }
+    }
+
+    public static String convertFacebookImgSize(String userId, int type) {
+        if (type > 2) return "";
+        else {
+            String[] typeReplace = {"small", "normal", "large"};
+            return "https://graph.facebook.com/" + userId + "/picture?type=" + typeReplace[type];
+        }
+    }
+
+
     public static int returnRandomAyano() {
         return ayanoPic[new Random().nextInt(10)];
     }
@@ -60,10 +93,8 @@ public class CumChuckHelper {
     public Bitmap blur(Bitmap image) {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
         int height = Math.round(image.getHeight() * BITMAP_SCALE);
-
         Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
         Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
-
         RenderScript rs = RenderScript.create(context);
         ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
         Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);

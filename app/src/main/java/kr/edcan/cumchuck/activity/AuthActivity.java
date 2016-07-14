@@ -5,13 +5,11 @@ import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -92,7 +90,7 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(AuthActivity.this, "로그인 인증 중에 문제가 발생했습니다.\n서비스 관리자에게 문의해주세요.", Toast.LENGTH_SHORT).show();
-                CumChuckHelper.Log(AuthActivity.this.getClass().getName(), error.getMessage());
+                CumChuckHelper.log(AuthActivity.this.getClass().getName(), error.getMessage());
             }
         });
     }
@@ -111,7 +109,7 @@ public class AuthActivity extends AppCompatActivity {
 
             @Override
             public void failure(TwitterException exception) {
-                CumChuckHelper.Log(getLocalClassName(), exception.getMessage());
+                CumChuckHelper.log(getLocalClassName(), exception.getMessage());
             }
         });
 
@@ -140,7 +138,7 @@ public class AuthActivity extends AppCompatActivity {
                             finish();
                             break;
                         case 401:
-                            CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), "Unauthorized");
+                            CumChuckHelper.log(AuthActivity.this.getLocalClassName(), "Unauthorized");
                             Toast.makeText(AuthActivity.this, "세션이 만료되었습니다.\n다시 로그인해주세요.", Toast.LENGTH_SHORT).show();
                             break;
                     }
@@ -148,7 +146,7 @@ public class AuthActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<FacebookUser> call, Throwable t) {
-                    CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), t.getMessage());
+                    CumChuckHelper.log(AuthActivity.this.getLocalClassName(), t.getMessage());
                 }
             });
             return null;
@@ -172,13 +170,13 @@ public class AuthActivity extends AppCompatActivity {
                         case 200:
                             TwitterUser user = response.body();
                             dataManager.saveTwitterUserInfo(user);
-                            CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), user.toString());
+                            CumChuckHelper.log(AuthActivity.this.getLocalClassName(), user.toString());
                             startActivity(new Intent(AuthActivity.this, MainActivity.class));
                             Toast.makeText(AuthActivity.this, user.content.name + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
                             finish();
                             break;
                         case 401:
-                            CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), "Unauthorized");
+                            CumChuckHelper.log(AuthActivity.this.getLocalClassName(), "Unauthorized");
                             Toast.makeText(AuthActivity.this, "세션이 만료되었습니다.\n다시 로그인해주세요.", Toast.LENGTH_SHORT).show();
                             break;
                     }
@@ -186,7 +184,7 @@ public class AuthActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<TwitterUser> call, Throwable t) {
-                    CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), t.getMessage());
+                    CumChuckHelper.log(AuthActivity.this.getLocalClassName(), t.getMessage());
                 }
             });
             return null;

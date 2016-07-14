@@ -18,6 +18,7 @@ public class CommonRecycleData {
         this.rating = rating;
         this.isFavorite = isFavorite;
         this.rankingCount = rankingCount;
+
     }
 
     public CommonRecycleData(String title, String address, String content, int rankingCount, int visitorsCount, boolean isFavorite) {
@@ -30,6 +31,8 @@ public class CommonRecycleData {
         this.visitorsCount = visitorsCount;
         this.isFavorite = isFavorite;
     }
+
+
 
     public CommonRecycleData(String title, String address, String content, boolean isFavorite, double rating) {
         /*
