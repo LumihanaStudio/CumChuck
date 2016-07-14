@@ -67,10 +67,10 @@ public class DataManager {
         /* Save Twitter User Info, must refactor TwitterUser Class First */
         editor.putInt(LOGIN_TYPE, 1);
         editor.putBoolean(HAS_ACTIVE_USER, true);
-        editor.putString(USER_ID, user.id);
-        editor.putString(USER_NAME, user.displayName);
-        editor.putBoolean(IS_SILHOUETTE, user.default_profile);
-        editor.putString(USER_PROFILE_URL, user.profile_image_url);
+        editor.putString(USER_ID, user.content.id);
+        editor.putString(USER_NAME, user.content.name);
+        editor.putBoolean(IS_SILHOUETTE, user.content.default_profile);
+        editor.putString(USER_PROFILE_URL, user.content.profile_image_url);
         editor.apply();
     }
 

@@ -174,7 +174,7 @@ public class AuthActivity extends AppCompatActivity {
                             dataManager.saveTwitterUserInfo(user);
                             CumChuckHelper.Log(AuthActivity.this.getLocalClassName(), user.toString());
                             startActivity(new Intent(AuthActivity.this, MainActivity.class));
-                            Toast.makeText(AuthActivity.this, user.displayName + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AuthActivity.this, user.content.name + " 님 안녕하세요!", Toast.LENGTH_SHORT).show();
                             finish();
                             break;
                         case 401:
