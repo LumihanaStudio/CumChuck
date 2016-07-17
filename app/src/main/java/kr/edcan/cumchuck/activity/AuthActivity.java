@@ -45,8 +45,15 @@ public class AuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-        initialize();
-        validateUserToken();
+        dataManager = new DataManager();
+        dataManager.initializeManager(getApplicationContext());
+        if (dataManager.isFirst()) {
+            startActivity(new Intent(getApplicationContext(), TutorialActivity.class));
+            finish();
+        } else {
+            initialize();
+            validateUserToken();
+        }
     }
 
     private void validateUserToken() {
@@ -68,10 +75,8 @@ public class AuthActivity extends AppCompatActivity {
 
     private void initialize() {
         manager = CallbackManager.Factory.create();
-        dataManager = new DataManager();
         fbLogin = (LoginButton) findViewById(R.id.auth_facebookbutton);
         twLogin = (TwitterLoginButton) findViewById(R.id.auth_twitterbutton);
-        dataManager.initializeManager(getApplicationContext());
         String permissions[] = new String[]{"email", "user_about_me", "user_friends"};
         fbLogin.setReadPermissions(permissions);
         service = CumChuckNetworkHelper.getNetworkInstance();

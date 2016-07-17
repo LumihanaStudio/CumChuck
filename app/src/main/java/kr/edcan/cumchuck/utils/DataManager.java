@@ -119,6 +119,15 @@ public class DataManager {
         return preferences.getBoolean(key, false);
     }
 
+    public boolean isFirst() {
+        return preferences.getBoolean("IS_FIRST", true);
+    }
+
+    public void notFirst() {
+        editor.putBoolean("IS_FIRST", false);
+        editor.apply();
+    }
+
     public long getLong(String key) {
         return preferences.getLong(key, 0);
     }

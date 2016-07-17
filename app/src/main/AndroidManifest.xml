@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.edcan.cumchuck">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".activity.ApplicationLauncher"
         android:allowBackup="true"
@@ -14,7 +16,8 @@
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="6c81b4e91b018f9f82dce750f7f07b9723039bb2"/>
+            android:value="6c81b4e91b018f9f82dce750f7f07b9723039bb2" />
+
         <activity android:name=".activity.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +27,7 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.MyPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -49,7 +52,12 @@
         <activity android:name=".activity.MyReviewDetailViewActivity" />
         <activity android:name=".activity.PostReviewActivity" />
         <activity android:name=".activity.RunningRaidActivity" />
-        <activity android:name=".activity.NetworkErrorActivity"></activity>
+        <activity android:name=".activity.NetworkErrorActivity" />
+        <activity android:name=".activity.TutorialActivity" />
+        <activity
+            android:name=".activity.LoadingActivity"
+            android:theme="@style/Theme.AppCompat.Translucent" />
+        <activity android:name=".activity.RaidInfoShowActivity"></activity>
     </application>
 
 </manifest>

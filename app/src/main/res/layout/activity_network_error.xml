@@ -5,12 +5,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="kr.edcan.cumchuck.activity.NetworkErrorActivity">
-    <TextView
-        android:id="@+id/network_error_mainText"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginBottom="70dp"
         android:gravity="center"
-        android:text="No Network!"
-        android:textSize="25sp" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chara_serverdead" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="서버 연결에 실패하였습니다"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cumchuck의 서버가 응답하지 않습니다.\n서비스 자체 오류이거나 인터넷의 문제가 있는 것일수 있습니다"
+            android:textColor="@color/textColorSub"
+            android:layout_marginTop="5dp"
+            android:textSize="13sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/error_footer_opensetings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_square_20dp_selector"
+            android:paddingBottom="3dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="3dp"
+            android:text="데이터 설정열기"
+            android:textColor="#FFF"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/error_footer_reconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/round_square_20dp_selector"
+            android:paddingBottom="3dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="3dp"
+            android:text="연결 다시시도"
+            android:textColor="#FFF"
+            android:textSize="25sp" />
+    </LinearLayout>
 </RelativeLayout>

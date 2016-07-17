@@ -24,7 +24,6 @@ public class NetworkErrorActivity extends AppCompatActivity {
     }
 
     private void setDefault() {
-        currentErrorMsg = (TextView) findViewById(R.id.network_error_mainText);
 
         intent = getIntent();
         switch (intent.getIntExtra("ERROR_TYPE", -1)) {
@@ -32,10 +31,8 @@ public class NetworkErrorActivity extends AppCompatActivity {
                 finish();
                 break;
             case WIFI_OR_DATA_NOT_CONNECTED:
-                currentErrorMsg.setText("데이터 네트워크가 사용이 중지되었습니다.\n연결 후 다시 시도해주세요!");
                 break;
             case SERVER_ERROR:
-                currentErrorMsg.setText("서버에 연결할 수 없습니다.\n서비스 이용에 불편을드려 죄송합니다.\n");
                 break;
         }
     }

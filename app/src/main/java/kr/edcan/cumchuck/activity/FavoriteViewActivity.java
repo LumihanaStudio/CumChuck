@@ -9,26 +9,62 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.FavRecyclerAdapter;
 import kr.edcan.cumchuck.model.FavoriteData;
+import kr.edcan.cumchuck.model.Restaurant;
+import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
+import kr.edcan.cumchuck.utils.DataManager;
+import kr.edcan.cumchuck.utils.NetworkInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FavoriteViewActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     RecyclerView favRecycler;
+    Call<List<Restaurant>> getFavRestaurant;
+    NetworkInterface service;
+    DataManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_view);
         setToolbar();
-        setDefault();
+        setData();
+    }
 
+    private void setData() {
+        manager = new DataManager();
+        manager.initializeManager(getApplicationContext());
+        service = CumChuckNetworkHelper.getNetworkInstance();
+        getFavRestaurant = service.getFavRestaurant(manager.getActiveUser().second.getId());
+        getFavRestaurant.enqueue(new Callback<List<Restaurant>>() {
+            @Override
+            public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
+                Log.e("asdf", response.code() + "");
+                switch (response.code()) {
+                    case 200:
+                        setDefault(response.body());
+                        break;
+                    case 401:
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Restaurant>> call, Throwable t) {
+                Log.e("asdf", t.getMessage());
+            }
+        });
     }
 
     private void setToolbar() {
@@ -45,7 +81,7 @@ public class FavoriteViewActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(drawable);
     }
 
-    private void setDefault() {
+    private void setDefault(List<Restaurant> list) {
         favRecycler = (RecyclerView) findViewById(R.id.favoriteView);
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
         favRecycler.setHasFixedSize(true);
@@ -54,19 +90,16 @@ public class FavoriteViewActivity extends AppCompatActivity {
         // Throw NetworkManager to Adapter when is able
         ArrayList<FavoriteData> arrayList = new ArrayList<>();
         // if(star>5/0) return;
-        arrayList.add(new FavoriteData(false, "청담 시공폭풍 레스토랑", "서울특별시 동작구 사당동", "분식집 맛에 질려 ㅗㅗㅗ", 5.0));
-        arrayList.add(new FavoriteData(true, "청담 시공폭풍 레스토랑", "서울특별시 관악구 신림동", "분식집 맛에 질려 ㅗㅗㅗ", 2.0));
-        arrayList.add(new FavoriteData(false, "청담 시공폭풍 레스토랑", "서울특별시 서초구 반포동", "분식집 맛에 질려 ㅗㅗㅗ", 1.222));
-        arrayList.add(new FavoriteData(false, "청담 시공폭풍 레스토랑", "서울특별시 동작구 사당동", "분식집 맛에 질려 ㅗㅗㅗ", 5.0));
-        arrayList.add(new FavoriteData(false, "청담 시공폭풍 레스토랑", "서울특별시 동작구 사당동", "분식집 맛에 질려 ㅗㅗㅗ", 5.0));
-        arrayList.add(new FavoriteData(false, "청담 시공폭풍 레스토랑", "서울특별시 동작구 사당동", "분식집 맛에 질려 ㅗㅗㅗ", 5.0));
+        for (Restaurant r : list) {
+            arrayList.add(new FavoriteData(true, r.getName(), r.getAddress(), "", r.getCurrentResRating()));
+        }
         FavRecyclerAdapter adapter = new FavRecyclerAdapter(getApplicationContext(), arrayList);
         favRecycler.setAdapter(adapter);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
