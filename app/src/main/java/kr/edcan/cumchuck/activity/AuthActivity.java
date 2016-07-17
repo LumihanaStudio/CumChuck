@@ -17,6 +17,7 @@ import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.tweetui.UserTimeline;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.model.FacebookUser;
@@ -71,7 +72,8 @@ public class AuthActivity extends AppCompatActivity {
         fbLogin = (LoginButton) findViewById(R.id.auth_facebookbutton);
         twLogin = (TwitterLoginButton) findViewById(R.id.auth_twitterbutton);
         dataManager.initializeManager(getApplicationContext());
-
+        String permissions[] = new String[]{"email", "user_about_me", "user_friends"};
+        fbLogin.setReadPermissions(permissions);
         service = CumChuckNetworkHelper.getNetworkInstance();
     }
 
