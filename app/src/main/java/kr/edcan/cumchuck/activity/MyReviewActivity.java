@@ -51,10 +51,10 @@ public class MyReviewActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.myreview_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         arrayList = new ArrayList<>();
-        arrayList.add(new MyReviewData("1", "히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
-                new Restaurant("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동", "010-9944-4144", 1, 5.0),
-                new DataManager().getActiveUser().second,
-                new Date(System.currentTimeMillis())));
+//        arrayList.add(new MyReviewData("1", "히어로즈 오브 더 스톰", "굳이 롤을 앞지를 필요가 있나요", 5.0,
+//                new Restaurant("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동", "010-9944-4144", 1, 5.0),
+//                new DataManager().getActiveUser().second,
+//                new Date(System.currentTimeMillis())));
         MyReviewRecyclerAdapter adapter = new MyReviewRecyclerAdapter(getApplicationContext(), arrayList);
         recyclerView.setAdapter(adapter);
     }

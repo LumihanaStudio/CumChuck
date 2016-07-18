@@ -60,7 +60,7 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
         helper = new CumChuckHelper(MyPageActivity.this);
-        helper.showLoadingDialog();
+        startActivity(new Intent(getApplicationContext(), LoadingActivity.class));
         setActionbar();
         loadUserData();
         setDefault();
@@ -99,10 +99,8 @@ public class MyPageActivity extends AppCompatActivity {
         expProgress = (SeekArc) headerView.findViewById(R.id.mypage_show_exp);
         try {
             profileImageView.setImageUrl((user.getUserType() == 0) ? CumChuckHelper.convertFacebookImgSize(user.getId(), 2) : CumChuckHelper.convertTwitterImgSize(user.getProfileurl(), 3), ImageSingleTon.getInstance(this).getImageLoader());
-            CumChuckHelper.log(this.getLocalClassName(), CumChuckHelper.convertTwitterImgSize(user.getProfileurl(), 3));
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            CumChuckHelper.log(this.getLocalClassName(), e.getMessage());
         }
         profileImageView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -110,7 +108,7 @@ public class MyPageActivity extends AppCompatActivity {
                 if (profileImageView.getDrawable() != null) {
                     Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
                     profileBackground.setImageBitmap(helper.blur(bitmap));
-                    helper.dismissLoadingDialog();
+                    LoadingActivity.finishThis();
                 }
             }
         });

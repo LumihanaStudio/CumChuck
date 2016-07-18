@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.model.CommonRecycleData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
+import kr.edcan.cumchuck.utils.ImageSingleTon;
 
 /**
  * Created by MalangDesktop on 2016-06-04.
@@ -103,6 +106,7 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
                 holder.title.setText(data.getTitle());
                 holder.address.setText(data.getAddress());
                 holder.ratingScore.setText(new DecimalFormat("#0.0").format(data.getRating()));
+                holder.background.setImageUrl(data.getUrl(), ImageSingleTon.getInstance(context).getImageLoader());
                 break;
         }
     }
@@ -126,13 +130,14 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView star, background;
+        ImageView star;
+        NetworkImageView background;
         TextView title, address, content;
         TextView ratingScore, ranking, visitorsCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            background = (ImageView) itemView.findViewById(R.id.common_background);
+            background = (NetworkImageView) itemView.findViewById(R.id.common_background);
             title = (TextView) itemView.findViewById(R.id.common_title);
             address = (TextView) itemView.findViewById(R.id.common_address);
             content = (TextView) itemView.findViewById(R.id.common_content);

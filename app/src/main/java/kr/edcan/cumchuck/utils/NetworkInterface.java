@@ -3,6 +3,7 @@ package kr.edcan.cumchuck.utils;
 import java.util.Date;
 import java.util.List;
 
+import kr.edcan.cumchuck.model.DummyRest;
 import kr.edcan.cumchuck.model.FacebookUser;
 import kr.edcan.cumchuck.model.Raid;
 import kr.edcan.cumchuck.model.Restaurant;
@@ -88,8 +89,11 @@ public interface NetworkInterface {
     @FormUrlEncoded
     Call<String> removeFavoriteRestaurant(@Field("userId") String userId, @Field("resId") String resId);
 
-    @GET("/restaurant/search/{place}/{query}")
-    Call<List<Restaurant>> getRestaurantInfo(@Path("place") String place, @Path("query") String query);
+    @GET("/search/용산구, 서울특별시, 대한민국/{query}")
+    Call<List<DummyRest>> searchRestaurant(@Path("query") String query);
+
+    @GET("/restaurant/info")
+    Call<Restaurant> searchRestInfo(@Field("resId") String resId);
 
 //    @POST("/restaurant/recommend")
 //    Call<List<Restaurant>> getRecommendRestaurant()

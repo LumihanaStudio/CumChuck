@@ -114,18 +114,6 @@
                             android:padding="10dp"
                             android:src="@drawable/btn_raidlist_share" />
 
-                        <TextView
-                            android:id="@+id/raidshow_join"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/main_join_selector"
-                            android:paddingBottom="9dp"
-                            android:paddingLeft="17dp"
-                            android:paddingRight="17dp"
-                            android:paddingTop="9dp"
-                            android:text="참여하기"
-                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -138,6 +126,7 @@
         </RelativeLayout>
 
         <ListView
+            android:id="@+id/myraid_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="50dp" />
@@ -150,12 +139,12 @@
         android:background="@color/colorPrimary">
 
         <TextView
+            android:id="@+id/raidinfo_currentstatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:text="최대 10명, 현재 8명"
-            android:id="@+id/raidinfo_currentstatus"
             android:textColor="#FFF"
             android:textSize="18sp" />
 

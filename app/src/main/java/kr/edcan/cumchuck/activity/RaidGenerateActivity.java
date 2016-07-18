@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,12 +26,20 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.CommonRecyclerAdapter;
 import kr.edcan.cumchuck.model.CommonRecycleData;
+import kr.edcan.cumchuck.model.DummyRest;
+import kr.edcan.cumchuck.model.Restaurant;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
+import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
+import kr.edcan.cumchuck.utils.NetworkInterface;
 import kr.edcan.cumchuck.utils.RoundImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RaidGenerateActivity extends AppCompatActivity {
     private CumChuckHelper helper;
@@ -47,10 +56,14 @@ public class RaidGenerateActivity extends AppCompatActivity {
     private boolean isFirst = false, isAvailable = false;
     private ImageView searchButton;
 
+    NetworkInterface service;
+    Call<List<DummyRest>> search;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raid_generate);
+        service = CumChuckNetworkHelper.getNetworkInstance();
         setAppbarLayout();
         setDefault();
 
@@ -93,23 +106,61 @@ public class RaidGenerateActivity extends AppCompatActivity {
             searchQuery.setError("음식점 이름을 입력해주세요!");
             searchQuery.setText("");
         } else {
+            startActivity(new Intent(getApplicationContext(), LoadingActivity.class));
             InputMethodManager imm = (InputMethodManager) searchQuery.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(searchQuery.getWindowToken(), 0);
             // Search AsyncTask
-            isFirst = !isFirst;
-            isAvailable = true;
-            setView();
-            LinearLayoutManager manager = new LinearLayoutManager(this);
-            raidGenerateView.setHasFixedSize(true);
-            raidGenerateView.setLayoutManager(manager);
-            ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
-            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
-            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
-            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
-            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
-            arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울시 동작구 사당동", 1.5));
-            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(this, 3, arrayList, cardClickListener);
-            raidGenerateView.setAdapter(adapter);
+            search = service.searchRestaurant(searchQuery.getText().toString().trim());
+            search.enqueue(new Callback<List<DummyRest>>() {
+                @Override
+                public void onResponse(Call<List<DummyRest>> call, Response<List<DummyRest>> response) {
+                    Log.e("asdf", response.code() + "");
+                    switch (response.code()) {
+                        case 200:
+                            List<DummyRest> r = response.body();
+                            Log.e("asdf", r.size() + "");
+                            isFirst = false;
+                            if (r.size() == 0) {
+                                isAvailable = false;
+                                setView();
+                                LoadingActivity.finishNow();
+                            } else {
+                                isAvailable = true;
+                                setView();
+                                LinearLayoutManager manager = new LinearLayoutManager(RaidGenerateActivity.this);
+                                raidGenerateView.setHasFixedSize(true);
+                                raidGenerateView.setLayoutManager(manager);
+                                final ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
+                                for (DummyRest rest : r) {
+                                    Log.e("asdf", rest.getId());
+                                    Call<Restaurant> asdf = service.getRestaurantInfo(rest.getId());
+                                    asdf.enqueue(new Callback<Restaurant>() {
+                                        @Override
+                                        public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+                                            Log.e("asdf", response.body().resTitle+"");
+                                            Restaurant r = response.body();
+                                            arrayList.add(new CommonRecycleData(r.resTitle, r.resId, 0.0, ""));
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Restaurant> call, Throwable t) {
+                                            Log.e("asdf", t.getMessage());
+                                        }
+                                    });
+                                }
+                                CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(RaidGenerateActivity.this, 3, arrayList, cardClickListener);
+                                raidGenerateView.setAdapter(adapter);
+                                Log.e("asdf", arrayList.size()+"");
+                                LoadingActivity.finishNow();
+                            }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<DummyRest>> call, Throwable t) {
+                    Log.e("asdf", t.getMessage());
+                }
+            });
         }
     }
 
@@ -123,18 +174,17 @@ public class RaidGenerateActivity extends AppCompatActivity {
     private void setView() {
         TextView title = (TextView) findViewById(R.id.raid_generate_defaultViewTitle);
         TextView content = (TextView) findViewById(R.id.raid_generate_defaultViewContent);
-        RoundImageView statusImage = (RoundImageView) findViewById(R.id.raid_generate_defaultViewImage);
-
+        ImageView statusImage = (ImageView) findViewById(R.id.raid_generate_defaultViewImage);
         /*
         * 1. if isFirst = false, must find restaurant first
         * 2. if isAvailable = false, no searched restaurant
         * 3. if isAvailable, show input view*/
-        if (!isFirst) {
+        if (isFirst) {
             defaultView.setVisibility(View.VISIBLE);
             raidGenerateView.setVisibility(View.GONE);
         } else if (!isAvailable) {
-//            statusImage.setImageResource();
-            title.setText("검색된 음식점이 없습니다!");
+            statusImage.setImageDrawable(getResources().getDrawable(R.drawable.chara_searchplace_notsearched));
+            title.setText("검-색된 음식점이 없습니다!");
             content.setText("다른 검색어로 시도해보세요!");
         } else if (isAvailable) {
             defaultView.setVisibility(View.GONE);

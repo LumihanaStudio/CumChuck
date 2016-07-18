@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(getApplicationContext(), RaidGenerateActivity.class));
                 break;
             case R.id.current_raid_join:
-                startActivity(new Intent(getApplicationContext(), RankingShowActivity.class));
+                startActivity(new Intent(getApplicationContext(), RaidInfoShowActivity.class));
                 break;
             case R.id.main_secondImage:
                 startActivity(new Intent(getApplicationContext(), RaidFromFriendActivity.class));

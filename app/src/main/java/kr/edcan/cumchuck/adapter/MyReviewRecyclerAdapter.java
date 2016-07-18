@@ -43,8 +43,8 @@ public class MyReviewRecyclerAdapter extends RecyclerView.Adapter<MyReviewRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         data = arrayList.get(position);
-        holder.title.setText(data.getRes().getName());
-        holder.address.setText(data.getRes().getAddress());
+        holder.title.setText(data.getRes().resTitle);
+        holder.address.setText(data.getRes().resId);
         holder.review.setText(data.getReviewcontent());
         holder.foreG.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +53,7 @@ public class MyReviewRecyclerAdapter extends RecyclerView.Adapter<MyReviewRecycl
                         .putExtra("reviewId", arrayList.get(position).getReviewid()));
             }
         });
+
     }
 
     @Override

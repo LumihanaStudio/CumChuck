@@ -8,6 +8,7 @@ public class CommonRecycleData {
     private double rating;
     private int rankingCount, visitorsCount;
     private boolean isFavorite;
+    private String url;
 
     public CommonRecycleData(String title, String address, String content, double rating, boolean isFavorite, int rankingCount) {
         /*
@@ -44,12 +45,13 @@ public class CommonRecycleData {
         this.rating = rating;
     }
 
-    public CommonRecycleData(String title, String address, double rating) {
+    public CommonRecycleData(String title, String address, double rating, String uRl) {
         /*
         * 3: RaidGenerateActivity*/
         this.address = address;
         this.title = title;
         this.rating = rating;
+        this.url = url;
     }
 
 
@@ -93,5 +95,9 @@ public class CommonRecycleData {
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }

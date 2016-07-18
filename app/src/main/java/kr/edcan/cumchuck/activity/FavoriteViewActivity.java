@@ -91,7 +91,7 @@ public class FavoriteViewActivity extends AppCompatActivity {
         ArrayList<FavoriteData> arrayList = new ArrayList<>();
         // if(star>5/0) return;
         for (Restaurant r : list) {
-            arrayList.add(new FavoriteData(true, r.getName(), r.getAddress(), "", r.getCurrentResRating()));
+//            arrayList.add(new FavoriteData(true, r.getName(), r.getName(), "", 0.0));
         }
         FavRecyclerAdapter adapter = new FavRecyclerAdapter(getApplicationContext(), arrayList);
         favRecycler.setAdapter(adapter);
