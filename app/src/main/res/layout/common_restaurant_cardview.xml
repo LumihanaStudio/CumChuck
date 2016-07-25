@@ -27,6 +27,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:visibility="gone"
+                android:id="@+id/common_resId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
                 android:id="@+id/common_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="분식집 맛에 질려 조금 더 고오급스러운 음식은 \n먹어보고자 한다면? 고오급 레스토랑이죠!"
+                android:text="오늘 이런 레스토랑은 어떤가요?!"
                 android:textColor="#FFF"
                 android:textSize="11sp" />
         </LinearLayout>

@@ -104,6 +104,7 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
             case 3:
                 holder.ratingScore.setVisibility(View.VISIBLE);
                 holder.title.setText(data.getTitle());
+                holder.reseId.setText(data.getResId());
                 holder.address.setText(data.getAddress());
                 holder.ratingScore.setText(new DecimalFormat("#0.0").format(data.getRating()));
                 holder.background.setImageUrl(data.getUrl(), ImageSingleTon.getInstance(context).getImageLoader());
@@ -132,11 +133,12 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
 
         ImageView star;
         NetworkImageView background;
-        TextView title, address, content;
+        TextView title, address, content, reseId;
         TextView ratingScore, ranking, visitorsCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            reseId = (TextView) itemView.findViewById(R.id.common_resId);
             background = (NetworkImageView) itemView.findViewById(R.id.common_background);
             title = (TextView) itemView.findViewById(R.id.common_title);
             address = (TextView) itemView.findViewById(R.id.common_address);

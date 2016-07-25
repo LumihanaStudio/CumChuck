@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class Restaurant {
-    public String resTitle, resId;
+    public String resTitle, resAddress, resId;
     @SerializedName("photo")
     public WOW wow = new WOW();
 

@@ -148,7 +148,8 @@ public class RaidGenerateActivity extends AppCompatActivity {
     private View.OnClickListener cardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(getApplicationContext(), RaidGenerateInputActivity.class));
+            TextView resId = (TextView) v.findViewById(R.id.common_resId);
+            startActivity(new Intent(getApplicationContext(), RaidGenerateInputActivity.class).putExtra("resId", resId.getText().toString().trim()));
         }
     };
 
@@ -222,13 +223,12 @@ public class RaidGenerateActivity extends AppCompatActivity {
                 getInfo.enqueue(new Callback<Restaurant>() {
                     @Override
                     public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                        Log.e("asdf", response.body().resTitle + "");
+                        Log.e("asdf", response.body().resId+ "");
                         Restaurant r = response.body();
-                        arrayList.add(new CommonRecycleData(r.resTitle, r.resId, 0.0, ""));
+                        arrayList.add(new CommonRecycleData(r.resTitle, r.resAddress, 0.0, ""));
                         if (arrayList.size() == resid.size()) {
                             CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(RaidGenerateActivity.this, 3, arrayList, cardClickListener);
                             raidGenerateView.setAdapter(adapter);
-                            Log.e("asdf", arrayList.size() + "");
                             LoadingActivity.finishNow();
                         }
                     }

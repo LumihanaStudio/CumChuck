@@ -4,11 +4,15 @@ package kr.edcan.cumchuck.model;
  * Created by MalangDesktop on 2016-06-04.
  */
 public class CommonRecycleData {
-    private String title, address, content;
+    private String title, address, content, resId;
     private double rating;
     private int rankingCount, visitorsCount;
     private boolean isFavorite;
     private String url;
+
+    public String getResId() {
+        return resId;
+    }
 
     public CommonRecycleData(String title, String address, String content, double rating, boolean isFavorite, int rankingCount) {
         /*
@@ -45,13 +49,14 @@ public class CommonRecycleData {
         this.rating = rating;
     }
 
-    public CommonRecycleData(String title, String address, double rating, String uRl) {
+    public CommonRecycleData(String title, String address, double rating, String uRl, String resId) {
         /*
         * 3: RaidGenerateActivity*/
         this.address = address;
         this.title = title;
         this.rating = rating;
         this.url = url;
+        this.resId = resId;
     }
 
 

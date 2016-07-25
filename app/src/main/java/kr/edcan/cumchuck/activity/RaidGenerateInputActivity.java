@@ -1,6 +1,7 @@
 package kr.edcan.cumchuck.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,7 +25,13 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.model.Restaurant;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
+import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
+import kr.edcan.cumchuck.utils.NetworkInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RaidGenerateInputActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,12 +44,42 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
     TextInputLayout raidNameInput;
     TextView cardviewDate, cardviewTime, setDateTime, personCountTrack;
     Slider personCount;
-
+    NetworkInterface service;
+    Call<Restaurant> getRestaurantInfo;
+    Intent intent;
+    String resId;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raid_generate_input);
         setAppbarLayout();
+        intent = getIntent();
+
+        setNetwork();
         setDefault();
+    }
+
+    private void setNetwork() {
+        resId = intent.getStringExtra("resId");
+        service = CumChuckNetworkHelper.getNetworkInstance();
+        getRestaurantInfo = service.getRestaurantInfo(resId);
+        getRestaurantInfo.enqueue(new Callback<Restaurant>() {
+            @Override
+            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+                switch (response.code()){
+                    case 200:
+                        Restaurant r = response.body();
+                        headerTitle.setText(r.resTitle);
+                        headerAddress.setText(r.resAddress);
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Restaurant> call, Throwable t) {
+
+            }
+        });
     }
 
     private void setAppbarLayout() {
