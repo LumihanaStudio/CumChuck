@@ -35,8 +35,9 @@ public interface NetworkInterface {
                                      @Query("oauth_token_secret") String twitterSecretToken,
                                      @Query("user_id") String user_id);
 
-    @GET("/auth/user/destroyUser")
-    Call<String> destroyUser(@Query("userId") String userId);
+    @POST("/auth/user/destroyUser")
+    @FormUrlEncoded
+    Call<String> destroyUser(@Field("userId") String userId, @Field("userType") int userType);
 
     @GET("/auth/user/getFacebookFriendList")
     Call<List<User>> getFacebookFriendList(@Query("userId") String userId, @Query("access_token") String accessToken);

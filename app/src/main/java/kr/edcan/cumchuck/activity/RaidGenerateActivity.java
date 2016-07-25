@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.CommonRecyclerAdapter;
@@ -58,6 +60,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
 
     NetworkInterface service;
     Call<List<DummyRest>> search;
+    ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
     }
 
     private void search() {
+        arrayList = new ArrayList<>();
         String s = searchQuery.getText().toString().trim();
         if (s.equals("")) {
             searchQuery.setError("음식점 이름을 입력해주세요!");
@@ -109,7 +113,6 @@ public class RaidGenerateActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), LoadingActivity.class));
             InputMethodManager imm = (InputMethodManager) searchQuery.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(searchQuery.getWindowToken(), 0);
-            // Search AsyncTask
             search = service.searchRestaurant(searchQuery.getText().toString().trim());
             search.enqueue(new Callback<List<DummyRest>>() {
                 @Override
@@ -118,7 +121,6 @@ public class RaidGenerateActivity extends AppCompatActivity {
                     switch (response.code()) {
                         case 200:
                             List<DummyRest> r = response.body();
-                            Log.e("asdf", r.size() + "");
                             isFirst = false;
                             if (r.size() == 0) {
                                 isAvailable = false;
@@ -130,28 +132,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
                                 LinearLayoutManager manager = new LinearLayoutManager(RaidGenerateActivity.this);
                                 raidGenerateView.setHasFixedSize(true);
                                 raidGenerateView.setLayoutManager(manager);
-                                final ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
-                                for (DummyRest rest : r) {
-                                    Log.e("asdf", rest.getId());
-                                    Call<Restaurant> asdf = service.getRestaurantInfo(rest.getId());
-                                    asdf.enqueue(new Callback<Restaurant>() {
-                                        @Override
-                                        public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                                            Log.e("asdf", response.body().resTitle+"");
-                                            Restaurant r = response.body();
-                                            arrayList.add(new CommonRecycleData(r.resTitle, r.resId, 0.0, ""));
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<Restaurant> call, Throwable t) {
-                                            Log.e("asdf", t.getMessage());
-                                        }
-                                    });
-                                }
-                                CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(RaidGenerateActivity.this, 3, arrayList, cardClickListener);
-                                raidGenerateView.setAdapter(adapter);
-                                Log.e("asdf", arrayList.size()+"");
-                                LoadingActivity.finishNow();
+                                new getRestaurantInfo(response.body()).execute();
                             }
                     }
                 }
@@ -223,5 +204,47 @@ public class RaidGenerateActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    class getRestaurantInfo extends AsyncTask<String, String, ArrayList<CommonRecycleData>> {
+
+        public List<DummyRest> resid;
+
+        public getRestaurantInfo(List<DummyRest> arr) {
+            this.resid = arr;
+        }
+
+        @Override
+        protected ArrayList<CommonRecycleData> doInBackground(String... strings) {
+            final ArrayList<CommonRecycleData> arr = new ArrayList<>();
+            for (DummyRest r : resid) {
+                Call<Restaurant> getInfo = service.getRestaurantInfo(r.getId());
+                getInfo.enqueue(new Callback<Restaurant>() {
+                    @Override
+                    public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+                        Log.e("asdf", response.body().resTitle + "");
+                        Restaurant r = response.body();
+                        arrayList.add(new CommonRecycleData(r.resTitle, r.resId, 0.0, ""));
+                        if (arrayList.size() == resid.size()) {
+                            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(RaidGenerateActivity.this, 3, arrayList, cardClickListener);
+                            raidGenerateView.setAdapter(adapter);
+                            Log.e("asdf", arrayList.size() + "");
+                            LoadingActivity.finishNow();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Restaurant> call, Throwable t) {
+                        Log.e("asdf", t.getMessage());
+                    }
+                });
+            }
+            return arr;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<CommonRecycleData> commonRecycleDatas) {
+            super.onPostExecute(commonRecycleDatas);
+        }
     }
 }

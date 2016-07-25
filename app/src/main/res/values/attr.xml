@@ -19,7 +19,7 @@
     </declare-styleable>
     <declare-styleable name="WheelHorizontalView">
         <attr name="selectionDividerWidth" format="dimension" />
-    </declare-styleable>
+    </declare-styleable>w
     <attr name="abstractWheelViewStyle" format="reference" />
     <declare-styleable name="EXPView">
         <attr name="autoCenterPointerInSlice" format="boolean" />

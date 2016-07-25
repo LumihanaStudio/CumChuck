@@ -34,10 +34,15 @@ import kr.edcan.cumchuck.model.NormalPreferenceListData;
 import kr.edcan.cumchuck.model.FacebookUser;
 import kr.edcan.cumchuck.model.User;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
+import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
 import kr.edcan.cumchuck.utils.DataManager;
 import kr.edcan.cumchuck.utils.ImageSingleTon;
+import kr.edcan.cumchuck.utils.NetworkInterface;
 import kr.edcan.cumchuck.utils.RoundImageView;
 import kr.edcan.cumchuck.utils.SeekArc;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MyPageActivity extends AppCompatActivity {
@@ -52,6 +57,8 @@ public class MyPageActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView changeProfile, profileName;
     User user;
+    NetworkInterface service;
+    Call<String> destryoUser;
     View headerView;
     DataManager manager;
 
@@ -71,7 +78,7 @@ public class MyPageActivity extends AppCompatActivity {
     private void setActionbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        service = CumChuckNetworkHelper.getNetworkInstance();
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         getSupportActionBar().setTitle("마이페이지");
@@ -162,13 +169,34 @@ public class MyPageActivity extends AppCompatActivity {
                     });
                     break;
                 case 4:
-                    // 회원 탈퇴
-//                helper.showAlertDialog("회원탈퇴", "Cumchuck에서 완전히 탈퇴합니다", new MaterialDialog.SingleButtonCallback() {
-//                    @Override
-//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                     회원 탈퇴
+                    helper.showAlertDialog("회원탈퇴", "Cumchuck에서 완전히 탈퇴합니다", new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                            destryoUser = service.destroyUser(manager.getActiveUser().second.getId(), manager.getActiveUser().second.getUserType());
+//                            destryoUser.enqueue(new Callback<String>() {
+//                                @Override
+//                                public void onResponse(Call<String> call, Response<String> response) {
+//                                    switch (response.code()) {
+//                                        case 200:
+//                                            Toast.makeText(MyPageActivity.this, "정상적으로 탈퇴되셨습니다.", Toast.LENGTH_SHORT).show();
+//                                            break;
+//                                    }
+//                                    Log.e("asdf", response.code() + "");
+//                                }
 //
-//                    }
-//                });
+//                                @Override
+//                                public void onFailure(Call<String> call, Throwable t) {
+//                                    Log.e("asdf", t.getMessage());
+//
+//                                }
+//                            });
+                            LoginManager.getInstance().logOut();
+                            manager.removeAllData();
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+                        }
+                    });
                     break;
                 case 5:
                     // 설정

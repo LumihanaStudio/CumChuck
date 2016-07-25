@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView favorite, mypage;
     TextView currentRaidJoin;
     NetworkInterface service;
-    Call<List<Raid>> getFriendRaidList;
     DataManager manager;
 
     @Override
@@ -48,26 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loadData() {
         manager = new DataManager();
         manager.initializeManager(getApplicationContext());
-        getFriendRaidList = service.getFriendRaidList(manager.getActiveUser().second.getId());
-        getFriendRaidList.enqueue(new Callback<List<Raid>>() {
-            @Override
-            public void onResponse(Call<List<Raid>> call, Response<List<Raid>> response) {
-                Log.e("asdf", response.code()+"");
-                switch (response.code()) {
-                    case 200:
-                        for (Raid r : response.body()) {
-                            Log.e("asdf", r.title);
-                        }
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Raid>> call, Throwable t) {
-                Log.e("asdf", t.getMessage());
-            }
-        });
     }
 
     private void setDefault() {

@@ -7,27 +7,65 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.adapter.RaidFromFriendRecyclerAdapter;
+import kr.edcan.cumchuck.model.Raid;
 import kr.edcan.cumchuck.model.RaidFromFriendData;
+import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
+import kr.edcan.cumchuck.utils.DataManager;
+import kr.edcan.cumchuck.utils.NetworkInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RaidFromFriendActivity extends AppCompatActivity {
 
     RaidFromFriendRecyclerAdapter adapter;
     RecyclerView recyclerView;
     Toolbar toolbar;
+    Call<List<Raid>> getFriendRaidList;
     ArrayList<RaidFromFriendData> arrayList;
+    DataManager manager;
+    NetworkInterface service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raid_from_friend);
         setAppbarLayout();
+        setNetwork();
         setDefault();
+    }
+
+    private void setNetwork() {
+        manager = new DataManager();
+        manager.initializeManager(this);
+        service = CumChuckNetworkHelper.getNetworkInstance();
+        getFriendRaidList = service.getFriendRaidList(manager.getActiveUser().second.getId());
+        getFriendRaidList.enqueue(new Callback<List<Raid>>() {
+            @Override
+            public void onResponse(Call<List<Raid>> call, Response<List<Raid>> response) {
+                Log.e("asdf", response.code() + "");
+                switch (response.code()) {
+                    case 200:
+                        for (Raid r : response.body()) {
+                            Log.e("asdf", r.getResTitle());
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Raid>> call, Throwable t) {
+                Log.e("asdf", t.getMessage());
+            }
+        });
     }
 
     private void setAppbarLayout() {
@@ -48,14 +86,6 @@ public class RaidFromFriendActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setHasFixedSize(true);
         arrayList = new ArrayList<>();
-        arrayList.add(new RaidFromFriendData("우리 서민들도 고오급 레스토랑 가야지", "오준석님의 레이드, 2016년 06월 03일 일정", "청담 시공폭풍 레스토랑", "서울시 강남구 청담동 41-2", 0));
-        arrayList.add(new RaidFromFriendData("우리 서민들도 고오급 레스토랑 가야지", "오준석님의 레이드, 2016년 06월 03일 일정", "청담 시공폭풍 레스토랑", "서울시 강남구 청담동 41-2", 0));
-        arrayList.add(new RaidFromFriendData("우리 서민들도 고오급 레스토랑 가야지", "오준석님의 레이드, 2016년 06월 03일 일정", "청담 시공폭풍 레스토랑", "서울시 강남구 청담동 41-2", 0));
-        arrayList.add(new RaidFromFriendData("우리 서민들도 고오급 레스토랑 가야지", "오준석님의 레이드, 2016년 06월 03일 일정", "청담 시공폭풍 레스토랑", "서울시 강남구 청담동 41-2", 0));
-        arrayList.add(new RaidFromFriendData("우리 서민들도 고오급 레스토랑 가야지", "오준석님의 레이드, 2016년 06월 03일 일정", "청담 시공폭풍 레스토랑", "서울시 강남구 청담동 41-2", 0));
-        arrayList.add(new RaidFromFriendData("우리 서민들도 고오급 레스토랑 가야지", "오준석님의 레이드, 2016년 06월 03일 일정", "청담 시공폭풍 레스토랑", "서울시 강남구 청담동 41-2", 0));
-        arrayList.add(new RaidFromFriendData("우리 서민들도 고오급 레스토랑 가야지", "오준석님의 레이드, 2016년 06월 03일 일정", "청담 시공폭풍 레스토랑", "서울시 강남구 청담동 41-2", 0));
-        arrayList.add(new RaidFromFriendData("우리 서민들도 고오급 레스토랑 가야지", "오준석님의 레이드, 2016년 06월 03일 일정", "청담 시공폭풍 레스토랑", "서울시 강남구 청담동 41-2", 0));
         adapter = new RaidFromFriendRecyclerAdapter(getApplicationContext(), arrayList);
         recyclerView.setAdapter(adapter);
     }
