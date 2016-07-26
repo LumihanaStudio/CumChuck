@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -25,9 +26,11 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.model.Raid;
 import kr.edcan.cumchuck.model.Restaurant;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.CumChuckNetworkHelper;
+import kr.edcan.cumchuck.utils.DataManager;
 import kr.edcan.cumchuck.utils.NetworkInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,16 +44,22 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
     Toolbar toolbar;
     // Input Window
     TextView headerTitle, headerAddress;
-    TextInputLayout raidNameInput;
-    TextView cardviewDate, cardviewTime, setDateTime, personCountTrack;
+    TextInputLayout raidNameInput, raidContentInput;
+    TextView cardviewDate, cardviewTime, setDateTime, personCountTrack, raidConfirm;
     Slider personCount;
     NetworkInterface service;
     Call<Restaurant> getRestaurantInfo;
+    Call<Raid> newRaid;
+    Call<String> raidLength;
+    DataManager manager;
     Intent intent;
     String resId;
+    int raidId;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raid_generate_input);
+        startActivity(new Intent(getApplicationContext(), LoadingActivity.class));
         setAppbarLayout();
         intent = getIntent();
 
@@ -59,25 +68,42 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
     }
 
     private void setNetwork() {
+        manager = new DataManager();
+        manager.initializeManager(this);
         resId = intent.getStringExtra("resId");
         service = CumChuckNetworkHelper.getNetworkInstance();
-        getRestaurantInfo = service.getRestaurantInfo(resId);
-        getRestaurantInfo.enqueue(new Callback<Restaurant>() {
+        raidLength = service.getRaidLength();
+        raidLength.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                switch (response.code()){
+            public void onResponse(Call<String> call, Response<String> response) {
+                switch (response.code()) {
                     case 200:
-                        Restaurant r = response.body();
-                        headerTitle.setText(r.resTitle);
-                        headerAddress.setText(r.resAddress);
-
-                        break;
+                        raidId = Integer.parseInt(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<Restaurant> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("asdf", t.getMessage());
+            }
+        });
+        getRestaurantInfo = service.getRestaurantInfo(resId);
+        getRestaurantInfo.enqueue(new Callback<Restaurant>() {
+            @Override
+            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
+                switch (response.code()) {
+                    case 200:
+                        Restaurant r = response.body();
+                        headerTitle.setText(r.resTitle);
+                        headerAddress.setText(r.resAddress);
+                        break;
+                }
+                LoadingActivity.finishNow();
+            }
 
+            @Override
+            public void onFailure(Call<Restaurant> call, Throwable t) {
+                Log.e("asdf", t.getMessage());
             }
         });
     }
@@ -102,6 +128,9 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
         headerTitle = (TextView) findViewById(R.id.raid_input_headerTitle);
         raidNameInput = (TextInputLayout) findViewById(R.id.raid_input_raidnameInput);
         cardviewDate = (TextView) findViewById(R.id.raid_input_cardview_date);
+        raidConfirm = (TextView) findViewById(R.id.raid_input_raidConfirm);
+        raidConfirm.setOnClickListener(this);
+        raidContentInput = (TextInputLayout) findViewById(R.id.raid_input_raidcontentinput);
         cardviewTime = (TextView) findViewById(R.id.raid_input_cardview_time);
         setDateTime = (TextView) findViewById(R.id.raid_input_changeCalendar);
         setDateTime.setOnClickListener(this);
@@ -184,7 +213,7 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            helper.showAlertDialog("꺼지려고?\n데이터 저장 안해줄거니까 판단은 알아서", new MaterialDialog.SingleButtonCallback() {
+            helper.showAlertDialog("취소하시겠습니까?\n입력한 데이터는 저장되지 않습니다.", new MaterialDialog.SingleButtonCallback() {
                 @Override
                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                     RaidGenerateInputActivity.this.finish();
@@ -209,6 +238,39 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
         switch (v.getId()) {
             case R.id.raid_input_changeCalendar:
                 setDate();
+                break;
+            case R.id.raid_input_raidConfirm:
+                helper.showAlertDialog("레이드 생성", raidNameInput.getEditText().getText().toString().trim()
+                        + "[" + raidContentInput.getEditText().getText().toString().trim() + "]\n입력하신 정보로 레이드를 생성합니다.", new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        newRaid = service.newRaid(raidNameInput.getEditText().getText().toString().trim(),
+                                raidContentInput.getEditText().getText().toString().trim(),
+                                manager.getActiveUser().second.getId(), resId, raidCalendar.getTime(), personCount.getValue(), raidId);
+                        Log.e("asdf", resId + "");
+                        newRaid.enqueue(new Callback<Raid>() {
+                            @Override
+                            public void onResponse(Call<Raid> call, Response<Raid> response) {
+                                switch (response.code()) {
+                                    case 200:
+                                        Toast.makeText(RaidGenerateInputActivity.this, "레이드 생성에 성공했습니다!", Toast.LENGTH_SHORT).show();
+                                        RaidGenerateInputActivity.this.finish();
+                                        break;
+                                    case 406:
+                                        Toast.makeText(RaidGenerateInputActivity.this, "이미 진행중인 레이드가 있습니다.", Toast.LENGTH_SHORT).show();
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Raid> call, Throwable t) {
+                                Log.e("asdf", t.getMessage());
+                            }
+                        });
+                    }
+                });
+                break;
+
         }
     }
 

@@ -1,6 +1,7 @@
 package kr.edcan.cumchuck.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
+import kr.edcan.cumchuck.activity.RaidGenerateActivity;
+import kr.edcan.cumchuck.activity.RaidGenerateInputActivity;
 import kr.edcan.cumchuck.model.CommonRecycleData;
 import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.ImageSingleTon;
@@ -34,13 +37,11 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
     Context context;
     ArrayList<CommonRecycleData> arrayList;
     CommonRecycleData data;
-    View.OnClickListener cardClick;
 
-    public CommonRecyclerAdapter(Context context, int fragmentPageType, ArrayList<CommonRecycleData> items, View.OnClickListener cardClick) {
+    public CommonRecyclerAdapter(Context context, int fragmentPageType, ArrayList<CommonRecycleData> items) {
         this.context = context;
         this.arrayList = items;
         this.fragmentPageType = fragmentPageType;
-        this.cardClick = cardClick;
     }
 
     @Override
@@ -51,9 +52,8 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         data = arrayList.get(position);
-        holder.background.setOnClickListener(cardClick);
         holder.background.setImageResource(CumChuckHelper.returnRandomAyano());
         holder.background.setScaleType(ImageView.ScaleType.CENTER_CROP);
         View.OnClickListener starClick = new View.OnClickListener() {
@@ -102,6 +102,14 @@ public class CommonRecyclerAdapter extends RecyclerView.Adapter<CommonRecyclerAd
                 holder.ratingScore.setText(new DecimalFormat("#0.0").format(data.getRating()));
                 break;
             case 3:
+                holder.background.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String s = arrayList.get(position).getResId();
+                        view.getContext().startActivity(new Intent(context, RaidGenerateInputActivity.class).putExtra("resId", s));
+                        RaidGenerateActivity.activity.finish();
+                    }
+                });
                 holder.ratingScore.setVisibility(View.VISIBLE);
                 holder.title.setText(data.getTitle());
                 holder.reseId.setText(data.getResId());

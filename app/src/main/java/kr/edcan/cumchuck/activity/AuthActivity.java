@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -87,6 +88,7 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 new LoadFacebookInfo().execute(loginResult.getAccessToken().getToken());
+                Log.e("asdf_tokenfb", loginResult.getAccessToken().getToken());
                 dataManager.saveUserCredential(loginResult.getAccessToken().getToken());
             }
 

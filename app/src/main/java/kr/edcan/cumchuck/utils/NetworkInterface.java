@@ -48,8 +48,10 @@ public interface NetworkInterface {
     @GET("/auth/user/showFriendInfo")
     Call<User> showFriendInfo(@Query("friendId") String friendId);
 
-    //    @POST("/user/getSelfRaidStatus")
-//    Call<>
+    @POST("/user/getSelfRaidStatus")
+    @FormUrlEncoded
+    Call<List<Raid>> getSelfRaidStatus(@Field("userId") String userid);
+
     @POST("/user/userSelfInfo")
     @FormUrlEncoded
     Call<User> userSelfInfo(@Field("userType") int userType, @Field("userId") String userId);
@@ -127,7 +129,10 @@ public interface NetworkInterface {
 
     @POST("/raid/admin/newRaid")
     @FormUrlEncoded
-    Call<Raid> newRaid(@Field("title") String title, @Field("content") String content, @Field("resId") String resID, @Field("raidDate") Date date, @Field("raidMax") int raidMax);
+    Call<Raid> newRaid(@Field("title") String title, @Field("content") String content, @Field("host") String hostId, @Field("resId") String resID, @Field("raidDate") Date date, @Field("raidMax") int raidMax, @Field("raidId") int raidId);
+
+    @POST("/raid/length")
+    Call<String> getRaidLength();
 
     @POST("/raid/admin/addUser")
     @FormUrlEncoded

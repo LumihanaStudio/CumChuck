@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -34,14 +35,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView currentRaidJoin;
     NetworkInterface service;
     DataManager manager;
+    Call<List<Raid>> getSelfRaidStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setDefault();
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
+        startActivity(new Intent(getApplicationContext(), LoadingActivity.class));
         loadData();
+        setDefault();
+    }
+
+    private void checkSelfRaidInfo() {
+        service = CumChuckNetworkHelper.getNetworkInstance();
+        getSelfRaidStatus = service.getSelfRaidStatus(manager.getActiveUser().second.getId());
+        getSelfRaidStatus.enqueue(new Callback<List<Raid>>() {
+            @Override
+            public void onResponse(Call<List<Raid>> call, Response<List<Raid>> response) {
+                Log.e("asdf", response.code()+"");
+                LoadingActivity.finishNow();
+                switch (response.code()) {
+                    case 200:
+                        Toast.makeText(MainActivity.this, "현재 진행중인 " + response.body().get(0).getTitle() + "레이드가 있습니다!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), RaidInfoShowActivity.class).putExtra("raidId", response.body().get(0).getId()));
+                        break;
+                    case 403:
+                        return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Raid>> call, Throwable t) {
+                    Log.e("asdf", t.getMessage());
+            }
+        });
     }
 
     private void loadData() {
@@ -50,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setDefault() {
-        service = CumChuckNetworkHelper.getNetworkInstance();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
@@ -98,5 +126,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         one.setImageResource(CumChuckHelper.returnRandomAyano());
         two.setImageResource(CumChuckHelper.returnRandomAyano());
         three.setImageResource(CumChuckHelper.returnRandomAyano());
+        checkSelfRaidInfo();
     }
 }

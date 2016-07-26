@@ -52,7 +52,7 @@ public class RecommendActivity extends AppCompatActivity {
         arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동 41-2", "설명입니다", true, 1.2));
         arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동 41-2", "설명입니다", true, 1.2));
         arrayList.add(new CommonRecycleData("청담 시공폭풍 레스토랑", "서울특별시 강남구 청담동 41-2", "설명입니다", true, 1.2));
-        CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getApplicationContext(), 2, arrayList, clickListener);
+        CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(getApplicationContext(), 2, arrayList);
         recommandRecyclerView.setAdapter(adapter);
 
     }

@@ -1,5 +1,6 @@
 package kr.edcan.cumchuck.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -58,6 +59,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
     private boolean isFirst = false, isAvailable = false;
     private ImageView searchButton;
 
+    public static Activity activity;
     NetworkInterface service;
     Call<List<DummyRest>> search;
     ArrayList<CommonRecycleData> arrayList = new ArrayList<>();
@@ -65,6 +67,7 @@ public class RaidGenerateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         setContentView(R.layout.activity_raid_generate);
         service = CumChuckNetworkHelper.getNetworkInstance();
         setAppbarLayout();
@@ -145,14 +148,6 @@ public class RaidGenerateActivity extends AppCompatActivity {
         }
     }
 
-    private View.OnClickListener cardClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            TextView resId = (TextView) v.findViewById(R.id.common_resId);
-            startActivity(new Intent(getApplicationContext(), RaidGenerateInputActivity.class).putExtra("resId", resId.getText().toString().trim()));
-        }
-    };
-
     private void setView() {
         TextView title = (TextView) findViewById(R.id.raid_generate_defaultViewTitle);
         TextView content = (TextView) findViewById(R.id.raid_generate_defaultViewContent);
@@ -225,9 +220,9 @@ public class RaidGenerateActivity extends AppCompatActivity {
                     public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
                         Log.e("asdf", response.body().resId+ "");
                         Restaurant r = response.body();
-                        arrayList.add(new CommonRecycleData(r.resTitle, r.resAddress, 0.0, ""));
+                        arrayList.add(new CommonRecycleData(r.resTitle, r.resAddress, 0.0, "", r.resId));
                         if (arrayList.size() == resid.size()) {
-                            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(RaidGenerateActivity.this, 3, arrayList, cardClickListener);
+                            CommonRecyclerAdapter adapter = new CommonRecyclerAdapter(RaidGenerateActivity.this, 3, arrayList);
                             raidGenerateView.setAdapter(adapter);
                             LoadingActivity.finishNow();
                         }
