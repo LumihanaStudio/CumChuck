@@ -27,6 +27,7 @@ import retrofit2.http.POST;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+
     ImageView one, two, three;
     FloatingActionButton floatingActionButton;
     Toolbar toolbar;
@@ -42,10 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
-        startActivity(new Intent(getApplicationContext(), LoadingActivity.class));
         loadData();
         setDefault();
     }
+
 
     private void checkSelfRaidInfo() {
         service = CumChuckNetworkHelper.getNetworkInstance();
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call<List<Raid>> call, Response<List<Raid>> response) {
                 Log.e("asdf", response.code()+"");
-                LoadingActivity.finishNow();
                 switch (response.code()) {
                     case 200:
                         Toast.makeText(MainActivity.this, "현재 진행중인 " + response.body().get(0).getTitle() + "레이드가 있습니다!", Toast.LENGTH_SHORT).show();

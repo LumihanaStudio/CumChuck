@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import kr.edcan.cumchuck.R;
 import kr.edcan.cumchuck.model.NormalPreferenceListData;
+import kr.edcan.cumchuck.model.User;
+import kr.edcan.cumchuck.utils.CumChuckHelper;
 import kr.edcan.cumchuck.utils.RoundImageView;
 
 import static android.R.attr.data;
@@ -20,11 +22,11 @@ import static android.R.attr.data;
 /**
  * Created by MalangDesktop on 2016-05-08.
  */
-public class RunningRaidListViewAdapter extends ArrayAdapter<Pair<String, String>> {
+public class RunningRaidListViewAdapter extends ArrayAdapter<User> {
 
     private LayoutInflater inflater;
-    private ArrayList<Pair<String, String>> arrayList;
-    public RunningRaidListViewAdapter(Context c, ArrayList<Pair<String, String>> pairs) {
+    private ArrayList<User> arrayList;
+    public RunningRaidListViewAdapter(Context c, ArrayList<User> pairs) {
         super(c, 0, pairs);
         inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = pairs;
@@ -33,11 +35,12 @@ public class RunningRaidListViewAdapter extends ArrayAdapter<Pair<String, String
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = inflater.inflate(R.layout.runningraid_listview_content, null);
-        Pair<String, String> pair = arrayList.get(position);
+        User pair = arrayList.get(position);
 
         RoundImageView imageview = (RoundImageView) view.findViewById(R.id.runningraid_listview_image);
+        imageview.setImageResource(CumChuckHelper.returnRandomAyano());
         TextView name = (TextView) view.findViewById(R.id.runningraid_listview_name);
-        name.setText(pair.first);
+        name.setText(pair.getName());
         return view;
     }
 }

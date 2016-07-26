@@ -247,14 +247,16 @@ public class RaidGenerateInputActivity extends AppCompatActivity implements View
                         newRaid = service.newRaid(raidNameInput.getEditText().getText().toString().trim(),
                                 raidContentInput.getEditText().getText().toString().trim(),
                                 manager.getActiveUser().second.getId(), resId, raidCalendar.getTime(), personCount.getValue(), raidId);
-                        Log.e("asdf", resId + "");
+                        Log.e("asdf raidinputid", raidId + "");
                         newRaid.enqueue(new Callback<Raid>() {
                             @Override
                             public void onResponse(Call<Raid> call, Response<Raid> response) {
                                 switch (response.code()) {
                                     case 200:
+                                        Log.e("asdf", response.body().getId()+"");
                                         Toast.makeText(RaidGenerateInputActivity.this, "레이드 생성에 성공했습니다!", Toast.LENGTH_SHORT).show();
                                         RaidGenerateInputActivity.this.finish();
+                                        startActivity(new Intent(getApplicationContext(), RaidInfoShowActivity.class).putExtra("raidId", response.body().getId()));
                                         break;
                                     case 406:
                                         Toast.makeText(RaidGenerateInputActivity.this, "이미 진행중인 레이드가 있습니다.", Toast.LENGTH_SHORT).show();

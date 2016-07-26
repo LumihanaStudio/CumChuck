@@ -28,7 +28,8 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     public static void finishNow() {
-        activity.finish();
+        if (activity != null)
+            activity.finish();
     }
 
     @Override

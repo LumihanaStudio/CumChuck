@@ -118,9 +118,9 @@
                 android:background="#E7E7E7" />
 
             <EditText
+                android:id="@+id/review_post_content_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/review_post_content_input"
                 android:background="@null"
                 android:gravity="top"
                 android:hint="내용 작성.."
@@ -143,22 +143,22 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/review_post_raidConfirm"
+                    android:id="@+id/review_post_camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_white_text_selector"
                     android:drawableLeft="@drawable/ic_btn_addphoto"
+                    android:drawablePadding="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="50dp"
                     android:paddingRight="50dp"
                     android:paddingTop="10dp"
                     android:text="추가"
-                    android:drawablePadding="10dp"
                     android:textColor="#FFF"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/raid_generate_defaultViewTitle"
+                    android:id="@+id/review_post_confirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"

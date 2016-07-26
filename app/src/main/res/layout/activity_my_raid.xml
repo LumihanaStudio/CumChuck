@@ -7,6 +7,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="240dp">
@@ -35,7 +40,6 @@
                     android:id="@+id/raidshow_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="우리 서민들도 \n고오급 레스토랑 가야지"
                     android:textColor="@color/colorPrimary"
                     android:textSize="23sp" />
 
@@ -50,14 +54,13 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ayano7" />
+                        android:src="@drawable/ayano8" />
 
                     <TextView
                         android:id="@+id/raidshow_date_and_author"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="오준석님의 레이드 - 2016년 06월 03일 일정"
                         android:textColor="#FFF"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -85,7 +88,6 @@
                             android:id="@+id/raidshow_resTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="청담 시공폭풍 레스토랑"
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp" />
 
@@ -93,7 +95,6 @@
                             android:id="@+id/raidshow_resAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="청담 시공폭풍 레스토랑"
                             android:textColor="#FFF"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -139,16 +140,6 @@
         android:background="@color/colorPrimary">
 
         <TextView
-            android:id="@+id/raidinfo_currentstatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:text="최대 10명, 현재 8명"
-            android:textColor="#FFF"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/go_on_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -161,6 +152,34 @@
             android:paddingRight="20dp"
             android:paddingTop="5dp"
             android:text="리뷰 작성"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/go_on_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/go_on_review"
+            android:background="@drawable/round_square_20dp_selector"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:text="새로고침"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/raidinfo_currentstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/go_on_review"
+            android:layout_alignBottom="@+id/go_on_review"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="14dp"
             android:textColor="#FFF"
             android:textSize="18sp" />
     </RelativeLayout>

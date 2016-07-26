@@ -46,7 +46,7 @@ public interface NetworkInterface {
 //    Call<List<User>> getTwitterFriendList()
 
     @GET("/auth/user/showFriendInfo")
-    Call<User> showFriendInfo(@Query("friendId") String friendId);
+    Call<User> showFriendInfo(@Query("friendid") String friendId);
 
     @POST("/user/getSelfRaidStatus")
     @FormUrlEncoded
@@ -62,7 +62,10 @@ public interface NetworkInterface {
 
     @POST("/user/selfReview/postArticle")
     @FormUrlEncoded
-    Call<Review> postReview(@Field("userId") String userId, @Field("resId") String resId, @Field("reviewTitle") String reviewTitle, @Field("reviewContent") String reviewContent, @Field("rating") double rating);
+    Call<Review> postReview(@Field("userId") String userId,
+                            @Field("resId") String resId, @Field("reviewTitle") String reviewTitle,
+                            @Field("reviewContent") String reviewContent,
+                            @Field("rating") double rating);
 
     @POST("/user/selfReview/editArticle")
     @FormUrlEncoded
@@ -129,7 +132,7 @@ public interface NetworkInterface {
 
     @POST("/raid/admin/newRaid")
     @FormUrlEncoded
-    Call<Raid> newRaid(@Field("title") String title, @Field("content") String content, @Field("host") String hostId, @Field("resId") String resID, @Field("raidDate") Date date, @Field("raidMax") int raidMax, @Field("raidId") int raidId);
+    Call<Raid> newRaid(@Field("title") String title, @Field("content") String content, @Field("hostId") String hostId, @Field("resId") String resID, @Field("raidDate") Date date, @Field("raidMax") int raidMax, @Field("raidId") int raidId);
 
     @POST("/raid/length")
     Call<String> getRaidLength();
@@ -138,9 +141,13 @@ public interface NetworkInterface {
     @FormUrlEncoded
     Call<String> addUserToRaid(@Field("raidId") String raidId, @Field("userId") String userId, @Field("targetId") String targetId);
 
-    @POST("/raid/admin/addUser")
+    @POST("/raid/admin/removeUser")
     @FormUrlEncoded
     Call<String> removeUserFromRaid(@Field("raidId") String raidId, @Field("userId") String userId, @Field("targetId") String targetId);
+
+    @POST("/raid/admin/commitRaid")
+    @FormUrlEncoded
+    Call<Raid> commitRaid(@Field("raidId") String raidId, @Field("userId") String userId);
 
 
 }

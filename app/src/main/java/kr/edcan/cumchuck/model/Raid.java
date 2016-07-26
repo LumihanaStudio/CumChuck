@@ -10,8 +10,9 @@ import java.util.Date;
 public class Raid {
     public String host, title, content, resId, raidMax, resTitle, resAddress, id;
     public boolean commit;
-    public String[] member;
+    public User[] member;
     public Date date;
+
     public String getHost() {
         return host;
     }
@@ -44,7 +45,7 @@ public class Raid {
         return commit;
     }
 
-    public String[] getMember() {
+    public User[] getMember() {
         return member;
     }
 
